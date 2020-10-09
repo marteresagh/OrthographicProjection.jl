@@ -4,5 +4,6 @@ authors = ["marteresagh <marteresa28@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 LasIO = "570499db-eae3-5eb6-bdd5-a5326f375e68"
 LinearAlgebraicRepresentation = "95167b0c-186a-594b-a231-52369c6de044"
