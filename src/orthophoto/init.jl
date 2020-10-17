@@ -1,7 +1,7 @@
 """
 Basis.
 """
-function string2matrix(PO::String,UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
+function PO2matrix(PO::String, UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
     planecode = PO[1:2]
     @assert planecode == "XY" || planecode == "XZ" || planecode == "YZ" "orthoprojectionimage: $PO not valid view "
 
@@ -33,7 +33,7 @@ function string2matrix(PO::String,UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
         R = [-1. 0 0; 0 1. 0; 0 0 -1]
         coordsystemmatrix = R*coordsystemmatrix
     end
-	#TODO: controlla se è la trasposto o no
+
     return coordsystemmatrix*UCS[1:3,1:3]
 end
 
@@ -41,7 +41,7 @@ end
 """
 initialize raster image.
 """
-function initrasterarray(coordsystemmatrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR)
+function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR)
 
 	verts,edges,faces = model
 	bbglobalextention = zeros(2)
@@ -96,14 +96,14 @@ function initparams(
 
 	outputfile = splitext(outputimage)[1]*".las"
 
-	potreedirs = PointClouds.getdirectories(txtpotreedirs)
-	model = PointClouds.getmodel(bbin)
+	potreedirs = FileManager.getdirectories(txtpotreedirs)
+	model = FileManager.getmodel(bbin)
 
 	if isnothing(ucs)
-		coordsystemmatrix = PointClouds.string2matrix(PO)
+		coordsystemmatrix = PO2matrix(PO)
 	else
-		UCS = PointClouds.ucsJSON2matrix(ucs)
-		coordsystemmatrix = PointClouds.string2matrix(PO,UCS)
+		UCS = FileManager.ucs2matrix(ucs)
+		coordsystemmatrix = PO2matrix(PO,UCS)
 	end
 
 
@@ -116,7 +116,7 @@ function initparams(
 			puntoquota = [quota, 0, 0]
 		end
 
-		@assert !isnothing(thickness) "orthoprojectionimage: thickness missing"
+		@assert !isnothing(thickness) "OrthographicProjection: thickness missing"
 		q_l = (coordsystemmatrix*puntoquota)[3] - thickness/2
 		q_u = (coordsystemmatrix*puntoquota)[3] + thickness/2
 	else
@@ -124,11 +124,10 @@ function initparams(
 		q_u = Inf
 	end
 
-	RGBtensor, rasterquote, refX, refY = PointClouds.initrasterarray(coordsystemmatrix,GSD,model)
+	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix,GSD,model)
 
-	aabb = Lar.boundingbox(model[1])
-	mainHeader = newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
-	# TODO salvataggio del BB del volume in formato json o ascii da rimettere
+	aabb = Common.boundingbox(model[1])
+	mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
 
 	return  ParametersOrthophoto(PO,
 					 outputimage,
