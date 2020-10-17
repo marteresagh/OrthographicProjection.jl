@@ -11,7 +11,6 @@ module OrthographicProjection
 	#include all file .jl in other folders
 	include("orthophoto/dfs.jl")
 	include("orthophoto/init.jl")
-	include("orthophoto/intersection.jl")
 	include("orthophoto/main.jl")
 	include("orthophoto/orthophoto.jl")
 
