@@ -23,6 +23,6 @@ mutable struct ParametersOrthophoto
     q_l::Float64
     q_u::Float64
     pc::Bool
-    ucs::Union{Nothing,String}
+    ucs::Matrix
     mainHeader::LasIO.LasHeader
 end

@@ -85,7 +85,7 @@ function initparams(
 	PO::String,
 	quota::Union{Float64,Nothing},
 	thickness::Union{Float64,Nothing},
-	ucs::Union{Nothing,String},
+	ucs::Union{String,Matrix},
 	pc::Bool
 	)
 
@@ -99,11 +99,11 @@ function initparams(
 	potreedirs = FileManager.get_directories(txtpotreedirs)
 	model = getmodel(bbin)
 
-	if isnothing(ucs)
+	if typeof(ucs) == Matrix{Float64}
 		coordsystemmatrix = PO2matrix(PO)
 	else
-		UCS = FileManager.ucs2matrix(ucs)
-		coordsystemmatrix = PO2matrix(PO,UCS)
+		ucs = FileManager.ucs2matrix(ucs)
+		coordsystemmatrix = PO2matrix(PO,ucs)
 	end
 
 

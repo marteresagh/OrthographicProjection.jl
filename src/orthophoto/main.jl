@@ -7,7 +7,7 @@ function orthophoto(
 	PO::String,
 	quota::Union{Float64,Nothing},
 	thickness::Union{Float64,Nothing},
-	ucs::Union{String,Nothing},
+	ucs::Union{String,Matrix},
 	pc::Bool
 	)
 
