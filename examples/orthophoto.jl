@@ -1,6 +1,7 @@
 using OrthographicProjection
 using FileManager
-txtpotreedirs = "C:/Users/marte/Documents/FilePotree/directory.txt"
+
+txtpotreedirs = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\directory.txt"
 potreedirs = FileManager.get_directories(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox
