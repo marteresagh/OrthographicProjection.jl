@@ -80,7 +80,7 @@ Initialize usefull parameters.
 function initparams(
 	txtpotreedirs::String,
 	outputimage::String,
-	bbin::Union{String,Tuple{Array{Float64,2},Array{Float64,2}}},
+	bbin::Union{String,AABB},
 	GSD::Float64,
 	PO::String,
 	quota::Union{Float64,Nothing},
@@ -97,7 +97,7 @@ function initparams(
 	outputfile = splitext(outputimage)[1]*".las"
 
 	potreedirs = FileManager.get_directories(txtpotreedirs)
-	model = FileManager.getmodel(bbin)
+	model = getmodel(bbin)
 
 	if isnothing(ucs)
 		coordsystemmatrix = PO2matrix(PO)
