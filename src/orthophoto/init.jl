@@ -34,7 +34,7 @@ function initparams(
 	aabb = Common.boundingbox(model[1])
 
 	if !isnothing(quota) && !isnothing(thickness)
-		model = plane2model(coordsystemmatrix, quota, thickness, aabb)
+		model = plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 	end
 
 	q_l = -Inf
