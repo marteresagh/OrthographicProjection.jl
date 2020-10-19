@@ -155,7 +155,7 @@ function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, mo
 	return RGBtensor, rasterquote, ref[1], ref[2]
 end
 
-#TODO da provare
+#TODO fare altri test ma sembra funzionare
 function plane2model(rot_mat::Matrix, constant::Float64, thickness::Float64, aabb::AABB)
 	verts,_ = getmodel(aabb)
 	rotation = Common.matrix2euler(rot_mat)
