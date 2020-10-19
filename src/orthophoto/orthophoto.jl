@@ -52,11 +52,11 @@ end
 update image tensor.
 """
 function updateimagewithfilter!(params,file,s,n::Int64)
-	h, laspoints =  PointClouds.readpotreefile(file)
+	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
     for laspoint in laspoints
         point = FileManager.xyz(laspoint,h)
-        if inmodel(params.model)(point) # se il punto è interno allora
+        if Common.inmodel(params.model)(point) # se il punto è interno allora
 			n = update_core(params,laspoint,h,n,s)
         end
     end

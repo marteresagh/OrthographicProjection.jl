@@ -10,7 +10,7 @@ function savepointcloud(
 	flushprintln("Point cloud: saving ...")
 
 	params.mainHeader.records_count = n
-	pointtype = pointformat(params.mainHeader)
+	pointtype = LasIO.pointformat(params.mainHeader)
 
 	flushprintln("Extracted $n points")
 
@@ -41,7 +41,7 @@ function saveorthophoto(params::ParametersOrthophoto)
 	flushprintln("Image: saving ...")
 
 	if params.PO == "XY+"
-		savetfw(params.outputimage, params.GSD, params.refX, params.refY)
+		FileManager.save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
 	end
 
 	save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
