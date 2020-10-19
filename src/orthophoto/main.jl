@@ -2,7 +2,7 @@
 function orthophoto(
 	txtpotreedirs::String,
 	outputimage::String,
-	bbin::Union{String,Tuple{Array{Float64,2},Array{Float64,2}}},
+	bbin::Union{String,AABB},
 	GSD::Float64,
 	PO::String,
 	quota::Union{Float64,Nothing},

@@ -8,7 +8,6 @@ mutable struct ParametersExtraction
 	mainHeader::LasIO.LasHeader
 end
 
-
 mutable struct ParametersOrthophoto
     PO::String
     outputimage::String
