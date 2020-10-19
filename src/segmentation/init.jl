@@ -4,7 +4,7 @@ init
 function initParamsExtraction(txtpotreedirs::String,
 							 outputfile::String,
 							 coordsystemmatrix::Array{Float64,2},
-							 bbin::Union{String,Tuple{Array{Float64,2},Array{Float64,2}}},
+							 bbin::Union{String,AABB},
 							 quota::Union{Float64,Nothing},
 							 thickness::Union{Float64,Nothing}
 							 )
@@ -21,7 +21,8 @@ function initParamsExtraction(txtpotreedirs::String,
 	end
 
 	potreedirs = FileManager.get_directories(txtpotreedirs)
-	model = FileManager.getmodel(bbin)
+	model = getmodel(bbin)
+
 	aabb = Common.boundingbox(model[1])
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 

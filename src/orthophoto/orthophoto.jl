@@ -23,7 +23,6 @@ imagecreation con i trie
 function pointselection(params::ParametersOrthophoto,s,n::Int64)
     for potree in params.potreedirs
         flushprintln( "======== PROJECT $potree ========")
-		#typeofpoints,scale,npoints,AABB,tightBB,octreeDir,hierarchyStepSize,spacing = PointClouds.readcloudJSON(potree)
 		metadata = CloudMetadata(potree)
 		trie = potree2trie(potree)
 
