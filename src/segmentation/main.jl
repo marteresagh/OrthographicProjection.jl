@@ -23,9 +23,9 @@ function pointExtraction(
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-    	n = PointClouds.processfiles(params,s,n)
+    	n = processfiles(params,s,n)
 	end
 
-	PointClouds.savepointcloud( params, n, temp)
+	savepointcloud( params, n, temp)
 
 end

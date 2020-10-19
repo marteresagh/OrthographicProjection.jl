@@ -12,19 +12,19 @@ function orthophoto(
 	)
 
 	# initialization
-	params = PointClouds.initparams( txtpotreedirs, outputimage, bbin, GSD,	PO,	quota,	thickness,	ucs, pc);
+	params = initparams( txtpotreedirs, outputimage, bbin, GSD,	PO,	quota,	thickness,	ucs, pc);
 
 
 	# image creation
-	PointClouds.flushprintln("========= PROCESSING =========")
+	flushprintln("========= PROCESSING =========")
 
 	n = 0 #number of extracted points
-	n, temp = PointClouds.orthophoto_core(params, n)
+	n, temp = orthophoto_core(params, n)
 
-	PointClouds.flushprintln("========= SAVES =========")
-	PointClouds.saveorthophoto(params)
+	flushprintln("========= SAVES =========")
+	saveorthophoto(params)
 
 	if pc
-		PointClouds.savepointcloud( params, n, temp)
+		savepointcloud( params, n, temp)
 	end
 end

@@ -7,7 +7,7 @@ function processfiles(params::ParametersExtraction,s,n::Int64)
         PointClouds.flushprintln( "======== PROJECT $potree ========")
 		typeofpoints,scale,npoints,AABB,tightBB,octreeDir,hierarchyStepSize,spacing = PointClouds.readcloudJSON(potree)
 
-		trie = PointClouds.triepotree(potree)
+		trie = potree2trie(potree)
 		l=length(keys(trie))
 		if PointClouds.modelsdetection(params.model, tightBB) == 2
 			PointClouds.flushprintln("FULL model")

@@ -7,11 +7,11 @@ function orthophoto_core(params::ParametersOrthophoto,n::Int)
 		temp = joinpath(splitdir(params.outputimage)[1],"temp.las")
 		open(temp, "w") do s
 			write(s, LasIO.magic(LasIO.format"LAS"))
-			n = PointClouds.pointselection(params,s,n)
+			n = pointselection(params,s,n)
 			return n, temp
 		end
 	else
-		n = PointClouds.pointselection(params,nothing,n)
+		n = pointselection(params,nothing,n)
 		return n, nothing
 	end
 
@@ -22,13 +22,13 @@ imagecreation con i trie
 """
 function pointselection(params::ParametersOrthophoto,s,n::Int64)
     for potree in params.potreedirs
-        PointClouds.flushprintln( "======== PROJECT $potree ========")
-		typeofpoints,scale,npoints,AABB,tightBB,octreeDir,hierarchyStepSize,spacing = PointClouds.readcloudJSON(potree)
+        flushprintln( "======== PROJECT $potree ========")
+		#typeofpoints,scale,npoints,AABB,tightBB,octreeDir,hierarchyStepSize,spacing = PointClouds.readcloudJSON(potree)
+		metadata = CloudMetadata(potree)
+		trie = potree2trie(potree)
 
-		trie = triepotree(potree)
-
-		l=length(keys(trie))
-		if modelsdetection(params.model, tightBB) == 2
+		l = length(keys(trie))
+		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
 			flushprintln("FULL model")
 			i=1
 			for k in keys(trie)
@@ -41,7 +41,7 @@ function pointselection(params::ParametersOrthophoto,s,n::Int64)
 			end
 		else
 			flushprintln("DFS")
-			n,_ = PointClouds.dfsimage(trie,params,s,n,0,l)
+			n,_ = dfsimage(trie,params,s,n,0,l)
 		end
 	end
 
@@ -55,7 +55,7 @@ function updateimagewithfilter!(params,file,s,n::Int64)
 	h, laspoints =  PointClouds.readpotreefile(file)
 
     for laspoint in laspoints
-        point = PointClouds.xyz(laspoint,h)
+        point = FileManager.xyz(laspoint,h)
         if inmodel(params.model)(point) # se il punto è interno allora
 			n = update_core(params,laspoint,h,n,s)
         end
@@ -65,7 +65,7 @@ function updateimagewithfilter!(params,file,s,n::Int64)
 end
 
 function updateimage!(params,file,s,n::Int64)
-	h, laspoints =  PointClouds.readpotreefile(file)
+	h, laspoints = FileManager.read_LAS_LAZ(file)
 
     for laspoint in laspoints
 		n = update_core(params,laspoint,h,n,s)
@@ -75,15 +75,15 @@ function updateimage!(params,file,s,n::Int64)
 end
 
 function update_core(params,laspoint,h,n,s)
-	point = PointClouds.xyz(laspoint,h)
-	rgb = PointClouds.color(laspoint,h)
+	point = FileManager.xyz(laspoint,h)
+	rgb = FileManager.color(laspoint,h)
 	p = params.coordsystemmatrix*point
 	xcoord = map(Int∘trunc,(p[1]-params.refX) / params.GSD)+1
 	ycoord = map(Int∘trunc,(params.refY-p[2]) / params.GSD)+1
 
 	if p[3] >= params.q_l && p[3] <= params.q_u
 		if params.pc
-			plas = PointClouds.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
+			plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 			write(s,plas)
 			n=n+1
 		end

@@ -7,12 +7,12 @@ function savepointcloud(
 	temp,
 	)
 
-	PointClouds.flushprintln("Point cloud: saving ...")
+	flushprintln("Point cloud: saving ...")
 
 	params.mainHeader.records_count = n
 	pointtype = pointformat(params.mainHeader)
 
-	PointClouds.flushprintln("Extracted $n points")
+	flushprintln("Extracted $n points")
 
 	open(temp) do s
 		open(params.outputfile,"w") do t
@@ -28,7 +28,7 @@ function savepointcloud(
 	end
 
 	rm(temp)
-	PointClouds.flushprintln("Point cloud: done ...")
+	flushprintln("Point cloud: done ...")
 end
 
 
@@ -38,12 +38,12 @@ Save orthophoto.
 """
 function saveorthophoto(params::ParametersOrthophoto)
 
-	PointClouds.flushprintln("Image: saving ...")
+	flushprintln("Image: saving ...")
 
 	if params.PO == "XY+"
 		savetfw(params.outputimage, params.GSD, params.refX, params.refY)
 	end
 
 	save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
-	PointClouds.flushprintln("Image: done ...")
+	flushprintln("Image: done ...")
 end

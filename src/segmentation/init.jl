@@ -20,12 +20,11 @@ function initParamsExtraction(txtpotreedirs::String,
 		q_u = Inf
 	end
 
-	potreedirs = PointClouds.getdirectories(txtpotreedirs)
-	model = PointClouds.getmodel(bbin)
-	aabb = Lar.boundingbox(model[1])
-	mainHeader = newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
+	potreedirs = FileManager.get_directories(txtpotreedirs)
+	model = FileManager.getmodel(bbin)
+	aabb = Common.boundingbox(model[1])
+	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 
-	# TODO salvataggio del BB del volume in formato json o ascii da rimettere
 	return ParametersExtraction(outputfile,
 								potreedirs,
 								coordsystemmatrix,

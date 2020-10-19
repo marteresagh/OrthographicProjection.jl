@@ -96,7 +96,7 @@ function initparams(
 
 	outputfile = splitext(outputimage)[1]*".las"
 
-	potreedirs = FileManager.getdirectories(txtpotreedirs)
+	potreedirs = FileManager.get_directories(txtpotreedirs)
 	model = FileManager.getmodel(bbin)
 
 	if isnothing(ucs)
