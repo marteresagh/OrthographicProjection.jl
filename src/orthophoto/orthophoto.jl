@@ -80,7 +80,7 @@ function update_core(params,laspoint,h,n,s)
 	xcoord = map(Int∘trunc,(p[1]-params.refX) / params.GSD)+1
 	ycoord = map(Int∘trunc,(params.refY-p[2]) / params.GSD)+1
 
-	if p[3] >= params.q_l && p[3] <= params.q_u
+#	if p[3] >= params.q_l && p[3] <= params.q_u
 		if params.pc
 			plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 			write(s,plas)
@@ -92,6 +92,6 @@ function update_core(params,laspoint,h,n,s)
 	        params.RGBtensor[2, ycoord, xcoord] = rgb[2]
 	        params.RGBtensor[3, ycoord, xcoord] = rgb[3]
 		end
-	end
+#	end
 	return n
 end
