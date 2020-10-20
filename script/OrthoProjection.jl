@@ -46,9 +46,10 @@ end
 function main()
     args = parse_commandline()
 
+
 	OrthographicProjection.flushprintln("== params ==")
     for (arg,val) in args
-        	OrthographicProjection.flushprintln("$arg  =>  $val")
+        OrthographicProjection.flushprintln("$arg  =>  $val")
     end
 
 	bbin = args["bbin"]
