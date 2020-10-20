@@ -2,7 +2,7 @@ using OrthographicProjection
 using FileManager
 using Common
 
-txtpotreedirs = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\directory.txt"
+txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/FilePotree/orthoCAVA/directory.txt"
 potreedirs = FileManager.get_directories(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 #bbin = metadata.tightBoundingBox
@@ -17,3 +17,4 @@ outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\Proje
 pc = true
 
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, pc )
+#458117.67 4.49376852e6 208.67 458452.44 4.49417179e6 212.5
