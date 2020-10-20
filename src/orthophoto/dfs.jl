@@ -4,7 +4,7 @@ Trie DFS.
 function dfsimage(t,params::ParametersOrthophoto,s,n::Int64,nfiles,l)
 	file = t.value
 	nodebb = FileManager.las2aabb(file)
-	@time  inter = Common.modelsdetection(params.model, nodebb)
+	inter = Common.modelsdetection(params.model, nodebb)
 	if inter == 1
 		nfiles = nfiles+1
 		if nfiles%100==0
