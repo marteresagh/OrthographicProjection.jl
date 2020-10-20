@@ -24,7 +24,7 @@ function initparams(
 
 
 	if typeof(ucs) == Matrix{Float64}
-		coordsystemmatrix = PO2matrix(PO)
+		coordsystemmatrix = PO2matrix(PO,ucs)
 	else
 		ucs = FileManager.ucs2matrix(ucs)
 		coordsystemmatrix = PO2matrix(PO,ucs)
@@ -58,7 +58,6 @@ function initparams(
 	# end
 
 	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix,GSD,model)
-
 
 	mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
 
