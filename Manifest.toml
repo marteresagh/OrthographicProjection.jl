@@ -59,7 +59,7 @@ version = "0.12.4"
 
 [[Common]]
 deps = ["Delaunay", "LinearAlgebraicRepresentation"]
-git-tree-sha1 = "6c72e8369d792807f70f4d890605788c166a632d"
+git-tree-sha1 = "ecd287e5f4190e25bc60c708565faa9074f245a8"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/Common.jl"
 uuid = "1e120bc2-2bd2-483a-9663-793997b3971f"
@@ -170,7 +170,7 @@ version = "1.4.3"
 
 [[FileManager]]
 deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO"]
-git-tree-sha1 = "08334062c4c2ed13f5362f5dc0ba4cf2c850b0d3"
+git-tree-sha1 = "566b96968907d2f91dd604ca473d0d0af07b5c2a"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/FileManager.jl"
 uuid = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
