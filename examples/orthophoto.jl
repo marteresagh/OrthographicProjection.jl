@@ -17,3 +17,7 @@ pc = false
 background = [0.0,0.0,0.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc )
 #458117.67 4.49376852e6 208.67 458452.44 4.49417179e6 212.5
+
+
+# prova
+# julia orthophoto.jl "C:/Users/marte/Documents/GEOWEB/FilePotree/orthoCONTEA/directory.txt" -o "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCONTEA\\Sezione_z650.jpg" --bbin "-0.20750000000000002 -0.792 -0.1865 51.6465 61.4555 12.5555" --bgcolor "0 0 0" --gsd 0.02
