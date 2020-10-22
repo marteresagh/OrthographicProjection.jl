@@ -69,7 +69,6 @@ function initparams(
 					 model,
 					 coordsystemmatrix,
 					 RGBtensor,
-					 BGcolor,
 					 rasterquote,
 					 GSD,
 					 refX,
