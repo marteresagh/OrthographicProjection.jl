@@ -72,7 +72,7 @@ function main()
 		ucs = Matrix{Float64}(OrthographicProjection.Lar.I,3,3)
 	end
 
-	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, pc)
+	#OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, pc)
 end
 
 @time main()

@@ -10,6 +10,7 @@ function initparams(
 	quota::Union{Float64,Nothing},
 	thickness::Union{Float64,Nothing},
 	ucs::Union{String,Matrix{Float64}},
+	BGcolor::Array{Float64,1},
 	pc::Bool
 	)
 
@@ -57,7 +58,7 @@ function initparams(
 	# 	q_u = Inf
 	# end
 
-	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix,GSD,model)
+	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
 	mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
 
@@ -68,6 +69,7 @@ function initparams(
 					 model,
 					 coordsystemmatrix,
 					 RGBtensor,
+					 BGcolor,
 					 rasterquote,
 					 GSD,
 					 refX,
@@ -123,7 +125,7 @@ end
 """
 initialize raster image.
 """
-function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR)
+function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
 
 	verts,edges,faces = model
 	bbglobalextention = zeros(2)
