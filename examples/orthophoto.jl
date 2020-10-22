@@ -10,9 +10,9 @@ bbin = metadata.tightBoundingBox
 ucs = Matrix{Float64}(Lar.I,3,3)
 GSD = 0.02
 PO = "XY+"
-quota = 6.50 #458277.430, 4493982.030, 210.840
+quota = 2.50 #458277.430, 4493982.030, 210.840
 thickness = 0.05
-outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCONTEA\\Sezione_z650.jpg"
+outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCONTEA\\Sezione_z250.jpg"
 pc = false
 background = [0.0,0.0,0.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc )
