@@ -40,9 +40,9 @@ function saveorthophoto(params::ParametersOrthophoto)
 
 	flushprintln("Image: saving ...")
 
-	if params.PO == "XY+"
-		FileManager.save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
-	end
+	#if params.PO == "XY+"
+	FileManager.save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
+	#end
 
 	save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
 	flushprintln("Image: done ...")
