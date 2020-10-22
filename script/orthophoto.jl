@@ -35,6 +35,9 @@ function parse_commandline()
 		"--ucs"
 			help = "Path to UCS JSON file. If not provided is the Identity matrix."
 			arg_type = String
+		"--bgcolor"
+			help = "Background color"
+			arg_type = String
         "source"
             help = "A text file with Potree directory list"
             required = true
@@ -61,6 +64,7 @@ function main()
 	thickness = args["thickness"]
 	pc = args["pc"]
 	ucs = args["ucs"]
+	bgcolor = args["bgcolor"]
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
@@ -72,7 +76,14 @@ function main()
 		ucs = Matrix{Float64}(OrthographicProjection.Lar.I,3,3)
 	end
 
-	#OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, pc)
+	if !isnothing(bgcolor)
+		col = tryparse.(Float64,split(bgcolor, " "))
+		background = [col[1],col[2],col[3]]
+	else
+		background = [1.0,1.0,1.0]
+	end
+
+	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, background, pc)
 end
 
 @time main()
