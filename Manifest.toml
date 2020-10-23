@@ -169,8 +169,8 @@ uuid = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 version = "1.4.3"
 
 [[FileManager]]
-deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO"]
-git-tree-sha1 = "59537a0de716f8fe22c8f99f91a1008b2eb5be27"
+deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO", "Printf"]
+git-tree-sha1 = "38364738f0c4a3f979d87812f54c5bca28943626"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/FileManager.jl"
 uuid = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
@@ -262,9 +262,9 @@ version = "0.8.6"
 
 [[Images]]
 deps = ["AxisArrays", "Base64", "ColorVectorSpace", "FileIO", "Graphics", "ImageAxes", "ImageContrastAdjustment", "ImageCore", "ImageDistances", "ImageFiltering", "ImageMetadata", "ImageMorphology", "ImageQualityIndexes", "ImageShow", "ImageTransformations", "IndirectArrays", "OffsetArrays", "Random", "Reexport", "SparseArrays", "StaticArrays", "Statistics", "StatsBase", "TiledIteration"]
-git-tree-sha1 = "46ded76802845f054e521819e0ba5a962b0d5887"
+git-tree-sha1 = "964c70f13ff782fb2435774bbb3dac97a414c832"
 uuid = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
-version = "0.23.0"
+version = "0.23.1"
 
 [[IndirectArrays]]
 git-tree-sha1 = "c2a145a145dc03a7620af1444e0264ef907bd44f"
