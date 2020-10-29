@@ -2,17 +2,17 @@ using OrthographicProjection
 using FileManager
 using Common
 
-txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/orthoCAVA/directory.txt"
+txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/FilePotree/orthoCAVA/directory.txt"
 potreedirs = FileManager.get_directories(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox
 #bbin = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\volume.json"
 ucs = Matrix{Float64}(Lar.I,3,3)
-GSD = 0.02
+GSD = 0.3
 PO = "XY+"
-quota = 39.0 #458277.430, 4493982.030, 210.840
-thickness = 0.1
-outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\orthoCAVA\\prova.jpg"
+quota = nothing #458277.430, 4493982.030, 210.840
+thickness = nothing
+outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\prova.jpg"
 pc = true
 background = [0.0,0.0,0.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc )
