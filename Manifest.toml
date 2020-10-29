@@ -58,8 +58,8 @@ uuid = "5ae59095-9a9b-59fe-a467-6f913c188581"
 version = "0.12.4"
 
 [[Common]]
-deps = ["Delaunay", "LinearAlgebraicRepresentation", "NearestNeighbors"]
-git-tree-sha1 = "a44c007e7ffb04d7adfbdc89a4b86fc5d9b25f7c"
+deps = ["Delaunay", "LinearAlgebraicRepresentation", "NearestNeighbors", "Statistics"]
+git-tree-sha1 = "09f495f25b7182b06e7d064d1316143be04bfd1e"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/Common.jl"
 uuid = "1e120bc2-2bd2-483a-9663-793997b3971f"
@@ -120,10 +120,10 @@ deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 
 [[Delaunay]]
-deps = ["LinearAlgebra", "PyCall", "SparseArrays", "Test"]
-git-tree-sha1 = "921f1f3d71d4f990a3f7689ee5e65677a135ad65"
+deps = ["LinearAlgebra", "PyCall", "Random", "SparseArrays", "Test"]
+git-tree-sha1 = "e1e137a46d2752f4a1a149d53582c9b520e80c9a"
 uuid = "07eb4e4e-0c6d-46ef-bc4e-83d5e5d860a9"
-version = "1.0.1"
+version = "1.1.0"
 
 [[DelimitedFiles]]
 deps = ["Mmap"]
@@ -170,7 +170,7 @@ version = "1.4.4"
 
 [[FileManager]]
 deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO", "Printf"]
-git-tree-sha1 = "720dd335e9ff6d9f2b1bcabea6fe5cdec0f8678a"
+git-tree-sha1 = "f513a49a22c26c0e0709e8a0d39d2987043ad52e"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/FileManager.jl"
 uuid = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
@@ -530,9 +530,9 @@ version = "0.10.3"
 
 [[StaticArrays]]
 deps = ["LinearAlgebra", "Random", "Statistics"]
-git-tree-sha1 = "016d1e1a00fabc556473b07161da3d39726ded35"
+git-tree-sha1 = "da4cf579416c81994afd6322365d00916c79b8ae"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "0.12.4"
+version = "0.12.5"
 
 [[Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]

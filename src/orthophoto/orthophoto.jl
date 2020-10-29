@@ -21,10 +21,15 @@ end
 imagecreation con i trie
 """
 function pointselection(params::ParametersOrthophoto,s,n::Int64)
+
+	nfiles = nothing
+	l = nothing
+	
     for potree in params.potreedirs
         flushprintln( "======== PROJECT $potree ========")
 		metadata = CloudMetadata(potree)
 		trie = potree2trie(potree)
+
 
 		l = length(keys(trie))
 		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
@@ -40,10 +45,13 @@ function pointselection(params::ParametersOrthophoto,s,n::Int64)
 			end
 		else
 			flushprintln("DFS")
-			n,_ = dfsimage(trie,params,s,n,0,l)
+			n,nfiles = dfsimage(trie,params,s,n,0,l)
 		end
 	end
 
+	if !isnothing(nfiles)
+		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
+	end
 	return n
 end
 
