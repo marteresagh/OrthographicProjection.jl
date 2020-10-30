@@ -59,7 +59,7 @@ version = "0.12.4"
 
 [[Common]]
 deps = ["Delaunay", "LinearAlgebraicRepresentation", "NearestNeighbors", "Statistics"]
-git-tree-sha1 = "33004e6be624cd5f747837efde2a8210ac808d37"
+git-tree-sha1 = "ebff7e1435f4ec74f28780d375d167f1d8164a14"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/Common.jl"
 uuid = "1e120bc2-2bd2-483a-9663-793997b3971f"
@@ -170,7 +170,7 @@ version = "1.4.4"
 
 [[FileManager]]
 deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO", "Printf"]
-git-tree-sha1 = "39ca3a0efd8cd2ac35e4b33d6892d0671a980969"
+git-tree-sha1 = "ae2580d590fa75e7a745fa1893d9eb76f18a21fc"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/FileManager.jl"
 uuid = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
@@ -390,9 +390,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews"]
-git-tree-sha1 = "29d121f9e7a6cf081278029121ed90e1f3b33de8"
+git-tree-sha1 = "614e8d77264d20c1db83661daadfab38e8e4b77e"
 uuid = "e94cdb99-869f-56ef-bcf0-1ae2bcbe0389"
-version = "0.2.3"
+version = "0.2.4"
 
 [[NaNMath]]
 git-tree-sha1 = "c84c576296d0e2fbb3fc134d3e09086b3ea617cd"
