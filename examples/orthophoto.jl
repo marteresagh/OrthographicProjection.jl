@@ -12,7 +12,7 @@ GSD = 0.3
 PO = "XY+"
 quota = 39.0 #458277.430, 4493982.030, 210.840
 thickness = 0.05
-outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\sezione_AMPHI_z39_5cm.jpg"
+outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\prova.jpg"
 pc = true
 background = [0.0,0.0,0.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc )

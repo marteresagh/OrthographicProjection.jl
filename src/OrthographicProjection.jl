@@ -21,6 +21,6 @@ module OrthographicProjection
 	include("segmentation/extraction.jl")
 	include("segmentation/init.jl")
 	include("segmentation/main.jl")
-
+	include("Sections/main.jl")
 
 end # module

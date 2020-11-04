@@ -1,4 +1,6 @@
-#TODO fare altri test ma sembra funzionare
+"""
+get model of plane with thickness
+"""
 function plane2model(rot_mat::Matrix, constant::Float64, thickness::Float64, aabb::AABB)
 	verts,_ = getmodel(aabb)
 	rotation = Common.matrix2euler(rot_mat)

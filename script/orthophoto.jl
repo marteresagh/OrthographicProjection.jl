@@ -24,10 +24,10 @@ function parse_commandline()
             arg_type = Float64
             default = 0.3
 		"--quote"
-			help = ".."
+			help = "Distance of plane from origin"
 			arg_type = Float64
 		"--thickness"
-			help = ".."
+			help = "Section thickness"
 			arg_type = Float64
 		"--pc"
 			help = "If true a pc of extracted model is saved in a LAS file"

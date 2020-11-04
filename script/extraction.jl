@@ -10,7 +10,7 @@ function parse_commandline()
 
     @add_arg_table! s begin
 		"--output", "-o"
-            help = "Output file: LAS or LAZ"
+            help = "Output file: LAS"
 			required = true
 		"--bbin"
             help = "Bounding box as 'x_min y_min z_min x_max y_max z_max' or Potree JSON volume model"
@@ -30,12 +30,12 @@ function parse_commandline()
 end
 
 function main()
-    args = parse_commandline()
+	args = parse_commandline()
 
-	PointClouds.flushprintln("== params ==")
-    for (arg,val) in args
-        	PointClouds.flushprintln("$arg  =>  $val")
-    end
+	OrthographicProjection.flushprintln("== params ==")
+	for (arg,val) in args
+		OrthographicProjection.flushprintln("$arg  =>  $val")
+	end
 
 	bbin = args["bbin"]
 	output = args["output"]
