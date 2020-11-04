@@ -22,7 +22,7 @@ function get_parallel_sections(
 
 	for i in 1:length(planes)
 		output = joinpath(proj_folder,project_name)*"section_$i.las"
-		extract_section(txtpotreedirs, output, bbin)	
+		extract_section(txtpotreedirs, output, bbin)
 	end
 end
 
