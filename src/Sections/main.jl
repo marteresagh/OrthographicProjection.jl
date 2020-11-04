@@ -13,8 +13,8 @@ function get_parallel_sections(
 
 	planes = get_planes(plane, step, thickness, bbin)
 
-	@assert isdir(folder) "$folder not an existing folder"
-	proj_folder = joinpath(folder,project_name)
+	@assert isdir(output_folder) "$output_folder not an existing folder"
+	proj_folder = joinpath(output_folder,project_name)
 
 	if !isdir(proj_folder)
 		mkdir(proj_folder)
@@ -22,7 +22,7 @@ function get_parallel_sections(
 
 	for i in 1:length(planes)
 		output = joinpath(proj_folder,project_name)*"section_$i.las"
-		OrthographicProjection.pointExtraction(txtpotreedirs, output, planes[i], nothing, nothing)
+		extract_section(txtpotreedirs, output, bbin)	
 	end
 end
 
@@ -37,8 +37,8 @@ function get_planes(plane::Plane, step::Float64, thickness::Float64, bbin::Union
 
 	planes = []
 	for quota in quotas
-		plane = plane2model(Lar.inv(plane.matrix)[1:3,1:3], quota, thickness, aabb)
-		push!(planes,plane)
+		plan = plane2model(Lar.inv(plane.matrix)[1:3,1:3], quota, thickness, aabb)
+		push!(planes,plan)
 	end
 
 	return planes
