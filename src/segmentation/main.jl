@@ -19,7 +19,7 @@ function pointExtraction(
 									 thickness
 									 )
 
-	segment_and_save(params)								 
+	segment_and_save(params)
 	# n = 0
 	# temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	# open(temp, "w") do s
@@ -32,7 +32,7 @@ function pointExtraction(
 end
 
 
-function segment_and_save(params::initParamsExtraction)
+function segment_and_save(params::ParametersExtraction)
 	n = 0
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
