@@ -19,7 +19,10 @@ function get_parallel_sections(
 		mkdir(proj_folder)
 	end
 
-	for i in 1:length(planes)
+	n_sections = length(planes)
+	for i in 1:n_sections
+		flushprintln(" ")
+		flushprintln(" ---- Section $i of $n_sections ----")
 		output = joinpath(proj_folder,project_name)*"section_$i.las"
 		extract_section(txtpotreedirs, output, planes[i])
 	end
@@ -34,7 +37,7 @@ function get_planes(plane::Plane, step::Float64, thickness::Float64, bbin::Union
 
 	quotas = get_quotas(plane, step, model)
 
-	planes = []
+	planes = Lar.LAR[]
 	for quota in quotas
 		plan = plane2model(plane.matrix[1:3,1:3], quota, thickness, aabb)
 		push!(planes,plan)

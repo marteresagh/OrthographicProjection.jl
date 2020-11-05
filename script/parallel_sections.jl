@@ -44,10 +44,10 @@ end
 function main()
 	args = parse_commandline()
 
-	OrthographicProjection.flushprintln("== params ==")
-	for (arg,val) in args
-		OrthographicProjection.flushprintln("$arg  =>  $val")
-	end
+	# OrthographicProjection.flushprintln("== params ==")
+	# for (arg,val) in args
+	# 	OrthographicProjection.flushprintln("$arg  =>  $val")
+	# end
 
 	txtpotreedirs = args["source"]
 	project_name = args["projectname"]
@@ -56,11 +56,24 @@ function main()
 	step = args["step"]
 	plane = args["plane"]
 	thickness = args["thickness"]
+
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
 		#bbin = (hcat([b[1],b[2],b[3]]),hcat([b[4],b[5],b[6]]))
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
+
+	p = tryparse.(Float64,split(plane, " "))
+	@assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
+	plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
+
+	OrthographicProjection.flushprintln("== Parameters ==")
+	OrthographicProjection.flushprintln("Source in  =>  $txtpotreedirs")
+	OrthographicProjection.flushprintln("Output folder  =>  $output_folder")
+	OrthographicProjection.flushprintln("Project name  =>  $project_name")
+	OrthographicProjection.flushprintln("Step  =>  $step")
+	OrthographicProjection.flushprintln("Plane  =>  $plane")
+	OrthographicProjection.flushprintln("Thickness  =>  $thickness")
 
 	OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, output_folder, bbin, step, plane, thickness)
 end
