@@ -23,4 +23,5 @@ module OrthographicProjection
 	include("Sections/main.jl")
 	include("Sections/init.jl")
 
+	export Common, FileManager
 end # module
