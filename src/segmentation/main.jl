@@ -19,13 +19,26 @@ function pointExtraction(
 									 thickness
 									 )
 
+	segment_and_save(params)								 
+	# n = 0
+	# temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
+	# open(temp, "w") do s
+	# 	write(s, LasIO.magic(LasIO.format"LAS"))
+    # 	n = extraction_core(params,s,n)
+	# end
+	#
+	# savepointcloud( params, n, temp)
+
+end
+
+
+function segment_and_save(params::initParamsExtraction)
 	n = 0
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-    	n = extraction_core(params,s,n)
+		n = extraction_core(params,s,n)
 	end
 
 	savepointcloud( params, n, temp)
-
 end

@@ -8,7 +8,6 @@ module OrthographicProjection
 
 	# first include struct
 	include("struct.jl")
-	include("common.jl")
 	include("saves.jl")
 
 	#include all file .jl in other folders

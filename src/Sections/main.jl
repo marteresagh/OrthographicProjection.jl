@@ -39,7 +39,7 @@ function get_planes(plane::Plane, step::Float64, thickness::Float64, bbin::Union
 
 	planes = Lar.LAR[]
 	for quota in quotas
-		plan = plane2model(plane.matrix[1:3,1:3], quota, thickness, aabb)
+		plan = Common.plane2model(plane.matrix[1:3,1:3], quota, thickness, aabb)
 		push!(planes,plan)
 	end
 

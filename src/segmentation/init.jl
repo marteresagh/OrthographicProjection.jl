@@ -26,7 +26,7 @@ function initParamsExtraction(txtpotreedirs::String,
 	aabb = Common.boundingbox(model[1])
 
 	if !isnothing(quota) && !isnothing(thickness)
-		model = plane2model(coordsystemmatrix, quota, thickness, aabb)
+		model = Common.plane2model(coordsystemmatrix, quota, thickness, aabb)
 	end
 
 	q_l = -Inf
