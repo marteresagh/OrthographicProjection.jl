@@ -3,6 +3,9 @@ process file in trie.
 """
 function extraction_core(params::ParametersExtraction,s,n::Int64)
 
+	nfiles = nothing
+	l = nothing
+
     for potree in params.potreedirs
         flushprintln( "======== PROJECT $potree ========")
 		metadata = CloudMetadata(potree)
@@ -22,8 +25,12 @@ function extraction_core(params::ParametersExtraction,s,n::Int64)
 			end
 		else
 			flushprintln("DFS")
-			n,_ = dfsextraction(trie,params,s,n,0,l)
+			n,nfiles = dfsextraction(trie,params,s,n,0,l)
 		end
+	end
+
+	if !isnothing(nfiles)
+		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
 	end
 	return n
 end
