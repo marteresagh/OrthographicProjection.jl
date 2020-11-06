@@ -14,17 +14,21 @@ function savepointcloud(
 
 	flushprintln("Extracted $n points")
 
-	open(temp) do s
-		open(params.outputfile,"w") do t
-			write(t, LasIO.magic(LasIO.format"LAS"))
-			write(t,params.mainHeader)
+	if n != 0
 
-			LasIO.skiplasf(s)
-			for i=1:n
-				p = read(s, pointtype)
-				write(t,p)
+		open(temp) do s
+			open(params.outputfile,"w") do t
+				write(t, LasIO.magic(LasIO.format"LAS"))
+				write(t,params.mainHeader)
+
+				LasIO.skiplasf(s)
+				for i=1:n
+					p = read(s, pointtype)
+					write(t,p)
+				end
 			end
 		end
+
 	end
 
 	rm(temp)

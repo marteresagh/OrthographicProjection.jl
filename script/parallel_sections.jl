@@ -5,6 +5,7 @@ using OrthographicProjection
 
 println("packages OK")
 
+#TODO da sistemare questa
 function parse_commandline()
 	s = ArgParseSettings()
 
