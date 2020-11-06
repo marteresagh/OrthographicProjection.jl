@@ -23,6 +23,30 @@ thickness = 1.
 	thickness::Float64)
 
 
+txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
+potreedirs = FileManager.get_directories(txtpotreedirs)
+all_files = FileManager.get_files_in_potree_folder(potreedirs[1],0)
+metadata = CloudMetadata(potreedirs[1])
+bbin = metadata.tightBoundingBox
+project_name = "Sezioni_Parallele"
+output_folder = "C:/Users/marte/Documents/GEOWEB/TEST"
+step = 30.0
+thickness = 10.
+axis_y = [0.,0.,1]
+p1 = [458145.180, 4493834.030, 224.250]
+p2 = [458255.180, 4493775.530, 226.050]
+plane = Plane(p1,p2,axis_y)
+model = Common.plane2model(p1,p2,thickness,bbin)
+
+@time OrthographicProjection.get_parallel_sections(
+		txtpotreedirs::String,
+		project_name::String,
+		output_folder::String,
+		bbin::Union{AABB,String},
+		step::Float64,
+		plane::Plane,
+		model::Lar.LAR
+		thickness::Float64)
 # PC = FileManager.las2pointcloud(all_files...)
 # GL.VIEW([
 # 	GL.GLPoints(convert(Lar.Points,PC.coordinates')),
