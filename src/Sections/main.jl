@@ -76,7 +76,7 @@ function get_parallel_sections(
 	thickness::Float64)
 
 
-	planes = get_planes(plane, step, thickness, bbin)
+	planes = get_planes(plane, model, step, bbin)
 	@assert isdir(output_folder) "$output_folder not an existing folder"
 	proj_folder = joinpath(output_folder,project_name)
 
@@ -114,7 +114,7 @@ end
 """
 all quotas
 """
-function get_quotas(plane::Lar.LAR, step::Float64,  bbin::Union{AABB,String})
+function get_quotas(plane::Plane, step::Float64,  bbin::Union{AABB,String})
 
 	model = getmodel(bbin)
 	normal = [plane.a,plane.b,plane.c]
@@ -128,6 +128,6 @@ function get_quotas(plane::Lar.LAR, step::Float64,  bbin::Union{AABB,String})
 		push!(quotas,quota)
 		quota = quota+step
 	end
-
+	@show plane
 	return Common.matrix4(Lar.inv(plane.matrix)), quotas
 end
