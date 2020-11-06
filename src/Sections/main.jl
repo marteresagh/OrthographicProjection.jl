@@ -129,5 +129,5 @@ function get_quotas(plane::Lar.LAR, step::Float64,  bbin::Union{AABB,String})
 		quota = quota+step
 	end
 
-	return Common.matrix4(Lar.inv(plane.matrix), quotas
+	return Common.matrix4(Lar.inv(plane.matrix)), quotas
 end
