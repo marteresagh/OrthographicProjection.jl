@@ -72,7 +72,7 @@ function get_parallel_sections(
 	bbin::Union{AABB,String},
 	step::Float64,
 	plane::Plane,
-	model::Lar.LAR
+	model::Lar.LAR,
 	thickness::Float64)
 
 
