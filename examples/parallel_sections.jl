@@ -16,10 +16,8 @@ thickness = 10.
 axis_y = [0.,0.,1]
 p1 = [458145.180, 4493834.030, 224.250]
 p2 = [458255.180, 4493775.530, 226.050]
-p1 = [0,0,0.]
-p2 = [0,0,2.]
-plane = Plane(p1,p2,axis_y)
-@time model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
+# p1 = [0,0,0.]
+# p2 = [0,0,2.]
 
 proj_folder, plane, model = OrthographicProjection.preprocess(
 	project_name::String,

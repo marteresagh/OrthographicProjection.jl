@@ -5,7 +5,6 @@ using OrthographicProjection
 
 println("packages OK")
 
-#TODO da sistemare questa
 function parse_commandline()
 	s = ArgParseSettings()
 
@@ -41,10 +40,6 @@ function parse_commandline()
 		help = "Parallel axis to plane"
 		arg_type = String
 		required = true
-	# "--plane"
-	# 	help = "a, b, c, d parameters described the plane"
-	# 	arg_type = String
-	# 	required = true
 	"--thickness"
 		help = "Sections thickness"
 		arg_type = Float64
@@ -80,7 +75,6 @@ function main()
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
-		#bbin = (hcat([b[1],b[2],b[3]]),hcat([b[4],b[5],b[6]]))
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
@@ -91,11 +85,11 @@ function main()
 	axis_y = tryparse.(Float64,split(axis_, " "))
 	@assert length(axis_y) == 3 "a 3D axis needed"
 
-
 	try
 		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)
-		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, output_folder, bbin, step, plane, model, thickness)
+		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, step, plane, model, thickness)
 	catch y
+
 	end
 
 end
