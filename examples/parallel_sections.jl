@@ -9,20 +9,32 @@ all_files = FileManager.get_files_in_potree_folder(potreedirs[1],0)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox
 aabb = getmodel(bbin)
-project_name = "Sezion_parallele"
+project_name = "Sezioni_parallele"
 output_folder = "C:/Users/marte/Documents/GEOWEB/TEST"
 step = 30.
 thickness = 10.
 axis_y = [0.,0.,1]
 p1 = [458145.180, 4493834.030, 224.250]
 p2 = [458255.180, 4493775.530, 226.050]
+p1 = [0,0,0.]
+p2 = [0,0,2.]
 plane = Plane(p1,p2,axis_y)
-model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
+@time model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
+
+proj_folder, plane, model = OrthographicProjection.preprocess(
+	project_name::String,
+	output_folder::String,
+	bbin::Union{AABB,String},
+	p1::Array{Float64,1},
+	p2::Array{Float64,1},
+	axis_y::Array{Float64,1},
+	thickness::Float64
+	)
 
 @time planes = OrthographicProjection.get_parallel_sections(
 		txtpotreedirs::String,
 		project_name::String,
-		output_folder::String,
+		proj_folder::String,
 		bbin::Union{AABB,String},
 		step::Float64,
 		plane::Plane,

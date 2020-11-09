@@ -63,26 +63,46 @@
 # 	return quotas
 # end
 
-
-##### NEW VERSION
-function get_parallel_sections(
-	txtpotreedirs::String,
+function preprocess(
 	project_name::String,
 	output_folder::String,
 	bbin::Union{AABB,String},
-	step::Float64,
-	plane::Plane,
-	model::Lar.LAR,
-	thickness::Float64)
+	p1::Array{Float64,1},
+	p2::Array{Float64,1},
+	axis_y::Array{Float64,1},
+	thickness::Float64
+	)
 
-
-	#planes = get_planes(plane, model, step, bbin)
 	@assert isdir(output_folder) "$output_folder not an existing folder"
 	proj_folder = joinpath(output_folder,project_name)
 
 	if !isdir(proj_folder)
 		mkdir(proj_folder)
 	end
+
+	try
+		plane = OrthographicProjection.Plane(p1,p2,axis_y)
+		model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
+		return proj_folder,plane,model
+	catch y
+		flushprintln("ERROR: Plane not consistent")
+		io = open(joinpath(proj_folder,"process.prob"),"w")
+		close(io)
+		throw(DomainError())
+	end
+end
+
+
+function get_parallel_sections(
+	txtpotreedirs::String,
+	project_name::String,
+	proj_folder::String,
+	bbin::Union{AABB,String},
+	step::Float64,
+	plane::Plane,
+	model::Lar.LAR,
+	thickness::Float64)
+
 
 	V,EV,FV = model
 
@@ -135,43 +155,3 @@ function get_quotas(plane::Plane, step::Float64,  bbin::Union{AABB,String})
 	end
 
 end
-
-#
-# """
-# Described all parallel plane for sections extraction
-# """
-# function get_planes(plane::Plane, model::Lar.LAR, step::Float64, bbin::Union{AABB,String})
-# 	V,EV,FV = model
-#
-# 	roto_trasl, quotas = get_quotas(plane, step, bbin)
-# 	@show quotas
-# 	planes = Lar.LAR[]
-# 	for quota in quotas
-# 		T = Common.apply_matrix(roto_trasl*Lar.t(0,0,quota)*Lar.inv(roto_trasl),V)
-# 		plan = (T,EV,FV)
-# 		push!(planes,plan)
-# 	end
-#
-# 	return planes
-# end
-#
-# """
-# all quotas
-# """
-# function get_quotas(plane::Plane, step::Float64,  bbin::Union{AABB,String})
-#
-# 	model = getmodel(bbin)
-# 	normal = [plane.a,plane.b,plane.c]
-# 	V = model[1]
-# 	dists = [Lar.dot(normal, V[:,i]) for i in 1:size(V,2)]
-# 	min,max = extrema(dists)
-# 	quota = min+modf((plane.d-min)/step)[1]*step
-# 	quotas = Float64[]
-#
-# 	while quota <= max
-# 		push!(quotas,quota)
-# 		quota = quota+step
-# 	end
-# 	return Lar.inv(plane.matrix), quotas
-# end
-#

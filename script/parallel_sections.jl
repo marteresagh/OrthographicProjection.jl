@@ -29,10 +29,22 @@ function parse_commandline()
 		help = "Distance between sections"
 		arg_type = Float64
 		required = true
-	"--plane"
-		help = "a, b, c, d parameters described the plane"
+	"--p1"
+		help = "First point"
 		arg_type = String
 		required = true
+	"--p2"
+		help = "Second point"
+		arg_type = String
+		required = true
+	"--axis"
+		help = "Parallel axis to plane"
+		arg_type = String
+		required = true
+	# "--plane"
+	# 	help = "a, b, c, d parameters described the plane"
+	# 	arg_type = String
+	# 	required = true
 	"--thickness"
 		help = "Sections thickness"
 		arg_type = Float64
@@ -45,18 +57,26 @@ end
 function main()
 	args = parse_commandline()
 
-	# OrthographicProjection.flushprintln("== params ==")
-	# for (arg,val) in args
-	# 	OrthographicProjection.flushprintln("$arg  =>  $val")
-	# end
+	OrthographicProjection.flushprintln("== params ==")
+	for (arg,val) in args
+		OrthographicProjection.flushprintln("$arg  =>  $val")
+	end
 
 	txtpotreedirs = args["source"]
 	project_name = args["projectname"]
 	output_folder = args["output"]
 	bbin = args["bbin"]
 	step = args["step"]
-	plane = args["plane"]
+	p1_ = args["p1"]
+	p2_ = args["p2"]
+	axis_ = args["axis"]
 	thickness = args["thickness"]
+
+
+	# p = tryparse.(Float64,split(plane, " "))
+	# @assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
+	# plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
+
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
@@ -64,19 +84,20 @@ function main()
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
-	p = tryparse.(Float64,split(plane, " "))
-	@assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
-	plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
+	p1 = tryparse.(Float64,split(p1_, " "))
+	@assert length(p1) == 3 "a 3D point needed"
+	p2 = tryparse.(Float64,split(p2_, " "))
+	@assert length(p2) == 3 "a 3D point needed"
+	axis_y = tryparse.(Float64,split(axis_, " "))
+	@assert length(axis_y) == 3 "a 3D axis needed"
 
-	OrthographicProjection.flushprintln("== Parameters ==")
-	OrthographicProjection.flushprintln("Source in  =>  $txtpotreedirs")
-	OrthographicProjection.flushprintln("Output folder  =>  $output_folder")
-	OrthographicProjection.flushprintln("Project name  =>  $project_name")
-	OrthographicProjection.flushprintln("Step  =>  $step")
-	OrthographicProjection.flushprintln("Plane  =>  $plane")
-	OrthographicProjection.flushprintln("Thickness  =>  $thickness")
 
-	OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, output_folder, bbin, step, plane, thickness)
+	try
+		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)
+		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, output_folder, bbin, step, plane, model, thickness)
+	catch y
+	end
+
 end
 
 @time main()
