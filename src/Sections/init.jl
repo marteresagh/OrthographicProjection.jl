@@ -10,7 +10,6 @@ function init(txtpotreedirs::String,
 
 	return ParametersExtraction(outputfile,
 	potreedirs,
-	Matrix{Float64}(Lar.I,3,3),
 	model,
 	mainHeader)
 end

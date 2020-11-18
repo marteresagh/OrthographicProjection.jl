@@ -8,7 +8,7 @@ module OrthographicProjection
 
 	# first include struct
 	include("struct.jl")
-	include("core.jl")
+	include("process_trie.jl")
 	include("saves.jl")
 
 	#include all file .jl in other folders
@@ -18,7 +18,7 @@ module OrthographicProjection
 	include("orthophoto/core.jl")
 
 	#include("segmentation/dfs.jl")
-	include("segmentation/extraction.jl")
+	include("segmentation/core.jl")
 	include("segmentation/init.jl")
 	include("segmentation/main.jl")
 

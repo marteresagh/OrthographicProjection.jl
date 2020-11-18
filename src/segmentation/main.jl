@@ -2,22 +2,22 @@
 Save extracted pc in a file.
 """
 function pointExtraction(
-     txtpotreedirs::String,
-	 outputfile::String,
-	 coordsystemmatrix::Array{Float64,2},
-	 bbin::Union{String,AABB},
-	 quota::Union{Float64,Nothing},
-	 thickness::Union{Float64,Nothing},
-	  )
+	txtpotreedirs::String,
+	outputfile::String,
+	coordsystemmatrix::Array{Float64,2},
+	bbin::Union{String,AABB},
+	quota::Union{Float64,Nothing},
+	thickness::Union{Float64,Nothing},
+	)
 
 
-    params = init(   txtpotreedirs,
-									 outputfile,
-									 coordsystemmatrix,
-									 bbin,
-									 quota,
-									 thickness
-									 )
+	params = init( txtpotreedirs,
+	outputfile,
+	coordsystemmatrix,
+	bbin,
+	quota,
+	thickness
+	)
 
 	segment_and_save(params)
 
