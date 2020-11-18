@@ -1,5 +1,5 @@
 """
-save points in a temporary file
+update params
 """
 function updateif!(params::ParametersExtraction, file::String, s, n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
