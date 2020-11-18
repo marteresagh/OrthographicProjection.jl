@@ -17,7 +17,7 @@ end
 
 function extract_section(txtpotreedirs, output, model)
 	params = init(txtpotreedirs, output, model)
-
+	n = nothing 
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
