@@ -57,7 +57,7 @@ function main()
 	plane_ = args["plane"]
 	thickness = args["thickness"]
 
-	plane_ = tryparse.(Float64,split(plane, " "))
+	p = tryparse.(Float64,split(plane_, " "))
 	@assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
 	plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
 
