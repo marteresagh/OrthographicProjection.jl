@@ -21,7 +21,7 @@ function process_trie(params::Union{ParametersExtraction,ParametersOrthophoto},s
 				end
 				file = trie[k]
 				n = update!(params,file,s,n)
-				i=i+1
+				i = i+1
 			end
 		else
 			flushprintln("DFS")
@@ -53,7 +53,7 @@ function dfs(t::DataStructures.Trie{String},
 			flushprintln(nfiles," files processed of ",l)
 		end
 
-		n = updatewithfilter!(params,file,s,n)
+		n = updateif!(params,file,s,n)
 
 		for key in collect(keys(t.children))
 			n,nfiles = dfs(t.children[key],params,s,n,nfiles,l)
@@ -79,12 +79,12 @@ end
 Update parameters.
 """
 # Override
-function updatewithfilter!(params::ParametersOrthophoto,file::String,s,n::Int64)
-	return updateimagewithfilter!(params,file,s,n)
+function updateif!(params::ParametersOrthophoto,file::String,s,n::Int64)
+	return updateimageif!(params,file,s,n)
 end
 
-function updatewithfilter!(params::ParametersExtraction,file::String,s,n::Int64)
-	return updatepointswithfilter!(params,file,s,n)
+function updateif!(params::ParametersExtraction,file::String,s,n::Int64)
+	return updatepointsif!(params,file,s,n)
 end
 
 function update!(params::ParametersOrthophoto,file::String,s,n::Int64)

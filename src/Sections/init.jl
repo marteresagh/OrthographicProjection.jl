@@ -1,4 +1,4 @@
-function init_params(txtpotreedirs::String,
+function init(txtpotreedirs::String,
 							 outputfile::String,
 							 model
 							 )
@@ -18,7 +18,7 @@ end
 
 
 function extract_section(txtpotreedirs, output, model)
-	params = init_params(txtpotreedirs, output, model)
+	params = init(txtpotreedirs, output, model)
 
 	n = 0
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")

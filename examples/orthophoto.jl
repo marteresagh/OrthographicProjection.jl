@@ -15,7 +15,7 @@ thickness = 5.
 outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ortho_prova.jpg"
 pc = true
 background = [0.0,0.0,0.0]
-@time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc )
+@time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
 #458117.67 4.49376852e6 208.67 458452.44 4.49417179e6 212.5
 
 

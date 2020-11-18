@@ -11,7 +11,7 @@ function pointExtraction(
 	  )
 
 
-    params = initParamsExtraction(   txtpotreedirs,
+    params = init(   txtpotreedirs,
 									 outputfile,
 									 coordsystemmatrix,
 									 bbin,
@@ -29,7 +29,7 @@ function segment_and_save(params::ParametersExtraction)
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-		n =  process_trie(params,s,n) #extraction_core(params,s,n)
+		n =  process_trie(params,s,n)
 	end
 
 	savepointcloud( params, n, temp)

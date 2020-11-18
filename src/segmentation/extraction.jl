@@ -1,7 +1,7 @@
 """
 save points in a temporary file
 """
-function updatepointswithfilter!(params::ParametersExtraction, file::String, s, n::Int64)
+function updatepointsif!(params::ParametersExtraction, file::String, s, n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
     for laspoint in laspoints
         point = FileManager.xyz(laspoint,h)

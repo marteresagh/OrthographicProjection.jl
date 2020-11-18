@@ -20,7 +20,7 @@ end
 """
 update image tensor.
 """
-function updateimagewithfilter!(params::ParametersOrthophoto,file,s,n::Int64)
+function updateimageif!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
 	for laspoint in laspoints

@@ -1,7 +1,7 @@
 """
 init
 """
-function initParamsExtraction(txtpotreedirs::String,
+function init(txtpotreedirs::String,
 							 outputfile::String,
 							 coordsystemmatrix::Array{Float64,2},
 							 bbin::Union{String,AABB},

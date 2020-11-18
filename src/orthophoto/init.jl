@@ -1,7 +1,7 @@
 """
 Initialize usefull parameters.
 """
-function initparams(
+function init(
 	txtpotreedirs::String,
 	outputimage::String,
 	bbin::Union{String,AABB},
