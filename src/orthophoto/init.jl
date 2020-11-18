@@ -40,26 +40,6 @@ function initparams(
 
 	aabb = Common.boundingbox(model[1])
 
-	q_l = -Inf
- 	q_u = Inf
-
-	# if !isnothing(quota)
-	# 	if PO == "XY+" || PO == "XY-"
-	# 		puntoquota = [0,0,quota]
-	# 	elseif PO == "XZ+" || PO == "XZ-"
-	# 		puntoquota = [0, quota, 0]
-	# 	elseif PO == "YZ+" || PO == "YZ-"
-	# 		puntoquota = [quota, 0, 0]
-	# 	end
-	#
-	# 	@assert !isnothing(thickness) "OrthographicProjection: thickness missing"
-	# 	q_l = (coordsystemmatrix*puntoquota)[3] - thickness/2
-	# 	q_u = (coordsystemmatrix*puntoquota)[3] + thickness/2
-	# else
-	# 	q_l = -Inf
-	# 	q_u = Inf
-	# end
-
 	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
 	mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
@@ -75,8 +55,6 @@ function initparams(
 					 GSD,
 					 refX,
 					 refY,
-					 q_l,
-					 q_u,
 					 pc,
 					 ucs,
 					 mainHeader)

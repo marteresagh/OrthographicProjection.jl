@@ -7,53 +7,15 @@ function orthophoto_core(params::ParametersOrthophoto,n::Int)
 		temp = joinpath(splitdir(params.outputimage)[1],"temp.las")
 		open(temp, "w") do s
 			write(s, LasIO.magic(LasIO.format"LAS"))
-			n = process_trie(params,s,n) #pointselection(params,s,n)
+			n = process_trie(params,s,n)
 			return n, temp
 		end
 	else
-		n = process_trie(params,nothing,n) #pointselection(params,nothing,n)
+		n = process_trie(params,nothing,n)
 		return n, nothing
 	end
 
 end
-#
-# """
-# imagecreation con i trie
-# """
-# function pointselection(params::ParametersOrthophoto,s,n::Int64)
-#
-# 	nfiles = nothing
-# 	l = nothing
-#
-#     for potree in params.potreedirs
-#         flushprintln( "======== PROJECT $potree ========")
-# 		metadata = CloudMetadata(potree)
-# 		trie = potree2trie(potree)
-#
-#
-# 		l = length(keys(trie))
-# 		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
-# 			flushprintln("FULL model")
-# 			i=1
-# 			for k in keys(trie)
-# 				if i%100==0
-# 					flushprintln(i," files processed of ",l)
-# 				end
-# 				file = trie[k]
-# 				n = updateimage!(params,file,s,n)
-# 				i = i+1
-# 			end
-# 		else
-# 			flushprintln("DFS")
-# 			n,nfiles = dfsimage(trie,params,s,n,0,l)
-# 		end
-# 	end
-#
-# 	if !isnothing(nfiles)
-# 		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
-# 	end
-# 	return n
-# end
 
 """
 update image tensor.
@@ -61,12 +23,12 @@ update image tensor.
 function updateimagewithfilter!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
-    for laspoint in laspoints
-        point = FileManager.xyz(laspoint,h)
-        if Common.inmodel(params.model)(point) # se il punto è interno allora
+	for laspoint in laspoints
+		point = FileManager.xyz(laspoint,h)
+		if Common.inmodel(params.model)(point) # se il punto è interno allora
 			n = update_core(params,laspoint,h,n,s)
-        end
-    end
+		end
+	end
 
 	return n
 end
@@ -74,9 +36,9 @@ end
 function updateimage!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints = FileManager.read_LAS_LAZ(file)
 
-    for laspoint in laspoints
+	for laspoint in laspoints
 		n = update_core(params,laspoint,h,n,s)
-    end
+	end
 
 	return n
 end
@@ -88,18 +50,17 @@ function update_core(params::ParametersOrthophoto,laspoint,h,n,s)
 	xcoord = map(Int∘trunc,(p[1]-params.refX) / params.GSD)+1
 	ycoord = map(Int∘trunc,(params.refY-p[2]) / params.GSD)+1
 
-#	if p[3] >= params.q_l && p[3] <= params.q_u
-		if params.pc
-			plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
-			write(s,plas)
-			n=n+1
-		end
-		if params.rasterquote[ycoord,xcoord] < p[3]
-			params.rasterquote[ycoord,xcoord] = p[3]
-			params.RGBtensor[1, ycoord, xcoord] = rgb[1]
-	        params.RGBtensor[2, ycoord, xcoord] = rgb[2]
-	        params.RGBtensor[3, ycoord, xcoord] = rgb[3]
-		end
-#	end
+	if params.pc
+		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
+		write(s,plas)
+		n=n+1
+	end
+	if params.rasterquote[ycoord,xcoord] < p[3]
+		params.rasterquote[ycoord,xcoord] = p[3]
+		params.RGBtensor[1, ycoord, xcoord] = rgb[1]
+		params.RGBtensor[2, ycoord, xcoord] = rgb[2]
+		params.RGBtensor[3, ycoord, xcoord] = rgb[3]
+	end
+
 	return n
 end

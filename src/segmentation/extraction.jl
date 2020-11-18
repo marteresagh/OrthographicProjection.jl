@@ -1,40 +1,3 @@
-# """
-# process file in trie.
-# """
-# function extraction_core(params::ParametersExtraction,s,n::Int64)
-#
-# 	nfiles = nothing
-# 	l = nothing
-#
-#     for potree in params.potreedirs
-#         flushprintln( "======== PROJECT $potree ========")
-# 		metadata = CloudMetadata(potree)
-#
-# 		trie = potree2trie(potree)
-# 		l=length(keys(trie))
-# 		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
-# 			flushprintln("FULL model")
-# 			i=1
-# 			for k in keys(trie)
-# 				if i%100==0
-# 					flushprintln(i," files processed of ",l)
-# 				end
-# 				file = trie[k]
-# 				n = updatepoints!(params,file,s,n)
-# 				i=i+1
-# 			end
-# 		else
-# 			flushprintln("DFS")
-# 			n,nfiles = dfsextraction(trie,params,s,n,0,l)
-# 		end
-# 	end
-#
-# 	if !isnothing(nfiles)
-# 		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
-# 	end
-# 	return n
-# end
-
 """
 save points in a temporary file
 """
@@ -61,10 +24,8 @@ end
 function updatepoints_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s, n::Int64)
 	point = FileManager.xyz(laspoint,h)
 	p = params.coordsystemmatrix*point
-	#if p[3] >= params.q_l && p[3] <= params.q_u
-		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
-		write(s,plas)
-		n=n+1
-	#end
+	plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
+	write(s,plas)
+	n=n+1
 	return n
 end

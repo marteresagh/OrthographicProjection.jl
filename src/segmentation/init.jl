@@ -12,14 +12,6 @@ function initParamsExtraction(txtpotreedirs::String,
 	# check validity
 	@assert isfile(txtpotreedirs) "extractpointcloud: $txtpotreedirs not an existing file"
 
-	# if !isnothing(quota)
-	# 	@assert !isnothing(thickness) "extractpointcloud: thickness missing"
-	# 	q_l = quota - thickness/2
-	# 	q_u = quota + thickness/2
-	# else
-	# 	q_l = -Inf
-	# 	q_u = Inf
-	# end
 
 	potreedirs = FileManager.get_directories(txtpotreedirs)
 	model = getmodel(bbin)
@@ -29,8 +21,6 @@ function initParamsExtraction(txtpotreedirs::String,
 		model = Common.plane2model(coordsystemmatrix, quota, thickness, aabb)
 	end
 
-	q_l = -Inf
-	q_u = Inf
 
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 
@@ -38,7 +28,5 @@ function initParamsExtraction(txtpotreedirs::String,
 								potreedirs,
 								coordsystemmatrix,
 								model,
-								q_l,
-								q_u,
 								mainHeader)
 end

@@ -12,8 +12,6 @@ function init_params(txtpotreedirs::String,
 								potreedirs,
 								Matrix{Float64}(Lar.I,3,3),
 								model,
-								-Inf,
-								Inf,
 								mainHeader)
 end
 

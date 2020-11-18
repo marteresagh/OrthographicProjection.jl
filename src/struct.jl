@@ -3,8 +3,6 @@ mutable struct ParametersExtraction
 	potreedirs::Array{String,1}
 	coordsystemmatrix::Array{Float64,2}
 	model::Lar.LAR
-	q_l::Float64
-	q_u::Float64
 	mainHeader::LasIO.LasHeader
 end
 
@@ -20,8 +18,6 @@ mutable struct ParametersOrthophoto
     GSD::Float64
     refX::Float64
     refY::Float64
-    q_l::Float64
-    q_u::Float64
     pc::Bool
     ucs::Matrix
     mainHeader::LasIO.LasHeader
