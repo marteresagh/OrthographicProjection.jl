@@ -27,23 +27,15 @@ function parse_commandline()
 	"--step"
 		help = "Distance between sections"
 		arg_type = Float64
-		required = true
-	"--p1"
-		help = "First point"
-		arg_type = String
-		required = true
-	"--p2"
-		help = "Second point"
-		arg_type = String
-		required = true
-	"--axis"
-		help = "Parallel axis to plane"
+		default = 0
+	"--plane"
+		help = "Hessian form: a,b,c,d parameters"
 		arg_type = String
 		required = true
 	"--thickness"
-		help = "Sections thickness"
+		help = "Section thickness"
 		arg_type = Float64
-		required = true
+		default = 0.1
 	end
 
 	return parse_args(s)
@@ -62,35 +54,20 @@ function main()
 	output_folder = args["output"]
 	bbin = args["bbin"]
 	step = args["step"]
-	p1_ = args["p1"]
-	p2_ = args["p2"]
-	axis_ = args["axis"]
+	plane_ = args["plane"]
 	thickness = args["thickness"]
 
-
-	# p = tryparse.(Float64,split(plane, " "))
-	# @assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
-	# plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
-
+	plane_ = tryparse.(Float64,split(plane, " "))
+	@assert length(p) == 4 "$plane: Please described the plane in Hessian normal form"
+	plane = OrthographicProjection.Plane(p[1],p[2],p[3],p[4])
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
-	p1 = tryparse.(Float64,split(p1_, " "))
-	@assert length(p1) == 3 "a 3D point needed"
-	p2 = tryparse.(Float64,split(p2_, " "))
-	@assert length(p2) == 3 "a 3D point needed"
-	axis_y = tryparse.(Float64,split(axis_, " "))
-	@assert length(axis_y) == 3 "a 3D axis needed"
-
-	try
-		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)
-		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, step, plane, model, thickness)
-	catch y
-
-	end
+	proj_folder, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, plane, thickness)
+	OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, step, plane, model, thickness)
 
 end
 

@@ -45,12 +45,7 @@ function main()
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
-		#bbin = (hcat([b[1],b[2],b[3]]),hcat([b[4],b[5],b[6]]))
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
-	end
-
-	if isnothing(ucs)
-		ucs = Matrix{Float64}(OrthographicProjection.Lar.I,3,3)
 	end
 
 	OrthographicProjection.pointExtraction(txtpotreedirs, output, bbin, q, thickness)
