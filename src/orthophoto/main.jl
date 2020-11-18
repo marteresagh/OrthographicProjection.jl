@@ -21,8 +21,7 @@ function orthophoto(
 	# image creation
 	flushprintln("========= PROCESSING =========")
 
-	n = 0 #number of extracted points
-	n, temp = orthophoto_core(params, n)
+	n, temp = orthophoto_core(params)
 
 	flushprintln("========= SAVES =========")
 	saveimage(params)

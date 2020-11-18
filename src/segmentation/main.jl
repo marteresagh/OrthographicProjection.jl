@@ -25,12 +25,11 @@ end
 
 
 function segment_and_save(params::ParametersExtraction)
-	n = 0
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-		n =  process_trie(params,s,n)
+		n = process_trie(params,s)
 	end
 
-	savepointcloud( params, n, temp)
+	savepointcloud(params, n, temp)
 end

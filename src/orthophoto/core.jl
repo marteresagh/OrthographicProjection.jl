@@ -1,17 +1,17 @@
 """
 Core
 """
-function orthophoto_core(params::ParametersOrthophoto,n::Int)
+function orthophoto_core(params::ParametersOrthophoto)
 
 	if params.pc
 		temp = joinpath(splitdir(params.outputimage)[1],"temp.las")
 		open(temp, "w") do s
 			write(s, LasIO.magic(LasIO.format"LAS"))
-			n = process_trie(params,s,n)
+			n = process_trie(params,s)
 			return n, temp
 		end
 	else
-		n = process_trie(params,nothing,n)
+		n = process_trie(params,nothing)
 		return n, nothing
 	end
 

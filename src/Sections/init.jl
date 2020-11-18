@@ -15,15 +15,13 @@ function init(txtpotreedirs::String,
 end
 
 
-
 function extract_section(txtpotreedirs, output, model)
 	params = init(txtpotreedirs, output, model)
 
-	n = 0
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-		n = process_trie(params,s,n) #extraction_core(params,s,n)
+		n = process_trie(params,s)
 	end
 
 	savepointcloud(params, n, temp)

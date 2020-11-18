@@ -12,12 +12,11 @@ module OrthographicProjection
 	include("saves.jl")
 
 	#include all file .jl in other folders
-	#include("orthophoto/dfs.jl")
+
 	include("orthophoto/init.jl")
 	include("orthophoto/main.jl")
 	include("orthophoto/core.jl")
 
-	#include("segmentation/dfs.jl")
 	include("segmentation/core.jl")
 	include("segmentation/init.jl")
 	include("segmentation/main.jl")
