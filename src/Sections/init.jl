@@ -26,7 +26,7 @@ function extract_section(txtpotreedirs, output, model)
 	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-		n = extraction_core(params,s,n)
+		n = process_trie(params,s,n) #extraction_core(params,s,n)
 	end
 
 	savepointcloud( params, n, temp)

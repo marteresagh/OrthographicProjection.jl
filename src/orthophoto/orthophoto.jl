@@ -7,58 +7,58 @@ function orthophoto_core(params::ParametersOrthophoto,n::Int)
 		temp = joinpath(splitdir(params.outputimage)[1],"temp.las")
 		open(temp, "w") do s
 			write(s, LasIO.magic(LasIO.format"LAS"))
-			n = pointselection(params,s,n)
+			n = process_trie(params,s,n) #pointselection(params,s,n)
 			return n, temp
 		end
 	else
-		n = pointselection(params,nothing,n)
+		n = process_trie(params,nothing,n) #pointselection(params,nothing,n)
 		return n, nothing
 	end
 
 end
-
-"""
-imagecreation con i trie
-"""
-function pointselection(params::ParametersOrthophoto,s,n::Int64)
-
-	nfiles = nothing
-	l = nothing
-	
-    for potree in params.potreedirs
-        flushprintln( "======== PROJECT $potree ========")
-		metadata = CloudMetadata(potree)
-		trie = potree2trie(potree)
-
-
-		l = length(keys(trie))
-		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
-			flushprintln("FULL model")
-			i=1
-			for k in keys(trie)
-				if i%100==0
-					flushprintln(i," files processed of ",l)
-				end
-				file = trie[k]
-				n = updateimage!(params,file,s,n)
-				i = i+1
-			end
-		else
-			flushprintln("DFS")
-			n,nfiles = dfsimage(trie,params,s,n,0,l)
-		end
-	end
-
-	if !isnothing(nfiles)
-		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
-	end
-	return n
-end
+#
+# """
+# imagecreation con i trie
+# """
+# function pointselection(params::ParametersOrthophoto,s,n::Int64)
+#
+# 	nfiles = nothing
+# 	l = nothing
+#
+#     for potree in params.potreedirs
+#         flushprintln( "======== PROJECT $potree ========")
+# 		metadata = CloudMetadata(potree)
+# 		trie = potree2trie(potree)
+#
+#
+# 		l = length(keys(trie))
+# 		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
+# 			flushprintln("FULL model")
+# 			i=1
+# 			for k in keys(trie)
+# 				if i%100==0
+# 					flushprintln(i," files processed of ",l)
+# 				end
+# 				file = trie[k]
+# 				n = updateimage!(params,file,s,n)
+# 				i = i+1
+# 			end
+# 		else
+# 			flushprintln("DFS")
+# 			n,nfiles = dfsimage(trie,params,s,n,0,l)
+# 		end
+# 	end
+#
+# 	if !isnothing(nfiles)
+# 		flushprintln("$(l-nfiles) file of $l not processed - out of region of interest")
+# 	end
+# 	return n
+# end
 
 """
 update image tensor.
 """
-function updateimagewithfilter!(params,file,s,n::Int64)
+function updateimagewithfilter!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
     for laspoint in laspoints
@@ -71,7 +71,7 @@ function updateimagewithfilter!(params,file,s,n::Int64)
 	return n
 end
 
-function updateimage!(params,file,s,n::Int64)
+function updateimage!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints = FileManager.read_LAS_LAZ(file)
 
     for laspoint in laspoints
@@ -81,7 +81,7 @@ function updateimage!(params,file,s,n::Int64)
 	return n
 end
 
-function update_core(params,laspoint,h,n,s)
+function update_core(params::ParametersOrthophoto,laspoint,h,n,s)
 	point = FileManager.xyz(laspoint,h)
 	rgb = FileManager.color(laspoint,h)
 	p = params.coordsystemmatrix*point
