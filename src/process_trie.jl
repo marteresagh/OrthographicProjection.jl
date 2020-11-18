@@ -1,5 +1,5 @@
 """
-process file in trie.
+Process file in trie.
 """
 function process_trie(params::Union{ParametersExtraction,ParametersOrthophoto},s)
 

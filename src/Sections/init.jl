@@ -1,6 +1,6 @@
 function init(txtpotreedirs::String,
 	outputfile::String,
-	model
+	model::Lar.LAR
 	)
 	# check validity
 	@assert isfile(txtpotreedirs) "extractpointcloud: $txtpotreedirs not an existing file"

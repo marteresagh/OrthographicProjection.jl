@@ -21,8 +21,6 @@ function update!(params::ParametersExtraction, file::String, s, n::Int64)
 end
 
 function update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s, n::Int64)
-	point = FileManager.xyz(laspoint,h)
-	p = point
 	plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 	write(s,plas)
 	n = n+1

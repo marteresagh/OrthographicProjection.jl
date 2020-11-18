@@ -53,7 +53,7 @@ function update_core(params::ParametersOrthophoto,laspoint,h,n,s)
 	if params.pc
 		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 		write(s,plas)
-		n=n+1
+		n = n+1
 	end
 	if params.rasterquote[ycoord,xcoord] < p[3]
 		params.rasterquote[ycoord,xcoord] = p[3]
