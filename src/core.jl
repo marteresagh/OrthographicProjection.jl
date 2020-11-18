@@ -73,24 +73,3 @@ function dfs(t::DataStructures.Trie{String},
 
 	return n,nfiles
 end
-
-
-"""
-Update parameters.
-"""
-# Override
-function updateif!(params::ParametersOrthophoto,file::String,s,n::Int64)
-	return updateimageif!(params,file,s,n)
-end
-
-function updateif!(params::ParametersExtraction,file::String,s,n::Int64)
-	return updatepointsif!(params,file,s,n)
-end
-
-function update!(params::ParametersOrthophoto,file::String,s,n::Int64)
-	return updateimage!(params,file,s,n)
-end
-
-function update!(params::ParametersExtraction,file::String,s,n::Int64)
-	return updatepoints!(params,file,s,n)
-end
