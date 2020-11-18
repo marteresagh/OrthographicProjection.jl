@@ -27,7 +27,7 @@ function parse_commandline()
 	"--step"
 		help = "Distance between sections"
 		arg_type = Float64
-		default = 0
+		default = 0.
 	"--p1"
 		help = "Start point"
 		arg_type = String
