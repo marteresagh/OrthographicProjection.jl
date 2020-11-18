@@ -15,7 +15,7 @@ module OrthographicProjection
 	#include("orthophoto/dfs.jl")
 	include("orthophoto/init.jl")
 	include("orthophoto/main.jl")
-	include("orthophoto/orthophoto.jl")
+	include("orthophoto/core.jl")
 
 	#include("segmentation/dfs.jl")
 	include("segmentation/extraction.jl")

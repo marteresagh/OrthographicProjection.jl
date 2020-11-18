@@ -1,4 +1,3 @@
-
 function orthophoto(
 	txtpotreedirs::String,
 	outputimage::String,
@@ -23,9 +22,9 @@ function orthophoto(
 	n, temp = orthophoto_core(params, n)
 
 	flushprintln("========= SAVES =========")
-	saveorthophoto(params)
+	saveimage(params)
 
 	if pc
-		savepointcloud( params, n, temp)
+		savepointcloud(params, n, temp)
 	end
 end

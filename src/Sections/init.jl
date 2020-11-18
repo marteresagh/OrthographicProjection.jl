@@ -1,7 +1,7 @@
 function init(txtpotreedirs::String,
-							 outputfile::String,
-							 model
-							 )
+	outputfile::String,
+	model
+	)
 	# check validity
 	@assert isfile(txtpotreedirs) "extractpointcloud: $txtpotreedirs not an existing file"
 	potreedirs = FileManager.get_directories(txtpotreedirs)
@@ -9,10 +9,10 @@ function init(txtpotreedirs::String,
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 
 	return ParametersExtraction(outputfile,
-								potreedirs,
-								Matrix{Float64}(Lar.I,3,3),
-								model,
-								mainHeader)
+	potreedirs,
+	Matrix{Float64}(Lar.I,3,3),
+	model,
+	mainHeader)
 end
 
 
@@ -27,5 +27,5 @@ function extract_section(txtpotreedirs, output, model)
 		n = process_trie(params,s,n) #extraction_core(params,s,n)
 	end
 
-	savepointcloud( params, n, temp)
+	savepointcloud(params, n, temp)
 end

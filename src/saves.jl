@@ -40,7 +40,7 @@ end
 """
 Save orthophoto.
 """
-function saveorthophoto(params::ParametersOrthophoto)
+function saveimage(params::ParametersOrthophoto)
 
 	flushprintln("Image: saving ...")
 

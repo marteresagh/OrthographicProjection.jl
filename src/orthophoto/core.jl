@@ -20,7 +20,7 @@ end
 """
 update image tensor.
 """
-function updateimageif!(params::ParametersOrthophoto,file,s,n::Int64)
+function updateif!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
 	for laspoint in laspoints
@@ -33,7 +33,7 @@ function updateimageif!(params::ParametersOrthophoto,file,s,n::Int64)
 	return n
 end
 
-function updateimage!(params::ParametersOrthophoto,file,s,n::Int64)
+function update!(params::ParametersOrthophoto,file,s,n::Int64)
 	h, laspoints = FileManager.read_LAS_LAZ(file)
 
 	for laspoint in laspoints
