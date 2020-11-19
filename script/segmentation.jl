@@ -15,12 +15,6 @@ function parse_commandline()
 		"--bbin"
             help = "Bounding box as 'x_min y_min z_min x_max y_max z_max' or Potree JSON volume model"
 			required = true
-		"--quote"
-			help = "Plane quote"
-			arg_type = Float64
-		"--thickness"
-			help = "Plane thickness"
-			arg_type = Float64
         "source"
             help = "A text file with Potree directory list"
             required = true
@@ -40,15 +34,14 @@ function main()
 	bbin = args["bbin"]
 	output = args["output"]
 	txtpotreedirs = args["source"]
-	q = args["quote"]
-	thickness = args["thickness"]
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
+	model = OrthographicProjection.getmodel(bbin)
 
-	OrthographicProjection.pointExtraction(txtpotreedirs, output, bbin, q, thickness)
+	OrthographicProjection.extract_section(txtpotreedirs, output, model)
 end
 
 @time main()

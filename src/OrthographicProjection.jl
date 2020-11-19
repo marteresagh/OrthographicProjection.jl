@@ -18,8 +18,6 @@ module OrthographicProjection
 	include("orthophoto/core.jl")
 
 	include("segmentation/core.jl")
-	include("segmentation/init.jl")
-	include("segmentation/main.jl")
 
 	include("Sections/main.jl")
 	include("Sections/init.jl")
