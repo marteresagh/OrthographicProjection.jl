@@ -20,7 +20,7 @@ end
 """
 update image tensor.
 """
-function updateif!(params::ParametersOrthophoto, file::String, s::IOStream, n::Int64)
+function updateif!(params::ParametersOrthophoto, file::String, s::Union{Nothing,IOStream}, n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file)
 
 	for laspoint in laspoints
@@ -33,7 +33,7 @@ function updateif!(params::ParametersOrthophoto, file::String, s::IOStream, n::I
 	return n
 end
 
-function update!(params::ParametersOrthophoto, file::String, s::IOStream, n::Int64)
+function update!(params::ParametersOrthophoto, file::String, s::Union{Nothing,IOStream}, n::Int64)
 	h, laspoints = FileManager.read_LAS_LAZ(file)
 
 	for laspoint in laspoints
@@ -43,7 +43,7 @@ function update!(params::ParametersOrthophoto, file::String, s::IOStream, n::Int
 	return n
 end
 
-function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
+function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::Union{Nothing,IOStream}, n::Int64)
 	point = FileManager.xyz(laspoint,h)
 	rgb = FileManager.color(laspoint,h)
 	p = params.coordsystemmatrix*point
