@@ -41,7 +41,7 @@ function main()
 	end
 	model = OrthographicProjection.getmodel(bbin)
 
-	OrthographicProjection.extract_section(txtpotreedirs, output, model)
+	OrthographicProjection.segment(txtpotreedirs, output, model)
 end
 
 @time main()

@@ -67,7 +67,7 @@ function main()
 	end
 
 	proj_folder, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, plane, thickness)
-	OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, step, plane, model, thickness)
+	OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, step, plane, model)
 
 end
 

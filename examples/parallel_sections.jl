@@ -36,8 +36,7 @@ proj_folder, plane, model = OrthographicProjection.preprocess(
 		bbin::Union{AABB,String},
 		step::Float64,
 		plane::Plane,
-		model::Lar.LAR,
-		thickness::Float64)
+		model::Lar.LAR)
 
 # PC = FileManager.las2pointcloud(all_files...)
 #

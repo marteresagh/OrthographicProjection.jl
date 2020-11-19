@@ -17,10 +17,10 @@ module OrthographicProjection
 	include("orthophoto/main.jl")
 	include("orthophoto/core.jl")
 
-	include("segmentation/core.jl")
+	include("segment/core.jl")
+	include("segment/init.jl")
 
-	include("Sections/main.jl")
-	include("Sections/init.jl")
+	include("slices/main.jl")
 
 	export Common, FileManager
 end # module
