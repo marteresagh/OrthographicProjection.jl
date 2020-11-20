@@ -29,8 +29,3 @@ outputimage = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\Proje
 pc = true
 
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, pc )
-
-
-model=getmodel(AABB(2,0,2,0,2,0))
-aabb=AABB(1,0,1,0,1,0)
-@time Common.modelsdetection(model,aabb)

@@ -9,12 +9,12 @@ Input:
  Output:
   - Point cloud LAS
 """
-function segment(txtpotreedirs::String, output::String, model::Lar.LAR)
+function segment(txtpotreedirs::String, output::String, model::Lar.LAR, temp_name = "temp.las"::String)
 	# initialize parameters
 	n = nothing #number of points extracted
 	params = init(txtpotreedirs, output, model)
 
-	temp = joinpath(splitdir(params.outputfile)[1],"temp.las")
+	temp = joinpath(splitdir(params.outputfile)[1],temp_name)
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
 		n = process_trie(params,s)
