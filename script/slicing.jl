@@ -87,10 +87,12 @@ function main()
 	@assert length(axis_y) == 3 "a 3D axis needed"
 
 	if isnothing(steps)
-		steps = fill(step,n)
+		steps = fill(step,n)	
 	else
 		steps = tryparse.(Float64,split(steps, " "))
 	end
+
+	prepend!(steps,0.0)
 
 	# try
 		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)

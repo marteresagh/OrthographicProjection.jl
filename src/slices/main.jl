@@ -123,23 +123,17 @@ function get_parallel_sections(
 
 	V,EV,FV = model # first plane
 
-	planes = [model]
+
+	planes = Lar.LAR[]
 
 	n_sections = length(steps)
-
-	flushprintln(" ")
-	flushprintln(" ---- Section 1 of $(n_sections+1) ----")
-	output = joinpath(proj_folder,project_name)*"_section_0.las"
-	segment(txtpotreedirs, output, plan) # slicing point cloud
-
-
 	for i in 1:n_sections
 		flushprintln(" ")
-		flushprintln(" ---- Section $i of $(n_sections+1) ----")
+		flushprintln(" ---- Section $i of $(n_sections) ----")
 		T = Common.apply_matrix(Lar.t(-plane.matrix[1:3,3]*sum(steps[1:i])...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
-		output = joinpath(proj_folder,project_name)*"_section_$(i).las"
+		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
 		segment(txtpotreedirs, output, plan) # slicing point cloud
 	end
 
