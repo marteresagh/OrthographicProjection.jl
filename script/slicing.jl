@@ -92,11 +92,11 @@ function main()
 		steps = tryparse.(Float64,split(steps, " "))
 	end
 
-	#try
+	# try
 		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)
 		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, steps, plane, model)
 	# catch y
-	#
+
 	# end
 
 end
