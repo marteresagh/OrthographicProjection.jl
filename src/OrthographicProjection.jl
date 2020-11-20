@@ -6,6 +6,8 @@ module OrthographicProjection
 	using FileManager
 	using Images
 	using Distributed
+	addprocs(4)
+	@everywhere using Distributed
 
 	# first include struct
 	include("struct.jl")

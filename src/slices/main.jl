@@ -122,14 +122,12 @@ function get_parallel_sections(
 	model::Lar.LAR)
 
 	V,EV,FV = model # first plane
-
-
 	planes = Lar.LAR[]
-
 	n_sections = length(steps)
+
 	@distributed for i in 1:n_sections
-		# flushprintln(" ")
-		# flushprintln(" ---- Section $i of $(n_sections) ----")
+		flushprintln(" ")
+		flushprintln(" ---- Section $i of $(n_sections) ----")
 		T = Common.apply_matrix(Lar.t(-plane.matrix[1:3,3]*sum(steps[1:i])...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
