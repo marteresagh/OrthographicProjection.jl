@@ -5,6 +5,5 @@ version = "0.1.0"
 
 [deps]
 Common = "1e120bc2-2bd2-483a-9663-793997b3971f"
-Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
 FileManager = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
