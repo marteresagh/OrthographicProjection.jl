@@ -112,6 +112,32 @@ function get_parallel_sections(
 	return planes
 end
 
+function get_parallel_sections(
+	txtpotreedirs::String,
+	project_name::String,
+	proj_folder::String,
+	bbin::Union{AABB,String},
+	steps::Array{Float64,1},
+	plane::Plane,
+	model::Lar.LAR)
+
+	V,EV,FV = model # first plane
+
+	planes = Lar.LAR[]
+	n_sections = length(steps)
+	for i in 1:n_sections
+		flushprintln(" ")
+		flushprintln(" ---- Section $i of $n_sections ----")
+		T = Common.apply_matrix(Lar.t(-plane.matrix[1:3,3]*sum(steps[1:i])...),V) # traslate model
+		plan = (T,EV,FV) # new model
+		push!(planes,plan)
+		output = joinpath(proj_folder,project_name)*"_section_$(indices[i]-1).las"
+		segment(txtpotreedirs, output, plan) # slicing point cloud
+	end
+
+	return planes
+end
+
 """
 Return quotas and indices of each LAR model thickness plane.
 """
