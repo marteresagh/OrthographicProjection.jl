@@ -86,20 +86,22 @@ function main()
 	axis_y = tryparse.(Float64,split(axis_, " "))
 	@assert length(axis_y) == 3 "a 3D axis needed"
 
-	if isnothing(steps)
-		steps = fill(step,n)	
-	else
+	if !isnothing(step) && !isnothing(n)
+		steps = fill(step,n)
+	elseif !isnothing(steps)
 		steps = tryparse.(Float64,split(steps, " "))
+	else
+		steps = Float64[]
 	end
 
 	prepend!(steps,0.0)
 
-	# try
+	try
 		proj_folder, plane, model = OrthographicProjection.preprocess(project_name, output_folder, bbin, p1, p2, axis_y, thickness)
 		OrthographicProjection.get_parallel_sections(txtpotreedirs, project_name, proj_folder, bbin, steps, plane, model)
-	# catch y
+	catch y
 
-	# end
+	end
 
 end
 
