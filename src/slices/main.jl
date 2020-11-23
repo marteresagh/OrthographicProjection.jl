@@ -99,7 +99,7 @@ function get_parallel_sections(
 
 	planes = Lar.LAR[]
 	n_sections = length(indices)
-	for i in 1:n_sections
+	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $n_sections ----")
 		T = Common.apply_matrix(Lar.t(plane.matrix[1:3,3]*indices[i]*step...),V) # traslate model
@@ -125,7 +125,7 @@ function get_parallel_sections(
 	planes = Lar.LAR[]
 	n_sections = length(steps)
 
-	for i in 1:n_sections
+	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $(n_sections) ----")
 		T = Common.apply_matrix(Lar.t(-plane.matrix[1:3,3]*sum(steps[1:i])...),V) # traslate model
