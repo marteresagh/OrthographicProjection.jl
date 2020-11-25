@@ -15,13 +15,16 @@ function init(
 	)
 
 	# check validity
-	@assert isfile(txtpotreedirs) "orthoprojectionimage: $txtpotreedirs not an existing file"
 	@assert length(PO)==3 "orthoprojectionimage: $PO not valid view"
 
 
 	outputfile = splitext(outputimage)[1]*".las"
 
-	potreedirs = FileManager.get_directories(txtpotreedirs)
+	if isfile(txtpotreedirs)
+		potreedirs = FileManager.get_directories(txtpotreedirs)
+	elseif isdir(txtpotreedirs)
+		potreedirs = [txtpotreedirs]
+	end
 
 
 	if typeof(ucs) == Matrix{Float64}

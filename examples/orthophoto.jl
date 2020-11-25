@@ -2,11 +2,11 @@ using OrthographicProjection
 using FileManager
 using Common
 
-txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
+txtpotreedirs = "C:/Users/marte/Documents/potreeDirectory/pointclouds/CAVA" #"C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
 potreedirs = FileManager.get_directories(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox
-#bbin = "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCAVA\\volume.json"
+#bbin = "C://Users//marte//Documents//GEOWEB//FilePotree//orthoCAVA//volume.json"
 ucs = Matrix{Float64}(Lar.I,3,3)
 GSD = 0.3
 PO = "XY+"
@@ -20,4 +20,4 @@ background = [0.0,0.0,0.0]
 
 
 # prova
-# julia orthophoto.jl "C:/Users/marte/Documents/GEOWEB/FilePotree/orthoCONTEA/directory.txt" -o "C:\\Users\\marte\\Documents\\GEOWEB\\FilePotree\\orthoCONTEA\\Sezione_z650.jpg" --bbin "-0.20750000000000002 -0.792 -0.1865 51.6465 61.4555 12.5555" --bgcolor "0 0 0" --gsd 0.02
+# julia orthophoto.jl "C:/Users/marte/Documents/GEOWEB/FilePotree/orthoCONTEA/directory.txt" -o "C://Users//marte//Documents//GEOWEB//FilePotree//orthoCONTEA//Sezione_z650.jpg" --bbin "-0.20750000000000002 -0.792 -0.1865 51.6465 61.4555 12.5555" --bgcolor "0 0 0" --gsd 0.02
