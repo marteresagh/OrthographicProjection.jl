@@ -4,7 +4,7 @@ using Common
 
 txtpotreedirs = "C:/Users/marte/Documents/potreeDirectory/pointclouds/CAVA" #"C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
 potreedirs = FileManager.get_directories(txtpotreedirs)
-metadata = CloudMetadata(potreedirs[1])
+metadata = CloudMetadata(txtpotreedirs)
 bbin = metadata.tightBoundingBox
 #bbin = "C://Users//marte//Documents//GEOWEB//FilePotree//orthoCAVA//volume.json"
 ucs = Matrix{Float64}(Lar.I,3,3)
