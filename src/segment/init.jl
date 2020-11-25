@@ -3,8 +3,12 @@ function init(txtpotreedirs::String,
 	model::Lar.LAR
 	)
 
-	@assert isfile(txtpotreedirs) "extractpointcloud: $txtpotreedirs not an existing file" # check validity
-	potreedirs = FileManager.get_directories(txtpotreedirs)
+	if isfile(txtpotreedirs)
+		potreedirs = FileManager.get_directories(txtpotreedirs)
+	elseif isdir(txtpotreedirs)
+		potreedirs = [txtpotreedirs]
+	end
+
 	aabb = Common.boundingbox(model[1])
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 
