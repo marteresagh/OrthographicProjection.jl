@@ -53,9 +53,6 @@ function main()
 	project_name = args["projectname"]
 	output_folder = args["output"]
 	bbin = args["bbin"]
-	steps = args["steps"]
-	step = args["step"]
-	n = args["n"]
 	file_listpoints = args["listpoints"]
 	axis_ = args["axis"]
 	thickness = args["thickness"]
@@ -64,23 +61,6 @@ function main()
 	if length(b) == 6
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
-
-	p1 = tryparse.(Float64,split(p1_, " "))
-	@assert length(p1) == 3 "a 3D point needed"
-	p2 = tryparse.(Float64,split(p2_, " "))
-	@assert length(p2) == 3 "a 3D point needed"
-	axis_y = tryparse.(Float64,split(axis_, " "))
-	@assert length(axis_y) == 3 "a 3D axis needed"
-
-	if !isnothing(step) && !isnothing(n)
-		steps = fill(step,n)
-	elseif !isnothing(steps)
-		steps = tryparse.(Float64,split(steps, " "))
-	else
-		steps = Float64[]
-	end
-
-	prepend!(steps,0.0)
 
 	proj_folder, models = OrthographicProjection.preprocess(project_name, output_folder, bbin, file_listpoints, axis_y, thickness)
 	OrthographicProjection.extract_models(txtpotreedirs, project_name, proj_folder, bbin, models)
