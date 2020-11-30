@@ -90,9 +90,9 @@ version = "1.5.0"
 
 [[CoordinateTransformations]]
 deps = ["LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "c230b1d94db9fdd073168830437e64b9db627fcb"
+git-tree-sha1 = "6d1c23e740a586955645500bbec662476204a52c"
 uuid = "150eb455-5306-5404-9cee-2592286d6298"
-version = "0.6.0"
+version = "0.6.1"
 
 [[CustomUnitRanges]]
 git-tree-sha1 = "0d42a23be3acfb3c58569b28ed3ab8bd67af5ced"
@@ -170,7 +170,7 @@ version = "1.4.4"
 
 [[FileManager]]
 deps = ["Common", "DataStructures", "Dates", "JSON", "LasIO", "LazIO", "PlyIO", "Printf"]
-git-tree-sha1 = "1cadad9dd2e368d0ef5bd46c58f062e98ee99353"
+git-tree-sha1 = "fa814c27dbedf198fbc2fe102bc00310d59e7875"
 repo-rev = "master"
 repo-url = "https://github.com/marteresagh/FileManager.jl"
 uuid = "0bd84659-c0f7-4690-a84b-0a06eabf7473"
@@ -184,9 +184,9 @@ version = "0.8.4"
 
 [[GeometryTypes]]
 deps = ["ColorTypes", "FixedPointNumbers", "LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "34bfa994967e893ab2f17b864eec221b3521ba4d"
+git-tree-sha1 = "07194161fe4e181c6bf51ef2e329ec4e7d050fc4"
 uuid = "4d00f742-c7ba-57c2-abde-4428a4b178cb"
-version = "0.8.3"
+version = "0.8.4"
 
 [[Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
@@ -494,9 +494,9 @@ version = "1.1.1"
 
 [[Rotations]]
 deps = ["LinearAlgebra", "StaticArrays", "Statistics"]
-git-tree-sha1 = "445b72242dbdecba9bfc42034daafdd901bbf6a9"
+git-tree-sha1 = "2ed8d8a16d703f900168822d83699b8c3c1a5cd8"
 uuid = "6038ab10-8711-5258-84ad-4b1120ba62dc"
-version = "1.0.1"
+version = "1.0.2"
 
 [[SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
