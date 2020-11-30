@@ -27,7 +27,7 @@ Description:
 It is possible to limit the region of interest for a section of point cloud. The slice is described with:
  - quota: distance of plane to origin
  - thickness: thickness of plane
-Putboth of them to nothing if you are not interested in a slice.
+Put both of them to nothing if you are not interested in a slice.
 """
 function orthophoto(
 	txtpotreedirs::String,
