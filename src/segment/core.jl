@@ -77,7 +77,7 @@ function extract_models(
 	models::Array{Lar.LAR,1})
 
 	n_models = length(models)
-	Threads.@threads for model in models
+	Threads.@threads for i in 1:n_models
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $n_models ----")
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
