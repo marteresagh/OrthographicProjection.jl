@@ -83,6 +83,4 @@ function extract_models(
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
 		segment(txtpotreedirs, output, models[i], "temp_$i.las") # slicing point cloud
 	end
-
-	return planes
 end
