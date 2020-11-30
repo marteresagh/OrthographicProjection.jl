@@ -1,5 +1,5 @@
 """
-Initialize usefull parameters.
+Initialize parameters for orthofraphic projection algorithm.
 """
 function init(
 	txtpotreedirs::String,

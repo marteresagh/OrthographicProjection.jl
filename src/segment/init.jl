@@ -1,3 +1,6 @@
+"""
+Initialize parameters for segment algorithm.
+"""
 function init(txtpotreedirs::String,
 	outputfile::String,
 	model::Lar.LAR
