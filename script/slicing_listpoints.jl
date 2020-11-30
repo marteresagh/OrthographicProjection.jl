@@ -61,6 +61,9 @@ function main()
 	if length(b) == 6
 		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
+	
+	axis_y = tryparse.(Float64,split(axis_, " "))
+	@assert length(axis_y) == 3 "a 3D axis needed"
 
 	proj_folder, models = OrthographicProjection.preprocess(project_name, output_folder, bbin, file_listpoints, axis_y, thickness)
 	OrthographicProjection.extract_models(txtpotreedirs, project_name, proj_folder, bbin, models)
