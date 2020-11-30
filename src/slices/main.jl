@@ -60,6 +60,48 @@ function preprocess(
 	end
 end
 
+
+
+"""
+preprocess(
+	project_name::String,
+	output_folder::String,
+	bbin::Union{AABB,String},
+	file_listpoints::String,
+	axis_y::Array{Float64,1},
+	thickness::Float64
+	)
+
+Create project folder and create LAR models of thickness planes described by two points (read in file) and a vector in plane.
+"""
+function preprocess(
+	project_name::String,
+	output_folder::String,
+	bbin::Union{AABB,String},
+	file_listpoints::String,
+	axis_y::Array{Float64,1},
+	thickness::Float64
+	)
+
+	proj_folder = FileManager.mkdir_project(output_folder, project_name)
+	V,EVs = FileManager.load_segment(file_listpoints)
+
+	models = Lar.LAR[]
+
+	for EV in EVs
+		try
+			model = Common.plane2model(V[EV[1]],V[EV[2]],axis_y,thickness,bbin)
+			push!(models,model)
+		catch y
+			flushprintln("ERROR: Plane not consistent")
+			io = open(joinpath(proj_folder,"process.prob"),"w")
+			close(io)
+		end
+	end
+
+	return proj_folder, models
+end
+
 """
 get_parallel_sections(
 	txtpotreedirs::String,

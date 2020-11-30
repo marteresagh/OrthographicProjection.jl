@@ -3,11 +3,7 @@ function init(txtpotreedirs::String,
 	model::Lar.LAR
 	)
 
-	if isfile(txtpotreedirs)
-		potreedirs = FileManager.get_directories(txtpotreedirs)
-	elseif isdir(txtpotreedirs)
-		potreedirs = [txtpotreedirs]
-	end
+	potreedirs = get_potree_dirs(txtpotreedirs)
 
 	aabb = Common.boundingbox(model[1])
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)

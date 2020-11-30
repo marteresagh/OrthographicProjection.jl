@@ -1,3 +1,4 @@
+# ----------------------  SAVES
 """
 Save point cloud extracted file .las.
 """
@@ -51,4 +52,18 @@ function saveimage(params::ParametersOrthophoto)
 	save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
 
 	flushprintln("Image: done ...")
+end
+# ----------------------  SAVES
+
+"""
+get_potree_dirs(txtpotreedirs::String)
+
+Return collection of potree directories.
+"""
+function get_potree_dirs(txtpotreedirs::String)
+    if isfile(txtpotreedirs)
+        return FileManager.get_directories(txtpotreedirs)
+    elseif isdir(txtpotreedirs)
+         return [txtpotreedirs]
+    end
 end

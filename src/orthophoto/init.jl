@@ -20,12 +20,7 @@ function init(
 
 	outputfile = splitext(outputimage)[1]*".las"
 
-	if isfile(txtpotreedirs)
-		potreedirs = FileManager.get_directories(txtpotreedirs)
-	elseif isdir(txtpotreedirs)
-		potreedirs = [txtpotreedirs]
-	end
-
+	potreedirs = get_potree_dirs(txtpotreedirs)
 
 	if typeof(ucs) == Matrix{Float64}
 		coordsystemmatrix = PO2matrix(PO,ucs)

@@ -58,3 +58,31 @@ function update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::
 	n = n+1 # count the points written
 	return n
 end
+
+"""
+get_sections(
+	txtpotreedirs::String,
+	project_name::String,
+	proj_folder::String,
+	bbin::Union{AABB,String},
+	models::Array{Lar.LAR,1})
+
+For each model in models extracts and saves the clipped point cloud.
+"""
+function extract_models(
+	txtpotreedirs::String,
+	project_name::String,
+	proj_folder::String,
+	bbin::Union{AABB,String},
+	models::Array{Lar.LAR,1})
+
+	n_models = length(models)
+	Threads.@threads for model in models
+		flushprintln(" ")
+		flushprintln(" ---- Section $i of $n_models ----")
+		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
+		segment(txtpotreedirs, output, model, "temp_$i.las") # slicing point cloud
+	end
+
+	return planes
+end
