@@ -90,7 +90,7 @@ function preprocess(
 
 	for EV in EVs
 		try
-			model = Common.plane2model(V[EV[1],:],V[EV[2],:],axis_y,thickness,bbin)
+			model = Common.plane2model(V[:,EV[1]],V[:,EV[2]],axis_y,thickness,bbin)
 			push!(models,model)
 		catch y
 			flushprintln("ERROR: Plane not consistent")
