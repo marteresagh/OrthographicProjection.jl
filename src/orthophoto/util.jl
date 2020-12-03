@@ -65,7 +65,7 @@ function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, mo
 	# RASTER IMAGE MATRIX
 	rasterChannels = 3
 
-	RGBtensor = fill(1.,(rasterChannels,resY, resX))
+	RGBtensor = fill(1.,(rasterChannels, resY, resX))
 	RGBtensor[1,:,:].= BGcolor[1]
 	RGBtensor[2,:,:].= BGcolor[2]
 	RGBtensor[3,:,:].= BGcolor[3]
