@@ -1,5 +1,14 @@
 """
-Basis.
+	PO2matrix(PO::String, UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
+
+Observation point.
+Valid input:
+ - "XY+": Top view
+ - "XY-": Bottom view
+ - "XZ+": Back view
+ - "XZ-": Front view
+ - "YZ+": Left view
+ - "YZ-": Right view
 """
 function PO2matrix(PO::String, UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
     planecode = PO[1:2]
@@ -39,15 +48,17 @@ end
 
 
 """
-initialize raster image.
+	init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
+
+Orthoprojection of `model` on plane defined by `matrix`, create a raster image with background color `BGcolor`.
 """
-function init_raster_array(coordsystemmatrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
+function init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
 
 	verts,edges,faces = model
 	bbglobalextention = zeros(2)
 	ref = zeros(2)
 
-	newcoord = coordsystemmatrix*verts
+	newcoord = matrix*verts
 
 	for i in 1:2
 		extr = extrema(newcoord[i,:])
