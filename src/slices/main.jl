@@ -49,7 +49,7 @@ function preprocess(
 	proj_folder = FileManager.mkdir_project(output_folder, project_name)
 
 	try
-		plane = OrthographicProjection.Plane(p1,p2,axis_y)
+		plane = Plane(p1,p2,axis_y)
 		model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
 		return proj_folder, plane, model
 	catch y
