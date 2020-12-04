@@ -55,6 +55,12 @@ function orthophoto(
 	# saves image
 	saveimage(params)
 
+	if n!=0
+		proj_folder = splitdir(params.outputfile)[1]
+		io = open(joinpath(proj_folder,"execution.prob"),"w")
+		close(io)
+	end
+	
 	# saves point cloud extracted
 	if pc
 		savepointcloud(params, n, temp)
