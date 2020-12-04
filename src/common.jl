@@ -16,6 +16,9 @@ function savepointcloud(
 	flushprintln("Extracted $n points")
 
 	if n != 0 # if n == 0 nothing to save
+		proj_folder = splitdir(params.outputfile)[1]
+		io = open(joinpath(proj_folder,"execution.prob"),"w")
+		close(io)
 		# in temp : list of las point records
 		open(temp) do s
 			# write las
