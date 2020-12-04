@@ -33,6 +33,11 @@ function init(
 	aabb = Common.boundingbox(model[1])
 
 	if !isnothing(quota) && !isnothing(thickness)
+		directionview = PO[3]
+	    if directionview == '-'
+			quota = -quota
+		end
+
 		model = Common.plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 	end
 

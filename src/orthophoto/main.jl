@@ -43,7 +43,7 @@ function orthophoto(
 	)
 
 	# initialization
-	params = init( txtpotreedirs, outputimage, bbin, GSD,	PO,	quota,	thickness,	ucs, BGcolor, pc);
+	params = init( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness,	ucs, BGcolor, pc);
 
 	# image creation
 	flushprintln("========= PROCESSING =========")
