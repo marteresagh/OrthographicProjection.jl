@@ -14,6 +14,9 @@ julia:
 notifications:
   email: false
 
+install:
+  - pip install scipy
+  
 after_success:
   - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage");'
   - julia -e 'using Pkg; Pkg.add("https://github.com/marteresagh/Common.jl"); Pkg.add("https://github.com/marteresagh/FileManager.jl");'
