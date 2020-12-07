@@ -13,6 +13,11 @@ julia:
 
 notifications:
   email: false
+
+after_success:
+  - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage");'
+  - julia -e 'using Pkg; Pkg.add("https://github.com/marteresagh/Common.jl"); Pkg.add("https://github.com/marteresagh/FileManager.jl");'
+
 jobs:
   include:
     - stage: "Documentation"

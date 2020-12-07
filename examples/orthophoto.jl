@@ -10,10 +10,10 @@ bbin = metadata.tightBoundingBox
 #bbin = "C://Users//marte//Documents//GEOWEB//FilePotree//orthoCAVA//volume.json"
 ucs = Matrix{Float64}(Lar.I,3,3)
 GSD = 0.3
-PO = "XY-"
-quota = 210. #458277.430, 4493982.030, 210.840
+PO = "XZ+"
+quota = 4493900.030 #458277.430, 4493982.030, 210.840
 thickness = 1.
-outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/PROVAVISTANEG.jpg"
+outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/PROVA_AABB.jpg"
 pc = true
 background = [0.0,0.0,0.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)

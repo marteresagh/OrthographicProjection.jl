@@ -37,7 +37,6 @@ function init(
 	    if directionview == '-'
 			quota = -quota
 		end
-
 		model = Common.plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 	end
 
