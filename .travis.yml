@@ -2,7 +2,7 @@ language: julia
 
 os:
   - linux
-  - osx
+#  - osx
 
 branches:
   only:
@@ -17,9 +17,12 @@ notifications:
 addons:
   apt:
     packages:
-      - python3-pip
+      - python3.7
 
 before_install:
+  - sudo apt-get update
+  - sudo apt-get install python3 python3-pip python3-setuptools
+  - pip3 install --upgrade pip
   - pip3 install scipy
 
 after_success:
