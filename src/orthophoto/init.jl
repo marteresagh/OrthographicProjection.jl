@@ -38,9 +38,9 @@ function init(
 			quota = -quota
 		end
 		model = Common.plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
+		aabb = Common.boundingbox(model[1])
 	end
 
-	aabb = Common.boundingbox(model[1])
 
 	RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
