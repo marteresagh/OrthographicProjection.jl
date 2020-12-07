@@ -14,9 +14,18 @@ julia:
 notifications:
   email: false
 
-install:
-  - pip install scipy
-  
+addons:
+  apt:
+    packages:
+      - python3.7
+
+before_install:
+  - sudo apt-get update
+  - sudo apt purge python2.7-minimal
+  - sudo apt-get install python3 python3-pip python3-setuptools
+  - pip3 install --upgrade pip
+  - pip3 install scipy
+
 after_success:
   - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage");'
   - julia -e 'using Pkg; Pkg.add("https://github.com/marteresagh/Common.jl"); Pkg.add("https://github.com/marteresagh/FileManager.jl");'
