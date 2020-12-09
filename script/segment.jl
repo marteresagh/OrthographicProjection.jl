@@ -45,9 +45,9 @@ function main()
 
 	bbox = args["bbox"]
 	jsonfile = args["jsonfile"]
-	position_ = args["position"]
-	scale_ = args["scale"]
-	rotation_ = args["rotation"]
+	position_ = args["c"]
+	scale_ = args["e"]
+	rotation_ = args["r"]
 	output = args["output"]
 	txtpotreedirs = args["source"]
 
