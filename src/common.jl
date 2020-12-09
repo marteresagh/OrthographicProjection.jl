@@ -30,8 +30,13 @@ function savepointcloud(
 				end
 			end
 		end
-
+		# qui ho generato un file las,
+		# lo leggo e aggiorno il bb e quindi salvo .. posso salvare come file laz a questo punto??
+		h, pvec = FileManager.read_LAS_LAZ(params.outputfile)
+		LasIO.update!(h, pvec)
+		LasIO.FileIO.save(params.outputfile,h,pvec)
 	end
+
 
 	rm(temp) # remove temp
 	flushprintln("Point cloud: done ...")
