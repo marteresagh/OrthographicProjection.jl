@@ -1,8 +1,8 @@
 language: julia
 
 os:
-  - linux
-#  - osx
+#  - linux
+  - osx
 
 branches:
   only:
@@ -14,23 +14,6 @@ julia:
 notifications:
   email: false
 
-dist: "trusty" # otherwise 'python3-pip' won't be available
-
-addons:
-  apt:
-    packages:
-      - "python3"
-      - "python3-pip"
-
-before_install:
- - python3-pip install scipy
-#
-# before_install:
-#   - sudo apt-get update
-#   - sudo apt-get install python3 python3-pip python3-setuptools
-#   - pip3 install --upgrade pip
-#   - pip3 install scipy
-
 after_success:
   - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage");'
   - julia -e 'using Pkg; Pkg.add("https://github.com/marteresagh/Common.jl"); Pkg.add("https://github.com/marteresagh/FileManager.jl");'
@@ -39,7 +22,7 @@ jobs:
   include:
     - stage: "Documentation"
       julia: 1.4
-      os: linux
+      os: osx
       script:
         - julia --project=docs/ -e 'using Pkg; Pkg.instantiate();
                                     Pkg.add(PackageSpec(path=pwd()))'
