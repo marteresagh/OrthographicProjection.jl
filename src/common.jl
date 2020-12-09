@@ -32,6 +32,7 @@ function savepointcloud(
 		end
 
 		#update header bounding box
+		flushprintln("Point cloud: update bbox ...")
 		h, pvec = LasIO.FileIO.load(params.outputfile)
 		LasIO.update!(h, pvec)
 		LasIO.FileIO.save(params.outputfile,h,pvec)
