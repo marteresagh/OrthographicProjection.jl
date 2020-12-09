@@ -13,13 +13,20 @@ julia:
 notifications:
   email: false
 
-jobs:
-  include:
-    - stage: "Documentation"
-      julia: 1.4
-      os: osx
-      script:
-        - julia --project=docs/ -e 'using Pkg; Pkg.instantiate();
-                                    Pkg.add(PackageSpec(path=pwd()))'
-        - julia --project=docs/ docs/make.jl
-      after_succes: skip
+install:
+ - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/cvdlab/LinearAlgebraicRepresentation.jl"))';
+ - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/marteresagh/Common.jl"))';
+ - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/marteresagh/FileManager.jl."))';
+
+after_success:
+ - julia -e 'using Pkg; cd(Pkg.dir("OrthographicProjection")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())';
+ - julia -e 'using Pkg; Pkg.add("Documenter"); include(joinpath("docs", "make.jl"))';
+
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
