@@ -18,3 +18,16 @@ GL.VIEW(
     Visualization.points_color_from_rgb(PC.coordinates,PC.rgbs)
     ]
 )
+
+# DEBUG
+# params = OrthographicProjection.init( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc);
+
+# all_files = FileManager.get_files_in_potree_folder(potreedirs[1],0, true)
+# PC = FileManager.las2pointcloud(all_files...)
+# point cloud
+# GL.VIEW(
+#     [
+#     GL.GLGrid(V,EV),
+# 	Visualization.points_color_from_rgb(PC.coordinates,PC.rgbs)
+#     ]
+# )
