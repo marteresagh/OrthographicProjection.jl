@@ -1,5 +1,7 @@
 language: julia
 
+sudo: false
+
 os:
   - linux
 #  - osx
@@ -23,6 +25,7 @@ addons:
       - "python3-pip"
 
 before_install:
+ - "pip3 install -r docs/requirements.txt"
  - pip3 install scipy
 #
 # before_install:
