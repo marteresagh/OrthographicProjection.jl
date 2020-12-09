@@ -1,7 +1,5 @@
 language: julia
 
-sudo: false
-
 os:
   - linux
 #  - osx
@@ -25,7 +23,7 @@ addons:
       - "python3-pip"
 
 before_install:
- - "pip3 install -r docs/requirements.txt"
+ - pip3 install -r docs/requirements.txt
  - pip3 install scipy
 #
 # before_install:
@@ -47,4 +45,4 @@ jobs:
         - julia --project=docs/ -e 'using Pkg; Pkg.instantiate();
                                     Pkg.add(PackageSpec(path=pwd()))'
         - julia --project=docs/ docs/make.jl
-      after_succes: skip
+      after_success: skip
