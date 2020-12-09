@@ -14,7 +14,6 @@ notifications:
   email: false
 
 install:
- - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/cvdlab/LinearAlgebraicRepresentation.jl"))';
  - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/marteresagh/Common.jl"))';
  - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/marteresagh/FileManager.jl."))';
 
