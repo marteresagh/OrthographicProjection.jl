@@ -40,7 +40,9 @@ function main()
 
 	OrthographicProjection.flushprintln("== params ==")
 	for (arg,val) in args
-		OrthographicProjection.flushprintln("$arg  =>  $val")
+		if !isnothing(val)
+			OrthographicProjection.flushprintln("$arg  =>  $val")
+		end
 	end
 
 	bbox = args["bbox"]
@@ -59,7 +61,7 @@ function main()
 		bbox = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 		model = OrthographicProjection.getmodel(bbox)
 	elseif !isnothing(jsonfile)
-		model = OrthographicProjection.getmodel(bbox)
+		model = OrthographicProjection.getmodel(jsonfile)
 	else
 		scale = tryparse.(Float64,split(scale_, " "))
 		@assert length(scale) == 3 "a 3D vector needed"
