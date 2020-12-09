@@ -23,7 +23,7 @@ addons:
       - "python3-pip"
 
 before_install:
- - pytho3-pip install scipy
+ - python3-pip install scipy
 #
 # before_install:
 #   - sudo apt-get update
