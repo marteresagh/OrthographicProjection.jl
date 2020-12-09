@@ -13,9 +13,6 @@ julia:
 notifications:
   email: false
 
-before_install:
-  - julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/marteresagh/Common.jl")); Pkg.add(PackageSpec(url="https://github.com/marteresagh/FileManager.jl"));'
-
 after_success:
   - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage");'
 
