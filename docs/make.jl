@@ -10,7 +10,5 @@ makedocs(
 
 
 deploydocs(
-	devurl = "",
-	versions = ["stable" => "v^", "v#.#"],
 	repo = "github.com/marteresagh/OrthographicProjection.jl.git"
 )
