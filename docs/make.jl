@@ -2,7 +2,7 @@ using Documenter
 using OrthographicProjection
 
 makedocs(
-	format = :html,
+	format = Documenter.HTML(),
 	sitename = "OrthographicProjection.jl",
 	assets = ["assets/OrthographicProjection.css", "assets/logo.jpg"],
 	modules = [OrthographicProjection]
