@@ -2,9 +2,8 @@ using Documenter
 using OrthographicProjection
 
 makedocs(
-	format = Documenter.HTML(),
+	format = Documenter.HTML(assets = ["assets/OrthographicProjection.css", "assets/logo.jpg"]),
 	sitename = "OrthographicProjection.jl",
-	assets = ["assets/OrthographicProjection.css", "assets/logo.jpg"],
 	modules = [OrthographicProjection]
 )
 
