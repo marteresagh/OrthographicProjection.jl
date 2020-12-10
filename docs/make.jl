@@ -1,14 +1,36 @@
 using Documenter
 using OrthographicProjection
 
+# makedocs(
+# 	format = Documenter.HTML(),
+# 	sitename = "OrthographicProjection.jl",
+# 	#assets = ["assets/OrthographicProjection.css", "assets/logo.jpg"],
+# 	modules = [OrthographicProjection]
+# )
+#
+#
+# deploydocs(
+# 	repo = "github.com/marteresagh/OrthographicProjection.jl.git"
+# )
+
+
 makedocs(
-	format = Documenter.HTML(),
-	sitename = "OrthographicProjection.jl",
-	#assets = ["assets/OrthographicProjection.css", "assets/logo.jpg"],
-	modules = [OrthographicProjection]
+    format = Documenter.HTML(
+        prettyurls = "deploy" in ARGS,
+    ),
+    sitename = "OrthographicProjection.jl",
+    pages = [
+        "Home" => "index.md",
+
+        "Getting Started" => "gettingStarted.md",
+
+        "Examples" => "examples.md",
+
+        "References" => "refs.md",
+    ]
 )
 
-
 deploydocs(
-	repo = "github.com/marteresagh/OrthographicProjection.jl.git"
+    repo = "github.com/marteresagh/OrthographicProjection.jl.git",
+    push_preview = true,
 )
