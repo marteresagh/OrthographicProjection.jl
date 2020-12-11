@@ -22,7 +22,7 @@ makedocs(
     pages = [
         "Home" => "index.md",
         "Description" => "description.md",
-        "How To" => "tutorials.md"
+        "How To" => "tutorials.md",
         "Results" => "results.md",
         "Script" => "script.md",
         "References" => "refs.md",
