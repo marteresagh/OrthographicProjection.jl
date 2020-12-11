@@ -21,7 +21,6 @@ makedocs(
     sitename = "OrthographicProjection.jl",
     pages = [
         "Home" => "index.md",
-        "Getting Started" => "gettingStarted.md",
         "Description" => "description.md",
         "How To" => "tutorials.md"
         "Results" => "results.md",
