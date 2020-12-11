@@ -25,7 +25,7 @@ This package is not in a registry, it can be added by instead of the package nam
  - [```FileManager.jl```](https://github.com/marteresagh/FileManager.jl)
  - [```Images.jl```](https://github.com/JuliaImages/Images.jl)
 
-### Structure of documentation
+# Structure of documentation
 
 This documentation is a collection of several parts:
 
