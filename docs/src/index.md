@@ -8,6 +8,8 @@
 
 ## Installation
 
+To install a Julia package you have to use the package manager Pkg. Enter the Pkg REPL by pressing ] from the Julia REPL and then use the command `add`.
+
 This package is not in a registry, it can be added by instead of the package name giving the URL to the repository to add.
 
  ```julia
@@ -16,10 +18,13 @@ This package is not in a registry, it can be added by instead of the package nam
 
 ## Dependencies
 
+![grafo delle dipendenze](ortho_graph.png "Dependencies graph")
+
 `OrthographicProjection.jl` has the following dependencies:
  - [```Common.jl```](https://github.com/marteresagh/Common.jl)
  - [```FileManager.jl```](https://github.com/marteresagh/FileManager.jl)
  - [```Images.jl```](https://github.com/JuliaImages/Images.jl)
+
 
 ### Structure of documentation
 
