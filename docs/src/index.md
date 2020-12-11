@@ -16,11 +16,9 @@ This package is not in a registry, it can be added by instead of the package nam
  (@v1.4) pkg> add https://github.com/marteresagh/OrthographicProjection.jl
  ```
 
-[/ eventuali problemi di installazione /]
-
 ## Dependencies
 
-![grafo delle dipendenze](./images/ortho_graph.png "Dependencies graph")
+![grafo delle dipendenze](./images/ortho_graph.png)
 
 `OrthographicProjection.jl` has the following dependencies:
  - [```Common.jl```](https://github.com/marteresagh/Common.jl)

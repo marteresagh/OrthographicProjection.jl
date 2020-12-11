@@ -1,15 +1,17 @@
 # Description
 
-Questo modulo implementa due principali algortimi:
- - segmentazione:
- - orthophoto:
+In this package you can find two main algorithms:
+ - *segment*: allows you to separate the points of a 3D point cloud contained in a volume,
+ - *orthophoto*: generates the image as orthographic projection of 3D point cloud with respect to a chosen plane
+
+Both of them has the same core function.
 
 ## Input Point Cloud
-Le nuvole di punti in input per questo modulo sono dei progetti Potree, una struttura basata su octree descritta da MArk schuez  
+To manage a point cloud with huge number of points we use Potree project, achieved with the tool [PotreeConverter 1.7](https://github.com/potree/PotreeConverter/tree/master).
 
 ### Potree
 
-A Potree is a data structure, based on octree, described by Markus Schütz [link da inserire].
+A Potree is a data structure used to stored huge point clouds, based on octree. All details of this structures are described by Markus Schütz in his [thesis](https://www.cg.tuwien.ac.at/research/publications/2016/SCHUETZ-2016-POT/SCHUETZ-2016-POT-thesis.pdf).
 
 ![potree][images/Octree.jpg "Potree: Root node in orange, first child in red, and its second child in blue."]
 
@@ -25,7 +27,7 @@ Due to particular way of tagging nodes, it is possible store Potree in a trie da
 - boolean value, indicating the end of word.
 
 
-#### Traversal of a trie
+### Core function: traversal of a trie
 
 descrizione del traversal dei trie
 
