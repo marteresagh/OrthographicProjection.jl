@@ -1,7 +1,7 @@
 # OrthographicProjection
 
 `OrthographicProjection.jl` is a [Julia](http://julialang.org) library created for two main purposes:
- - generate images as orthographic projection of a point cloud with respect to a chosen plane,
+ - generate orthophoto of a point cloud with respect to a chosen plane,
  - segment a point cloud.
 
 # Getting started
@@ -16,9 +16,11 @@ This package is not in a registry, it can be added by instead of the package nam
  (@v1.4) pkg> add https://github.com/marteresagh/OrthographicProjection.jl
  ```
 
+[/ eventuali problemi di installazione /]
+
 ## Dependencies
 
-![grafo delle dipendenze](ortho_graph.png "Dependencies graph")
+![grafo delle dipendenze](images/ortho_graph.png "Dependencies graph")
 
 `OrthographicProjection.jl` has the following dependencies:
  - [```Common.jl```](https://github.com/marteresagh/Common.jl)
