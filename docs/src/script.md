@@ -1,5 +1,3 @@
-# Examples
-
 # Script Usage
 
 ## orthophoto.jl

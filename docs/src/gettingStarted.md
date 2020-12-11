@@ -10,8 +10,9 @@ This package is not in a registry, it can be added by instead of the package nam
 (@v1.4) pkg> add https://github.com/marteresagh/OrthographicProjection.jl
 ```
 
-Adding these gives you a basic image IO setup:
+## Dependencies
 
-```julia
-(@v1.4) pkg> add FileIO ImageMagick ImageIO
-```
+`OrthographicProjection.jl` has the following dependencies:
+ - [```Common.jl```](https://github.com/marteresagh/Common.jl)
+ - [```FileManager.jl```](https://github.com/marteresagh/FileManager.jl)
+ - [```Images.jl```](https://github.com/JuliaImages/Images.jl)
