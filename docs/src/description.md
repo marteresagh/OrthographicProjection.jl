@@ -11,7 +11,7 @@ To manage a point cloud with huge number of points we use Potree project, achiev
 
 ### Potree
 
-A Potree is a data structure used to stored huge point clouds, based on octree. All details of this structures are described by Markus Schütz in his [thesis](https://www.cg.tuwien.ac.at/research/publications/2016/SCHUETZ-2016-POT/SCHUETZ-2016-POT-thesis.pdf).
+A Potree is a data structure used to stored huge point clouds, based on octree. All details of this structure are described by Markus Schütz in his [thesis](https://www.cg.tuwien.ac.at/research/publications/2016/SCHUETZ-2016-POT/SCHUETZ-2016-POT-thesis.pdf).
 
 ![potree][images/Octree.jpg "Potree: Root node in orange, first child in red, and its second child in blue."]
 
