@@ -1,7 +1,7 @@
 # Description
 In this package you can find two main algorithms:
- - *segment*: allows you to separate the points of a 3D point cloud contained in a volume,
- - *orthophoto*: generates the image as orthographic projection of 3D point cloud with respect to a chosen plane
+ - *segment* : allows you to separate the points of a 3D point cloud contained in a volume,
+ - *orthophoto* : generates the image as orthographic projection of 3D point cloud with respect to a chosen plane
 
 Both of them has the same **core function**, that takes as input a [point cloud Potree project](https://github.com/potree/potree) and a [cuboidal LAR model](https://github.com/cvdlab/LinearAlgebraicRepresentation.jl).
 
@@ -11,7 +11,7 @@ To manage a point cloud with huge number of points we use Potree project, achiev
 ### Potree
 A Potree is a data structure used to store huge point clouds, based on octree. All details of this structure are described by Markus Schütz in his [thesis](https://www.cg.tuwien.ac.at/research/publications/2016/SCHUETZ-2016-POT/SCHUETZ-2016-POT-thesis.pdf).
 
-![potree](./images/Octree.jpg "Potree: Root node in orange, first child in red, and its second child in blue.")
+![potree](./images/Octree.jpg)
 
 A Potree project is a collection of files, for each node of the octree there is a file called r, followed by a numeric code indicating its position in the hierarchy, for example:
  - r is the root node,
