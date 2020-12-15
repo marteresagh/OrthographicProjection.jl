@@ -10,7 +10,7 @@ function parse_commandline()
 
 	@add_arg_table! s begin
 	"source"
-		help = "A text file with Potree directory list"
+		help = "A text file with Potree directories list or a single Potree directory"
 		arg_type = String
 		required = true
 	"--projectname", "-p"
@@ -41,10 +41,10 @@ function parse_commandline()
 		arg_type = Float64
 		default = 0.1
 	"--step"
-		help = "Distance between sections"
+		help = "Constant distance between sections"
 		arg_type = Float64
 	"--n"
-		help = "Distance between sections"
+		help = "Number of sections"
 		arg_type = Int64
 	"--steps"
 		help = "Distance between sections"

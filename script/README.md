@@ -1,3 +1,5 @@
+% TODO: inserire foto
+
 # Script Usage
 
 ## orthophoto.jl
@@ -32,7 +34,7 @@ optional arguments:
 Examples:
 
     # Orthographic projection of top view
-    julia orthophoto.jl C:/Potree_projects.txt -o C:/image.jpg --bbin "0 0 0 1 1 1" --bgcolor "0 0 0"
+    julia orthophoto.jl "C:/Potree_projects.txt" -o "C:/image.jpg" --bbin "0 0 0 1 1 1" --bgcolor "0 0 0"
 
 
 ## segment.jl
@@ -68,10 +70,62 @@ optional arguments:
 Examples:
 
     # axis aligned bounding box
-    julia segment.jl C:/Potree_projects.txt -o C:/partition.las --bbox "0 0 0 1 1 1"
+    julia segment.jl "C:/Potree_projects.txt" -o "C:/partition.las" --bbox "0 0 0 1 1 1"
 
     # JSON format
-    julia segment.jl C:/Potree_projects.txt -o C:/partition.las --jsonfile "C:/volume.json"
+    julia segment.jl "C:/Potree_projects.txt" -o "C:/partition.las" --jsonfile "C:/volume.json"
 
     # position, scale, rotation
-    julia segment.jl C:/Potree_projects.txt -o C:/partition.las --c "0. 0. 0." --e "1. 1. 1." --r "1.5707963267948966 0. 0."
+    julia segment.jl "C:/Potree_projects.txt" -o "C:/partition.las" --c "0. 0. 0." --e "1. 1. 1." --r "1.5707963267948966 0. 0."
+
+
+## slicing.jl
+
+Point cloud slicing.
+
+Return one LAS file per slice.
+
+![params](../docs/src/images/pamrametri_slicing.jpg)
+
+First slice is described with these parameters:
+ - *p1*: start point
+ - *p2*: end point
+ - *axis*: a versor of plane
+ - *thickness*: thickness
+
+Step between slices can be constant or variable, see Figure.
+
+Options:
+
+```
+$ julia slicing.jl -h   
+
+positional arguments:
+  source                A text file with Potree directories list or a
+                        single Potree directory
+
+optional arguments:
+  -p, --projectname PROJECTNAME
+                        Project name
+  -o, --output OUTPUT   Output folder
+  --bbin BBIN           Bounding box as 'x_min y_min z_min x_max y_max
+                        z_max' or Potree JSON volume model
+  --p1 P1               Start point
+  --p2 P2               End point
+  --axis AXIS           A vector in plane (default: "0 0 1")
+  --thickness THICKNESS
+                        Section thickness (type: Float64, default:
+                        0.1)
+  --step STEP           Distance between sections (type: Float64)
+  --n N                 Distance between sections (type: Int64)
+  --steps STEPS         Distance between sections
+  -h, --help            show this help message and exit
+```
+
+Examples:
+
+    # Costant Distance
+    julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --step 1 --n 10
+
+    # Costant Distance
+    julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --steps "1 1 2 3 1 1 5 6"
