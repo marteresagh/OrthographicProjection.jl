@@ -116,8 +116,8 @@ optional arguments:
   --thickness THICKNESS
                         Section thickness (type: Float64, default:
                         0.1)
-  --step STEP           Distance between sections (type: Float64)
-  --n N                 Distance between sections (type: Int64)
+  --step STEP           Constant distance between sections (type: Float64)
+  --n N                 Number of sections (type: Int64)
   --steps STEPS         Distance between sections
   -h, --help            show this help message and exit
 ```
