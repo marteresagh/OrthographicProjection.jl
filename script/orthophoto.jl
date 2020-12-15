@@ -16,7 +16,7 @@ function parse_commandline()
             help = "Bounding box as 'x_min y_min z_min x_max y_max z_max' or Potree JSON volume model"
 			required = true
 		"--po"
-            help = "Orthographic projection: XY+, XY-, XZ+, XZ-, YZ+, YZ-"
+            help = "Projection plane: XY+, XY-, XZ+, XZ-, YZ+, YZ-"
 			arg_type = String
             default = "XY+"
         "--gsd"
@@ -33,13 +33,13 @@ function parse_commandline()
 			help = "If true a pc of extracted model is saved in a LAS file"
 			action = :store_true
 		"--ucs"
-			help = "Path to UCS JSON file. If not provided is the Identity matrix."
+			help = "Path to UCS JSON file. If not provided is the Identity matrix"
 			arg_type = String
 		"--bgcolor"
 			help = "Background color"
 			arg_type = String
         "source"
-            help = "A text file with Potree directory list"
+            help = "A text file with Potree directories list or a single Potree directory"
             required = true
     end
 

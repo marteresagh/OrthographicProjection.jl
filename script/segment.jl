@@ -10,10 +10,10 @@ function parse_commandline()
 
     @add_arg_table! s begin
 		"--output", "-o"
-            help = "Output file: LAS"
+            help = "Output file: LAS format"
 			required = true
         "source"
-            help = "A text file with Potree directory list"
+            help = "A text file with Potree directories list or a single Potree directory"
             required = true
 		"--bbox"
 			help = "Bounding box as 'x_min y_min z_min x_max y_max z_max'"
@@ -22,13 +22,13 @@ function parse_commandline()
 	    	help = "Path to Potree JSON volume model"
 			arg_type = String
 		"--c"
-			help = "Position"
+			help = "Position: center of volume"
 			arg_type = String
 		"--e"
-			help = "Scale"
+			help = "Scale: size of box"
 			arg_type = String
 		"--r"
-			help = "Rotation"
+			help = "Rotation: Euler angles (radians) of rotation of box"
 			arg_type = String
     end
 
