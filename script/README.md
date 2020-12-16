@@ -93,7 +93,7 @@ First slice is described with these parameters:
 
 Step between slices can be constant or variable, as shown in Figure below. If not provided returns only first slice.
 
-![params](../docs/images/parametri_slicing.jpg)
+<img src="../docs/images/parametri_slicing.jpg">
 
 Options:
 
