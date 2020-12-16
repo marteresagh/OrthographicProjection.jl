@@ -23,11 +23,11 @@ Due to particular way of tagging nodes, it is possible store Potree in a trie da
 - a map, where key is a digit and the value is trie node, used to establish the parent-child relationship;
 - boolean value, indicating the end of word.
 
-### Core Function: Trie Traversal
+## Core Function: Trie Traversal
 To process points we travers trie guided by intersection between models: bounding box of current node and input volume.
 
-### Create image
+## Create image
 TODO : raster image
 
-### Segment
+## Segment
 TODO: salvataggio dei punti che ricadono nel modello
