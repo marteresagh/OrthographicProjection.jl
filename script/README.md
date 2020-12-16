@@ -85,15 +85,15 @@ Point cloud slicing.
 
 Return one LAS file per slice.
 
-![params](../docs/src/images/pamrametri_slicing.jpg)
-
 First slice is described with these parameters:
  - *p1*: start point
  - *p2*: end point
  - *axis*: a versor of plane
  - *thickness*: thickness
 
-Step between slices can be constant or variable, see Figure.
+Step between slices can be constant or variable, see Figure below.
+
+![params](./docs/images/parametri_slicing.jpg)
 
 Options:
 
@@ -127,5 +127,5 @@ Examples:
     # Costant Distance
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --step 1 --n 10
 
-    # Costant Distance
+    # Variable Distance
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --steps "1 1 2 3 1 1 5 6"
