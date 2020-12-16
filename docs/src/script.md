@@ -91,7 +91,7 @@ First slice is described with these parameters:
  - *axis*: a versor of plane
  - *thickness*: thickness
 
-Step between slices can be constant or variable, see Figure below.
+ Step between slices can be constant or variable, as shown in Figure below. If not provided returns only first slice.
 
 ![params](./images/parametri_slicing.jpg)
 
@@ -124,8 +124,11 @@ optional arguments:
 
 Examples:
 
-    # Costant Distance
+    # One slice
+    julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2
+
+    # Costant distance between slice
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --step 1 --n 10
 
-    # Variable Distance
+    # Variable distance between slice
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --steps "1 1 2 3 1 1 5 6"
