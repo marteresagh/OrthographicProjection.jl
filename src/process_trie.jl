@@ -47,7 +47,7 @@ DFS.
 """
 function dfs(t::DataStructures.Trie{String},
 	params::Union{ParametersOrthophoto,ParametersExtraction},
-	s::Union{Nothing,IOStream}, n::Int64, nfiles::Int64, l::Int64)
+	s::Union{Nothing,IOStream},n::Int64,nfiles::Int64,l::Int64)
 
 	file = t.value # path to node file
 	nodebb = FileManager.las2aabb(file) # aabb of current octree
