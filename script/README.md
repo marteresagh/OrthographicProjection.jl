@@ -39,7 +39,7 @@ Examples:
 
 Point cloud segmentation.
 
-Cut points contained in a volume described by:
+Clipping volume are described by:
  - *bbox*: axis aligned bounding box
  - *jsonfile*: JSON format
  - *c,e,r*: position, scale, rotation
