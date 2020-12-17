@@ -1,7 +1,7 @@
 """
 Process file in trie.
 """
-function process_trie(params::Union{ParametersExtraction,ParametersOrthophoto},s)
+function process_trie(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
 
 	n = 0 # total points processed
 	nfiles = nothing # total files processed
@@ -47,7 +47,7 @@ DFS.
 """
 function dfs(t::DataStructures.Trie{String},
 	params::Union{ParametersOrthophoto,ParametersExtraction},
-	s,n::Int64,nfiles::Int64,l::Int64)
+	s::Union{Nothing,IOStream}, n::Int64, nfiles::Int64, l::Int64)
 
 	file = t.value # path to node file
 	nodebb = FileManager.las2aabb(file) # aabb of current octree
