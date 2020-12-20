@@ -144,7 +144,7 @@ function get_parallel_sections(
 	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $n_sections ----")
-		T = Common.apply_matrix(Lar.t(plane.matrix[1:3,3]*indices[i]*step...),V) # traslate model
+		T = Common.apply_matrix(Lar.t(Lar.inv(plane.matrix)[1:3,3]*indices[i]*step...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(indices[i]).las"
@@ -170,7 +170,7 @@ function get_parallel_sections(
 	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $(n_sections) ----")
-		T = Common.apply_matrix(Lar.t(-plane.matrix[1:3,3]*sum(steps[1:i])...),V) # traslate model
+		T = Common.apply_matrix(Lar.t(-Lar.inv(plane.matrix)[1:3,3]*sum(steps[1:i])...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
