@@ -1,7 +1,9 @@
 """
-Process file in trie.
+	trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
+
+Trie traversal.
 """
-function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
+function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto}, s::Union{Nothing,IOStream})
 
 	n = 0 # total points processed
 	nfiles = nothing # total files processed
@@ -43,7 +45,11 @@ function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto}
 end
 
 """
-DFS.
+	dfs(t::DataStructures.Trie{String},
+   		params::Union{ParametersOrthophoto,ParametersExtraction},
+   		s::Union{Nothing,IOStream},n::Int64,nfiles::Int64,l::Int64)
+   
+Depth search first.
 """
 function dfs(t::DataStructures.Trie{String},
 	params::Union{ParametersOrthophoto,ParametersExtraction},
