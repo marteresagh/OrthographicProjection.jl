@@ -17,7 +17,7 @@ function segment(txtpotreedirs::String, output::String, model::Lar.LAR, temp_nam
 	temp = joinpath(splitdir(params.outputfile)[1],temp_name)
 	open(temp, "w") do s
 		write(s, LasIO.magic(LasIO.format"LAS"))
-		n = process_trie(params,s)
+		n = trie_traversal(params,s)
 	end
 
 	# save point cloud extracted

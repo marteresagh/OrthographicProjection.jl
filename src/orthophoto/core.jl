@@ -7,11 +7,11 @@ function orthophoto_core(params::ParametersOrthophoto)
 		temp = joinpath(splitdir(params.outputimage)[1],"temp.las")
 		open(temp, "w") do s
 			write(s, LasIO.magic(LasIO.format"LAS"))
-			n = process_trie(params,s)
+			n = trie_traversal(params,s)
 			return n, temp
 		end
 	else
-		n = process_trie(params,nothing)
+		n = trie_traversal(params,nothing)
 		return n, nothing
 	end
 

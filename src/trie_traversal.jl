@@ -1,7 +1,7 @@
 """
 Process file in trie.
 """
-function process_trie(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
+function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
 
 	n = 0 # total points processed
 	nfiles = nothing # total files processed
