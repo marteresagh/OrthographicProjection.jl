@@ -12,7 +12,7 @@ GSD = 0.03
 PO = "XY+"
 quota = 105. #458277.430, 4493982.030, 210.840
 thickness = 0.05
-outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/casaletto_planimetria.jpg"
+outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/prova.jpg"
 pc = true
 background = [1.0,1.0,1.0]
 @time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
