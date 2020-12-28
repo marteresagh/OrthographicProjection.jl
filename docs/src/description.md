@@ -32,7 +32,7 @@ There are three possible options of intersection:
  - `1` -> volume intersect, but not contains, octree node (process this node and check for his children)
  - `2` -> volume contains octree node (process this node and all subtree)
 
-
+![example](./images/DFS.png)
 <!--
 FOTO e PSEUDO codice
 -->
