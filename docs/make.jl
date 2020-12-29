@@ -15,6 +15,7 @@ using OrthographicProjection
 
 
 makedocs(
+    modules = [OrthographicProjection],
     format = Documenter.HTML(
         prettyurls = "deploy" in ARGS,
     ),
