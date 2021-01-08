@@ -148,7 +148,7 @@ function get_parallel_sections(
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(indices[i]).las"
-		segment(txtpotreedirs, output, plan) # slicing point cloud
+		segment(txtpotreedirs, output, plan; temp_name = "temp_$i.las") # slicing point cloud
 	end
 
 	return planes
@@ -174,7 +174,7 @@ function get_parallel_sections(
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
-		segment(txtpotreedirs, output, plan, "temp_$i.las") # slicing point cloud
+		segment(txtpotreedirs, output, plan; temp_name = "temp_$i.las") # slicing point cloud
 	end
 
 	return planes

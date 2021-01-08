@@ -9,10 +9,10 @@ Input:
  Output:
   - Point cloud LAS
 """
-function segment(txtpotreedirs::String, output::String, model::Lar.LAR, temp_name = "temp.las"::String)
+function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_name = "temp.las"::String, epsg = nothing::Union{Nothing,Integer})
 	# initialize parameters
 	n = nothing #number of points extracted
-	params = init(txtpotreedirs, output, model)
+	params = init(txtpotreedirs, output, model; epsg = epsg)
 
 	temp = joinpath(splitdir(params.outputfile)[1],temp_name)
 	open(temp, "w") do s
@@ -81,6 +81,6 @@ function extract_models(
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $n_models ----")
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
-		segment(txtpotreedirs, output, models[i], "temp_$i.las") # slicing point cloud
+		segment(txtpotreedirs, output, models[i]; temp_name = "temp_$i.las") # slicing point cloud
 	end
 end
