@@ -46,7 +46,7 @@ function init(
 
 	mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
 
-	return  ParametersOrthophoto(PO,
+	return ParametersOrthophoto(PO,
 					 outputimage,
 					 outputfile,
 					 potreedirs,
@@ -59,5 +59,6 @@ function init(
 					 refY,
 					 pc,
 					 ucs,
+					 AABB(-Inf, Inf,-Inf, Inf,-Inf, Inf),
 					 mainHeader)
 end

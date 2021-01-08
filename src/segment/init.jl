@@ -19,5 +19,6 @@ function init(txtpotreedirs::String,
 	return ParametersExtraction(outputfile,
 	potreedirs,
 	model,
+	AABB(-Inf, Inf,-Inf, Inf,-Inf, Inf),
 	mainHeader)
 end

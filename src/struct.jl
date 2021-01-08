@@ -19,6 +19,7 @@ mutable struct ParametersExtraction
 	outputfile::String
 	potreedirs::Array{String,1}
 	model::Lar.LAR
+	header_bb::AABB
 	mainHeader::LasIO.LasHeader
 end
 
@@ -73,5 +74,6 @@ mutable struct ParametersOrthophoto
     refY::Float64
     pc::Bool
     ucs::Matrix
+	header_bb::AABB
     mainHeader::LasIO.LasHeader
 end

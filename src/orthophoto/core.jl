@@ -51,6 +51,7 @@ function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::
 	ycoord = map(Int∘trunc,(params.refY-p[2]) / params.GSD)+1
 
 	if params.pc
+		Common.update_boundingbox!(params.header_bb,point)
 		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 		write(s,plas)
 		n = n+1

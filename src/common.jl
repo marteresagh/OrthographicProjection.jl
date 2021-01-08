@@ -33,9 +33,15 @@ function savepointcloud(
 
 		#update header bounding box
 		flushprintln("Point cloud: update bbox ...")
-		h, pvec = LasIO.FileIO.load(params.outputfile)
-		LasIO.update!(h, pvec)
-		LasIO.FileIO.save(params.outputfile,h,pvec)
+		# h, pvec = LasIO.FileIO.load(params.outputfile)
+		# LasIO.update!(h, pvec)
+		params.mainHeader.x_min = params.header_bb.x_min
+		params.mainHeader.y_min = params.header_bb.y_min
+		params.mainHeader.z_min = params.header_bb.z_min
+		params.mainHeader.x_max = params.header_bb.x_max
+		params.mainHeader.y_max = params.header_bb.y_max
+		params.mainHeader.z_max = params.header_bb.z_max
+		LasIO.FileIO.save(params.outputfile,params.mainHeader,pvec)
 	end
 
 
