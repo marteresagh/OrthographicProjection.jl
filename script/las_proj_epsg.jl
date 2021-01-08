@@ -17,7 +17,7 @@ function parse_commandline()
             required = true
 		"--epsg"
 			help = "EPSG code"
-			arg_type = Integer
+			arg_type = Int
 		"--bbox"
 			help = "Bounding box as 'x_min y_min z_min x_max y_max z_max'"
 			arg_type = String
@@ -46,7 +46,7 @@ function main()
 	bbox = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	model = OrthographicProjection.getmodel(bbox)
 
-	OrthographicProjection.segment(txtpotreedirs, output, model)
+	OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
 end
 
 @time main()
