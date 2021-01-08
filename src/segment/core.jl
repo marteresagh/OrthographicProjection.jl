@@ -1,4 +1,11 @@
 """
+update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s, n::Int64)
+"""
+function update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
+	return add_point(params, laspoint, h, s, n)
+end
+
+"""
 segment(txtpotreedirs::String, output::String, model::Lar.LAR)
 
 Input:
@@ -22,43 +29,6 @@ function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_nam
 
 	# save point cloud extracted
 	savepointcloud(params, n, temp)
-end
-
-"""
-updateif!(params::ParametersExtraction, file::String, s, n::Int64)
-"""
-function updateif!(params::ParametersExtraction, file::String, s::IOStream, n::Int64)
-	h, laspoints =  FileManager.read_LAS_LAZ(file) # read file
-    for laspoint in laspoints # read each point
-        point = FileManager.xyz(laspoint,h)
-        if Common.inmodel(params.model)(point) # if point in model
-			n = update_core(params,laspoint,h,s,n)
-        end
-    end
-	return n
-end
-
-"""
-update!(params::ParametersExtraction, file::String, s, n::Int64)
-"""
-function update!(params::ParametersExtraction, file::String, s::IOStream, n::Int64)
-	h, laspoints = FileManager.read_LAS_LAZ(file) # read file
-    for laspoint in laspoints # read each point
-		n = update_core(params,laspoint,h,s,n)
-    end
-	return n
-end
-
-"""
-update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s, n::Int64)
-"""
-function update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
-	point = FileManager.xyz(laspoint,h)
-	Common.update_boundingbox!(params.header_bb,point)
-	plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
-	write(s,plas) # write this record on temporary file
-	n = n+1 # count the points written
-	return n
 end
 
 """
