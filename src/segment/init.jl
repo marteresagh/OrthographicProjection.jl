@@ -13,7 +13,7 @@ function init(txtpotreedirs::String,
 
 	mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
 	if !isnothing(epsg)
-		FileManager.epsg_code!(mainHeader, epsg)
+		LasIO.epsg_code!(mainHeader, epsg)
 	end
 
 	return ParametersExtraction(outputfile,
