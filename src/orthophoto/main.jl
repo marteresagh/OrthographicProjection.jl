@@ -60,9 +60,11 @@ function orthophoto(
 		io = open(joinpath(proj_folder,"execution.prob"),"w")
 		close(io)
 	end
-	
+
 	# saves point cloud extracted
 	if pc
 		savepointcloud(params, n, temp)
 	end
+
+	return params.RGBtensor
 end

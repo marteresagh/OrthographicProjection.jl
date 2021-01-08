@@ -9,12 +9,12 @@ bbin = metadata.tightBoundingBox
 ucs = Matrix{Float64}(Lar.I,3,3)
 GSD = 0.03
 PO = "XY+"
-quota = 300. #458277.430, 4493982.030, 210.840
-thickness = 0.05
+quota = nothing #458277.430, 4493982.030, 210.840
+thickness = nothing
 outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/CAVA.jpg"
 pc = true
-background = [0.0,0.0,0.0]
-@time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
+background = [1.0,1.0,1.0]
+@time RGBtensor = OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
 
 
 ## VIEW
