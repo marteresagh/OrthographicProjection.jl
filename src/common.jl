@@ -11,6 +11,15 @@ function savepointcloud(
 	flushprintln("Point cloud: saving ...")
 
 	params.mainHeader.records_count = n # update number of points in header
+	#update header bounding box
+	flushprintln("Point cloud: update bbox ...")
+	params.mainHeader.x_min = params.header_bb.x_min
+	params.mainHeader.y_min = params.header_bb.y_min
+	params.mainHeader.z_min = params.header_bb.z_min
+	params.mainHeader.x_max = params.header_bb.x_max
+	params.mainHeader.y_max = params.header_bb.y_max
+	params.mainHeader.z_max = params.header_bb.z_max
+
 	pointtype = LasIO.pointformat(params.mainHeader) # las point format
 
 	flushprintln("Extracted $n points")
@@ -31,17 +40,9 @@ function savepointcloud(
 			end
 		end
 
-		#update header bounding box
-		flushprintln("Point cloud: update bbox ...")
 		# h, pvec = LasIO.FileIO.load(params.outputfile)
 		# LasIO.update!(h, pvec)
-		params.mainHeader.x_min = params.header_bb.x_min
-		params.mainHeader.y_min = params.header_bb.y_min
-		params.mainHeader.z_min = params.header_bb.z_min
-		params.mainHeader.x_max = params.header_bb.x_max
-		params.mainHeader.y_max = params.header_bb.y_max
-		params.mainHeader.z_max = params.header_bb.z_max
-		LasIO.FileIO.save(params.outputfile,params.mainHeader,pvec)
+		# LasIO.FileIO.save(params.outputfile,params.mainHeader,pvec)
 	end
 
 
