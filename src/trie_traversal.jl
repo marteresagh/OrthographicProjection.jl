@@ -20,7 +20,8 @@ function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto}
 		#	process all files
 		# else
 		# 	navigate potree
-		if Common.modelsdetection(params.model, metadata.tightBoundingBox) == 2
+		intersection = Common.modelsdetection(params.model, metadata.tightBoundingBox)
+		if intersection == 2
 			flushprintln("FULL model")
 			i = 1
 			for k in keys(trie)
@@ -31,9 +32,11 @@ function trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto}
 				n = update!(params,file,s,n)
 				i = i+1
 			end
-		else
+		elseif intersection == 1
 			flushprintln("DFS")
 			n,nfiles = dfs(trie,params,s,n,0,l)
+		elseif intersection == 0
+			flushprintln("OUT OF REGION OF INTEREST")
 		end
 	end
 
@@ -48,7 +51,7 @@ end
 	dfs(t::DataStructures.Trie{String},
    		params::Union{ParametersOrthophoto,ParametersExtraction},
    		s::Union{Nothing,IOStream},n::Int64,nfiles::Int64,l::Int64)
-   
+
 Depth search first.
 """
 function dfs(t::DataStructures.Trie{String},
