@@ -132,3 +132,27 @@ Examples:
 
     # Variable distance between slice
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2 --steps "1 1 2 3 1 1 5 6"
+
+
+## potree2LASepsg.jl
+
+Produce LAS file of a Potree project, setting projection (epsg code) in header.
+
+Options:
+
+```
+$ julia potree2LASepsg.jl -h
+
+positional arguments:
+source               A Potree directory
+
+optional arguments:
+-o, --output OUTPUT  Output file: LAS format
+--epsg EPSG          EPSG code (type: Int64)
+-h, --help           show this help message and exit
+```
+
+Examples:
+
+    # LAS file with projection in epsg format
+    julia potree2LASepsg.jl "C:/Potree_projects.txt" -o "C:/proj_epsg.las" --epsg 32720
