@@ -7,13 +7,13 @@ potreedirs = OrthographicProjection.get_potree_dirs(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox
 ucs = Matrix{Float64}(Lar.I,3,3)
-GSD = 0.03
+GSD = 0.3
 PO = "XY+"
 quota = nothing #458277.430, 4493982.030, 210.840
 thickness = nothing
 outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/CAVA.jpg"
 pc = true
-background = [1.0,1.0,1.0]
+background = [0.0,0.0,0.0]
 @time RGBtensor = OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
 
 

@@ -30,6 +30,9 @@ function parse_commandline()
 		"--r"
 			help = "Rotation: Euler angles (radians) of rotation of box"
 			arg_type = String
+		"--epsg"
+			help = "EPSG code"
+			arg_type = Int
     end
 
     return parse_args(s)
@@ -52,6 +55,7 @@ function main()
 	rotation_ = args["r"]
 	output = args["output"]
 	txtpotreedirs = args["source"]
+	epsg = args["epsg"]
 
 	model = nothing
 
@@ -73,7 +77,7 @@ function main()
 		model = OrthographicProjection.getmodel(volume)
 	end
 
-	OrthographicProjection.segment(txtpotreedirs, output, model)
+	OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
 end
 
 @time main()

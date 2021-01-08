@@ -7,7 +7,7 @@ source = "C:/Users/marte/Documents/potreeDirectory/pointclouds/CAVA"
 files = FileManager.get_files_in_potree_folder(source,0)
 PC = FileManager.las2pointcloud(files...)
 
-fname = "C:/Users/marte/Documents/GEOWEB/TEST/SEGMENT/JSONFILE.las"
+fname = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/CAVA.las"
 PC = FileManager.las2pointcloud(fname)
 aabb = FileManager.las2aabb(fname)
 
