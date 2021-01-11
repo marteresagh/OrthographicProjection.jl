@@ -6,7 +6,18 @@
 
 Orthographic projection of 3D point cloud.
 
-Options:
+#### Input parameters description:
+ - PO: projection plane and sight direction. Option: "XY+","XY-","XZ+","XZ-","YZ+","YZ-"
+ - output: output filename for image
+ - source: Potree projects
+ - bbin: volume
+ - GSD: ground sampling distance
+ - bgcolor: background color of image
+ - quote: quote of section
+ - thickness: thickness of section
+ - pc: if true clip point cloud
+
+#### Options:
 
 ```
 $ julia orthophoto.jl -h   
@@ -31,7 +42,7 @@ optional arguments:
   -h, --help            show this help message and exit
 ```
 
-Examples:
+#### Examples:
 
     # Orthographic projection of top view
     julia orthophoto.jl "C:/Potree_projects.txt" -o "C:/image.jpg" --bbin "0 0 0 1 1 1" --bgcolor "0 0 0"
@@ -41,12 +52,17 @@ Examples:
 
 Point cloud segmentation: produce LAS file of Potree projects, setting projection (epsg code) in header if provided.
 
-Clipping volume are described by:
- - *bbox*: axis aligned bounding box
- - *jsonfile*: JSON format
- - *c,e,r*: position, scale, rotation
+#### Input parameters description:
+ - output: output LAS filename
+ - source: Potree projects
+ - epsg: projection code
 
-Options:
+Clipping volume are described by one of the following:
+ - bbox: axis aligned bounding box
+ - jsonfile: JSON format
+ - c,e,r: position, scale, rotation
+
+#### Options:
 
 ```
 $ julia segment.jl -h   
@@ -68,7 +84,7 @@ optional arguments:
   -h, --help           show this help message and exit
 ```
 
-Examples:
+#### Examples:
 
     # axis aligned bounding box
     julia segment.jl "C:/Potree_projects.txt" -o "C:/partition.las" --bbox "0 0 0 1 1 1" --epsg 32720
@@ -84,19 +100,31 @@ Examples:
 
 Point cloud slicing.
 
-Return one LAS file per slice.
+Return a set of slices, one LAS file per slice.
+
+#### Input parameters description:
+- output: output folder
+- projectname: name of projects
+- source: Potree projects
+- bbin: region of interest
 
 First slice is described with these parameters:
- - *p1*: start point
- - *p2*: end point
- - *axis*: a versor of plane
- - *thickness*: thickness
+ - p1: start point
+ - p2: end point
+ - axis: a versor of plane
+ - thickness: thickness
 
- Step between slices can be constant or variable, as shown in Figure below. If not provided returns only first slice.
+Step between slices can be constant:
+ - step: distance between slices
+ - n: number of slices
+or variable:
+ - steps: distances between slices
+
+If not provided returns only first slice.
 
 ![params](./images/parametri_slicing.jpg)
 
-Options:
+#### Options:
 
 ```
 $ julia slicing.jl -h   
@@ -123,7 +151,7 @@ optional arguments:
   -h, --help            show this help message and exit
 ```
 
-Examples:
+#### Examples:
 
     # One slice
     julia slicing.jl "C:/Potree_projects.txt" -o "C:/folder" -p "My_Proj" --bbin "0 0 0 1 1 1" --p1 "0 0 0" --p2 "1 1 1" --axis "0 0 1" --thickness 0.2
