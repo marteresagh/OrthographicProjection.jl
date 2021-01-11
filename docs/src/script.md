@@ -1,5 +1,3 @@
-% TODO: inserire foto
-
 # Script Usage
 
 ## orthophoto.jl
