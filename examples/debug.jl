@@ -21,7 +21,7 @@ GL.VIEW(
 )
 
 # DEBUG
-# params = OrthographicProjection.init( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc);
+# params = OrthographicProjection.ParametersOrthophoto( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc);
 
 # all_files = FileManager.get_files_in_potree_folder(potreedirs[1],0, true)
 # PC = FileManager.las2pointcloud(all_files...)

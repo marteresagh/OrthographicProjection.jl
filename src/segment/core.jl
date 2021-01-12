@@ -19,7 +19,7 @@ Input:
 function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_name = "temp.las"::String, epsg = nothing::Union{Nothing,Integer})
 	# initialize parameters
 	n = nothing #number of points extracted
-	params = init(txtpotreedirs, output, model; epsg = epsg)
+	params = OrthographicProjection.ParametersExtraction(txtpotreedirs, output, model; epsg = epsg)
 
 	temp = joinpath(splitdir(params.outputfile)[1],temp_name)
 	open(temp, "w") do s

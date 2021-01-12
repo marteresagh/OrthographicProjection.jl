@@ -17,7 +17,7 @@ filename = "files/directory.txt" # point format 0
     @testset "init" begin
         outfile = "outfile.las"
         model = OrthographicProjection.Lar.cuboid([1,1,1])
-        params = OrthographicProjection.init(joinpath(workdir,filename), outfile, model)
+        params = OrthographicProjection.ParametersExtraction(joinpath(workdir,filename), outfile, model)
 
         @test typeof(params) == OrthographicProjection.ParametersExtraction
         @test params.outputfile == outfile
