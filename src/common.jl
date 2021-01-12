@@ -12,7 +12,7 @@ function get_potree_dirs(txtpotreedirs::String)
 end
 
 """
-	updateif!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s, n::Int64)
+	updateif!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
 
 Process all points, in file, falling in region of interest.
 """
@@ -41,7 +41,7 @@ function update!(params::Union{ParametersOrthophoto,ParametersExtraction}, file:
 end
 
 """
-	add_point!(params::Union{ParametersExtraction,ParametersOrthophoto}, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
+	add_point(params::Union{ParametersExtraction,ParametersOrthophoto}, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
 
 Add new point to segmented point cloud.
 """

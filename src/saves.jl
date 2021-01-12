@@ -4,7 +4,7 @@ Save point cloud extracted file .las.
 function savepointcloud(
 	params::Union{ParametersOrthophoto,ParametersExtraction},
 	n::Int64,
-	temp,
+	temp::String,
 	)
 
 	flushprintln("Point cloud: saving ...")

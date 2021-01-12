@@ -12,7 +12,7 @@ PO = "YZ+"
 quota = nothing #458277.430, 4493982.030, 210.840
 thickness = nothing
 outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/PROSPETTO.jpg"
-pc = false
+pc = true
 background = [0.0,0.0,0.0]
 @time RGBtensor = OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
 
