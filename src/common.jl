@@ -16,7 +16,7 @@ end
 
 Process all points, in file, falling in region of interest.
 """
-function updateif!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::IOStream, n::Int64)
+function updateif!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         point = FileManager.xyz(laspoint,h)
