@@ -10,7 +10,7 @@ segment(txtpotreedirs::String, output::String, model::Lar.LAR)
 
 Input:
  - A text file containing a list of files to segment
- - output filename
+ - output LAS filename
  - model of extraction
 
  Output:
@@ -32,12 +32,12 @@ function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_nam
 end
 
 """
-get_sections(
-	txtpotreedirs::String,
-	project_name::String,
-	proj_folder::String,
-	bbin::Union{AABB,String},
-	models::Array{Lar.LAR,1})
+	get_sections(
+		txtpotreedirs::String,
+		project_name::String,
+		proj_folder::String,
+		bbin::Union{AABB,String},
+		models::Array{Lar.LAR,1})
 
 For each model in models extracts and saves the clipped point cloud.
 """
