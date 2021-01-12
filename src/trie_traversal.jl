@@ -7,7 +7,7 @@ else travers trie, depth search first, and process nodes falling in region of in
 
 Input:
  - params: initial parameters
- - s: nothing or stream file where save las points
+ - s: nothing or stream file where to save las points
 
 Output:
 - n: number of processed points
@@ -61,12 +61,10 @@ end
 
 """
 	dfs(t::DataStructures.Trie{String},
-   		params::Union{ParametersOrthophoto,ParametersExtraction},
-   		s::Union{Nothing,IOStream},n::Int64,nfiles::Int64,l::Int64)
+	params::Union{ParametersOrthophoto,ParametersExtraction},
+	s::Union{Nothing,IOStream},n::Int64,nfiles::Int64,l::Int64)
 
 Depth search first.
-
-
 """
 function dfs(trie::DataStructures.Trie{String},
 	params::Union{ParametersOrthophoto,ParametersExtraction},
