@@ -3,7 +3,7 @@ using FileManager
 using Common
 
 txtpotreedirs = "C:/Users/marte/Documents/potreeDirectory/pointclouds/CAVA" #"C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
-txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
+# txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
 potreedirs = OrthographicProjection.get_potree_dirs(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox

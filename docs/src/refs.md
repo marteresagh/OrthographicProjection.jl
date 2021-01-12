@@ -7,14 +7,9 @@ end
 ```
 
 ```@autodocs
-
-ParametersExtraction
-
-ParametersOrthophoto
-
-init
-
-trie_traversal
-
-dfs
+OrthographicProjection.ParametersExtraction
+OrthographicProjection.ParametersOrthophoto
+OrthographicProjection.init
+OrthographicProjection.trie_traversal
+OrthographicProjection.dfs
 ```
