@@ -6,10 +6,10 @@ DocTestSetup = quote
 end
 ```
 
-```@autodocs
-OrthographicProjection.ParametersExtraction
-OrthographicProjection.ParametersOrthophoto
-OrthographicProjection.init
-OrthographicProjection.trie_traversal
-OrthographicProjection.dfs
+```@docs
+ParametersExtraction
+ParametersOrthophoto
+init
+trie_traversal
+dfs
 ```
