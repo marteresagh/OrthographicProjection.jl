@@ -9,7 +9,6 @@ end
 ```@docs
 ParametersExtraction
 ParametersOrthophoto
-init
 trie_traversal
 dfs
 ```
