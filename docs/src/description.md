@@ -87,7 +87,7 @@ All points of input point clouds within region of interest are simply stored and
 #### Orthophoto
 Orthographic view projects at a right angle to the data plane.
 
-An image is just a multidimensional array: a grid (with 3 channel for storing RGB color attribute) is inscribed into the projection of volume.
+An image is just a multidimensional array: a grid (with 3 channels for storing RGB color attribute) is inscribed into the projection of volume.
 
 The first point that falls into a cell will be accepted and its quote (distance to plane) is stored in a buffer. If a point falls inside a cell that is already occupied then the point with the highest quote is accepted, because it is the closest point to the observer.
 ![orthographic projection](./images/raster.png)
