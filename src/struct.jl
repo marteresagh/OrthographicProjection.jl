@@ -5,7 +5,7 @@ Description:
  - outputfile: Output filename for point cloud
  - potreedirs: Potree projects
  - model: Cuboidal LAR model
- - mainHeader: header of point cloud file las
+ - mainHeader: header of point cloud LAS file
 
 # Fields
 ```jldoctest
@@ -23,7 +23,6 @@ mutable struct ParametersExtraction
 	mainHeader::LasIO.LasHeader
 end
 
-
 """
 	init(txtpotreedirs::String,
 		outputfile::String,
@@ -32,6 +31,13 @@ end
 		)
 
 Initialize parameters for segment algorithm.
+
+Input:
+ - txtpotreedirs: path to .txt file, list of Potree projects, or to Potree project
+ - outputfile: output LAS filename
+ - model: cuboidal LAR model
+ - epsg: projection code
+
 """
 function init(txtpotreedirs::String,
 	outputfile::String,
@@ -126,6 +132,18 @@ end
 		)
 
 Initialize parameters for orthographic projection algorithm.
+
+Input:
+ - txtpotreedirs: Path to .txt file, list of Potree projects, or to Potree project
+ - outputimage: Output filename for image
+ - bbin: Path to json file or AABB
+ - GSD: Ground sampling distance
+ - PO: Projection plane and sight direction. Option: "XY+","XY-","XZ+","XZ-","YZ+","YZ-"
+ - quote: Distance of plane from the origin
+ - thickness: Thickness of plane
+ - ucs: User coordinates system
+ - BGcolor: Background color image
+ - pc: If true return LAS file of point cloud
 """
 function init(
 	txtpotreedirs::String,

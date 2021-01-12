@@ -7,6 +7,14 @@ end
 ```
 
 ```@autodocs
+
+ParametersExtraction
+
+ParametersOrthophoto
+
+init
+
 trie_traversal
+
 dfs
 ```
