@@ -46,10 +46,12 @@ function orthophoto(
 	params = init( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness,	ucs, BGcolor, pc);
 
 	# image creation
+	flushprintln(" ")
 	flushprintln("========= PROCESSING =========")
 
 	n, temp = orthophoto_core(params)
 
+	flushprintln(" ")
 	flushprintln("========= SAVES =========")
 
 	# saves image
@@ -66,5 +68,4 @@ function orthophoto(
 		savepointcloud(params, n, temp)
 	end
 
-	return params.RGBtensor
 end
