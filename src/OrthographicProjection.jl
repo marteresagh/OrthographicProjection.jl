@@ -14,14 +14,11 @@ module OrthographicProjection
 	include("saves.jl")
 
 	#include all file .jl in other folders
-
-	include("orthophoto/init.jl")
 	include("orthophoto/main.jl")
 	include("orthophoto/core.jl")
 	include("orthophoto/util.jl")
 
 	include("segment/core.jl")
-	include("segment/init.jl")
 
 	include("slices/main.jl")
 
