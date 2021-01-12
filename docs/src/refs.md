@@ -7,9 +7,6 @@ end
 ```
 
 ```@autodocs
-Modules = [OrthographicProjection]
-```
-```@docs
 trie_traversal
 dfs
 ```

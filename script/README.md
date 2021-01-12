@@ -110,7 +110,7 @@ First slice is described with these parameters:
  - p1: start point
  - p2: end point
  - axis: a versor of plane
- - thickness: thickness
+ - thickness: thickness of slice
 
 Step between slices can be constant:
  - step: distance between slices
