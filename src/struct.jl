@@ -221,7 +221,7 @@ mutable struct ParametersOrthophoto
 		    if directionview == '-'
 				quota = -quota
 			end
-			model = Common.plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
+			model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 			aabb = Common.boundingbox(model[1])
 		end
 
@@ -313,7 +313,7 @@ end
 # 	    if directionview == '-'
 # 			quota = -quota
 # 		end
-# 		model = Common.plane2model(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
+# 		model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 # 		aabb = Common.boundingbox(model[1])
 # 	end
 #

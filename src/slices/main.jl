@@ -18,7 +18,7 @@ function preprocess(
 	)
 
 	proj_folder = FileManager.mkdir_project(output_folder, project_name)
-	model = Common.plane2model(plane, thickness, bbin)
+	model = Common.getmodel(plane, thickness, bbin)
 
 	return proj_folder,model
 end
@@ -50,7 +50,7 @@ function preprocess(
 
 	try
 		plane = Plane(p1,p2,axis_y)
-		model = Common.plane2model(p1,p2,axis_y,thickness,bbin)
+		model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
 		return proj_folder, plane, model
 	catch y
 		flushprintln("ERROR: Plane not consistent")
@@ -90,7 +90,7 @@ function preprocess(
 
 	for EV in EVs
 		try
-			model = Common.plane2model(V[:,EV[1]],V[:,EV[2]],axis_y,thickness,bbin)
+			model = Common.getmodel(V[:,EV[1]],V[:,EV[2]],axis_y,thickness,bbin)
 			push!(models,model)
 		catch y
 			flushprintln("ERROR: Plane not consistent")
