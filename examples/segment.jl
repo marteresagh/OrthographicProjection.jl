@@ -11,5 +11,5 @@ bbin = metadata.tightBoundingBox
 bbin = "C://Users//marte//Documents//GEOWEB//FilePotree//orthoCAVA//volume.json"
 bbin = Volume([200., 200., 200.], [458309.223, 4493974.624, 199.400], [0.000, 0.000, 0.000])
 model = getmodel(bbin)
-
-@time OrthographicProjection.segment(txtpotreedirs, output, model)
+epsg = nothing #2049
+@time OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)

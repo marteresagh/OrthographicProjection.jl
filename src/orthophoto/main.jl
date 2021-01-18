@@ -41,7 +41,7 @@ function orthophoto(
 	ucs::Union{String,Matrix{Float64}},
 	BGcolor::Array{Float64,1},
 	pc::Bool,
-	epsg::Union{Nothing,Int64}
+	epsg::Union{Nothing,Integer}
 	)
 
 	# initialization
