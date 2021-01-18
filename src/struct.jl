@@ -196,7 +196,7 @@ mutable struct ParametersOrthophoto
 		ucs::Union{String,Matrix{Float64}},
 		BGcolor::Array{Float64,1},
 		pc::Bool,
-		epsg::Int64
+		epsg::Union{Nothing,Int64}
 		)
 
 		# check validity

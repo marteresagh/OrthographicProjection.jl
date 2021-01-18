@@ -16,7 +16,7 @@ outputimage = "C:/Users/marte/Documents/GEOWEB/TEST/ORTHO/PROVA.jpg"
 pc = true
 background = [0.0,0.0,0.0]
 epsg = 2049
-@time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc)
+@time OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness, ucs, background, pc, epsg)
 
 
 ## VIEW
