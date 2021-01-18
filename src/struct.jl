@@ -195,7 +195,8 @@ mutable struct ParametersOrthophoto
 		thickness::Union{Float64,Nothing},
 		ucs::Union{String,Matrix{Float64}},
 		BGcolor::Array{Float64,1},
-		pc::Bool
+		pc::Bool,
+		epsg::Int64
 		)
 
 		# check validity
@@ -229,6 +230,9 @@ mutable struct ParametersOrthophoto
 		RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
 		mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
+		if !isnothing(epsg)
+			FileManager.LasIO.epsg_code!(mainHeader, epsg)
+		end
 
 		return new(PO,
 				 outputimage,

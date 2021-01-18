@@ -1,3 +1,5 @@
+# TODO aggiungere epsg_code anche in questo script da associare al file las
+
 println("loading packages... ")
 
 using ArgParse
@@ -9,6 +11,9 @@ function parse_commandline()
     s = ArgParseSettings()
 
     @add_arg_table! s begin
+		"source"
+			help = "A text file with Potree directories list or a single Potree directory"
+			required = true
 		"--output", "-o"
             help = "Output image"
 			required = true
@@ -38,9 +43,9 @@ function parse_commandline()
 		"--bgcolor"
 			help = "Background color"
 			arg_type = String
-        "source"
-            help = "A text file with Potree directories list or a single Potree directory"
-            required = true
+		"--epsg"
+			help = "EPSG code"
+			arg_type = Int
     end
 
     return parse_args(s)
@@ -65,6 +70,7 @@ function main()
 	pc = args["pc"]
 	ucs = args["ucs"]
 	bgcolor = args["bgcolor"]
+	epsg = args["epsg"]
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
@@ -83,7 +89,7 @@ function main()
 		background = [1.0,1.0,1.0]
 	end
 
-	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, background, pc)
+	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, background, pc, epsg)
 end
 
 @time main()

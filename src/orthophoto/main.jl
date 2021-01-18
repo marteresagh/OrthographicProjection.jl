@@ -40,11 +40,12 @@ function orthophoto(
 	thickness::Union{Float64,Nothing},
 	ucs::Union{String,Matrix{Float64}},
 	BGcolor::Array{Float64,1},
-	pc::Bool
+	pc::Bool,
+	epsg::Int64
 	)
 
 	# initialization
-	params = ParametersOrthophoto( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness,	ucs, BGcolor, pc);
+	params = ParametersOrthophoto( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness,	ucs, BGcolor, pc, epsg);
 
 	# image creation
 	flushprintln(" ")
