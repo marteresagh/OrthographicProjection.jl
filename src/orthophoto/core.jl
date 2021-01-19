@@ -15,6 +15,9 @@ function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::
 		params.RGBtensor[1, ycoord, xcoord] = rgb[1]
 		params.RGBtensor[2, ycoord, xcoord] = rgb[2]
 		params.RGBtensor[3, ycoord, xcoord] = rgb[3]
+		if !params.pc
+			n = n+1
+		end
 	end
 
 	if params.pc
