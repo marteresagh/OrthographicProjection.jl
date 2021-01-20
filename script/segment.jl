@@ -21,13 +21,13 @@ function parse_commandline()
 		"--jsonfile"
 	    	help = "Path to Potree JSON volume model"
 			arg_type = String
-		"--c"
+		"--position","-c"
 			help = "Position: center of volume"
 			arg_type = String
-		"--e"
+		"--scale","-e"
 			help = "Scale: size of box"
 			arg_type = String
-		"--r"
+		"--rotation","-r"
 			help = "Rotation: Euler angles (radians) of rotation of box"
 			arg_type = String
 		"--epsg"
@@ -50,9 +50,9 @@ function main()
 
 	bbox = args["bbox"]
 	jsonfile = args["jsonfile"]
-	position_ = args["c"]
-	scale_ = args["e"]
-	rotation_ = args["r"]
+	position_ = args["position"]
+	scale_ = args["scale"]
+	rotation_ = args["rotation"]
 	output = args["output"]
 	txtpotreedirs = args["source"]
 	epsg = args["epsg"]
