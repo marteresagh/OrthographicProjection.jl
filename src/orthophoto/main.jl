@@ -59,11 +59,9 @@ function orthophoto(
 	# saves image
 	saveimage(params)
 
-	if n!=0
-		proj_folder = splitdir(params.outputfile)[1]
-		io = open(joinpath(proj_folder,"execution.prob"),"w")
-		close(io)
-	end
+	proj_folder = splitdir(params.outputfile)[1]
+
+	FileManager.successful(n!=0, proj_folder::String)
 
 	# saves point cloud extracted
 	if pc
