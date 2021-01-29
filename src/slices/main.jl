@@ -51,11 +51,12 @@ function preprocess(
 	try
 		plane = Plane(p1,p2,axis_y)
 		model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
+		FileManager.successful()
 		return proj_folder, plane, model
 	catch y
 		flushprintln("ERROR: Plane not consistent")
-		io = open(joinpath(proj_folder,"process.prob"),"w")
-		close(io)
+		# io = open(joinpath(proj_folder,"process.probe"),"w")
+		# close(io)
 		throw(DomainError())
 	end
 end
@@ -93,9 +94,9 @@ function preprocess(
 			model = Common.getmodel(V[:,EV[1]],V[:,EV[2]],axis_y,thickness,bbin)
 			push!(models,model)
 		catch y
-			flushprintln("ERROR: Plane not consistent")
-			io = open(joinpath(proj_folder,"process.prob"),"w")
-			close(io)
+			# flushprintln("ERROR: Plane not consistent")
+			# io = open(joinpath(proj_folder,"process.prob"),"w")
+			# close(io)
 		end
 	end
 
