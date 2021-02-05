@@ -47,18 +47,14 @@ function preprocess(
 	)
 
 	proj_folder = FileManager.mkdir_project(output_folder, project_name)
+	axis = (p2-p1)/Lar.norm(p2-p1)
+	axis_y /= Lar.norm(axis_y)
+	axis_z = Lar.cross(axis,axis_y)
+	FileManager.successful(axis_z != [0.,0.,0.], output_folder)
+	plane = Plane(p1,p2,axis_y)
+	model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
 
-	try
-		plane = Plane(p1,p2,axis_y)
-		model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
-		FileManager.successful()
-		return proj_folder, plane, model
-	catch y
-		flushprintln("ERROR: Plane not consistent")
-		# io = open(joinpath(proj_folder,"process.probe"),"w")
-		# close(io)
-		throw(DomainError())
-	end
+	return proj_folder, plane, model
 end
 
 
