@@ -50,7 +50,7 @@ function preprocess(
 	axis = (p2-p1)/Lar.norm(p2-p1)
 	axis_y /= Lar.norm(axis_y)
 	axis_z = Lar.cross(axis,axis_y)
-	FileManager.successful(axis_z != [0.,0.,0.], output_folder)
+	FileManager.successful(axis_z != [0.,0.,0.], proj_folder)
 	plane = Plane(p1,p2,axis_y)
 	model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
 
