@@ -1,5 +1,3 @@
-# TODO aggiungere epsg_code anche in questo script da associare al file las
-
 println("loading packages... ")
 
 using ArgParse
