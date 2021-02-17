@@ -190,7 +190,7 @@ mutable struct ParametersOrthophoto
 
 		RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
-		mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",SIZE_DATARECORD)
+		mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",FileManager.SIZE_DATARECORD)
 		if !isnothing(epsg)
 			FileManager.LasIO.epsg_code!(mainHeader, epsg)
 		end
