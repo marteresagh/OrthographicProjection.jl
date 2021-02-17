@@ -48,7 +48,7 @@ mutable struct ParametersExtraction
 
 		aabb = Common.boundingbox(model[1])
 
-		mainHeader = FileManager.newHeader(aabb,"EXTRACTION",SIZE_DATARECORD)
+		mainHeader = FileManager.newHeader(aabb,"EXTRACTION",FileManager.SIZE_DATARECORD)
 		if !isnothing(epsg)
 			FileManager.LasIO.epsg_code!(mainHeader, epsg)
 		end
