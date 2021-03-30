@@ -74,10 +74,8 @@ function main()
 	aabb = OrthographicProjection.Common.boundingbox(model[1])
 
 	if !isnothing(q) && !isnothing(thickness)
-
-		origine = OrthographicProjection.Lar.inv(ucs)[1:3,4]
-
-		model = OrthographicProjection.Common.getmodel(OrthographicProjection.Lar.inv(coordsystemmatrix), origine, q, thickness, aabb)
+		origin = OrthographicProjection.Lar.inv(ucs)[1:3,4]
+		model = OrthographicProjection.Common.getmodel(OrthographicProjection.Lar.inv(coordsystemmatrix), q, thickness, aabb; new_origin = origin)
 	end
 
 	seg = OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
