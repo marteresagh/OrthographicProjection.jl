@@ -32,7 +32,7 @@ function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_nam
 	if n!=0
 		return true
 	else
-		false
+		return false
 	end
 end
 
