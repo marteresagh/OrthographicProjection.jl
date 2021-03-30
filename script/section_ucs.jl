@@ -70,11 +70,14 @@ function main()
 		coordsystemmatrix = OrthographicProjection.PO2matrix(PO,ucs)
 	end
 
-	model = getmodel(bbin)
-	aabb = Common.boundingbox(model[1])
+	model = OrthographicProjection.Common.getmodel(bbin)
+	aabb = OrthographicProjection.Common.boundingbox(model[1])
 
-	if !isnothing(quota) && !isnothing(thickness)
-		model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
+	if !isnothing(q) && !isnothing(thickness)
+
+		origine = OrthographicProjection.Lar.inv(ucs)[1:3,4]
+
+		model = OrthographicProjection.Common.getmodel(Lar.inv(coordsystemmatrix), origine, q, thickness, aabb)
 	end
 
 	OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
