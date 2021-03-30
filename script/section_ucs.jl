@@ -77,10 +77,12 @@ function main()
 
 		origine = OrthographicProjection.Lar.inv(ucs)[1:3,4]
 
-		model = OrthographicProjection.Common.getmodel(Lar.inv(coordsystemmatrix), origine, q, thickness, aabb)
+		model = OrthographicProjection.Common.getmodel(OrthographicProjection.Lar.inv(coordsystemmatrix), origine, q, thickness, aabb)
 	end
 
-	OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
+	seg = OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
+	proj_folder = splitdir(output)[1]
+	FileManager.successful(seg, proj_folder)
 end
 
 @time main()

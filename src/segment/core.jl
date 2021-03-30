@@ -29,6 +29,11 @@ function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_nam
 
 	# save point cloud extracted
 	savepointcloud(params, n, temp)
+	if n!=0
+		return true
+	else
+		false
+	end
 end
 
 """
