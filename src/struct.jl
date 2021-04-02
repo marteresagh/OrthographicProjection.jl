@@ -183,7 +183,9 @@ mutable struct ParametersOrthophoto
 		    if directionview == '-'
 				quota = -quota
 			end
-			model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
+			origin = OrthographicProjection.Lar.inv(ucs)[1:3,4]
+			model = Common.getmodel(Lar.inv(coordsystemmatrix), quota, thickness, aabb; new_origin = origin)
+		#	model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
 			aabb = Common.boundingbox(model[1])
 		end
 
