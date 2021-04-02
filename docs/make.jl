@@ -32,4 +32,5 @@ makedocs(
 deploydocs(
     repo = "github.com/marteresagh/OrthographicProjection.jl.git",
     push_preview = true,
+    devurl = "",
 )
