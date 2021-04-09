@@ -101,8 +101,8 @@ optional arguments:
     # extraction of horizontal section (UCS applied)
     julia section.jl "C:/Potree_projects.txt" -o "C:/slice.las" --bbin "0 0 0 1 1 1" --ucs "C:/ucs.json" --quote 0.0 --thickness 1.0
 
-    # EPSG code
-    julia section.jl "C:/Potree_projects.txt" -o "C:/slice.las" --bbin "0 0 0 1 1 1" --epsg 32720
+    # extraction of vertical section
+    julia section.jl "C:/Potree_projects.txt" -o "C:/slice.las" --po "XZ+" --bbin "0 0 0 1 1 1" --epsg 32720 --quote 0.0 --thickness 1.0
 
 
 ## segment.jl
