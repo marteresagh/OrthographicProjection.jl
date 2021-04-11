@@ -64,12 +64,13 @@ function main()
 	end
 
 	if isnothing(ucs)
-		coordsystemmatrix = OrthographicProjection.PO2matrix(PO)
+		ucs = Matrix{Float64}(OrthographicProjection.Lar.I,4,4)
 	else
 		ucs = FileManager.ucs2matrix(ucs)
-		coordsystemmatrix = OrthographicProjection.PO2matrix(PO,ucs)
 	end
 
+
+	coordsystemmatrix = OrthographicProjection.PO2matrix(PO,ucs)
 	model = OrthographicProjection.Common.getmodel(bbin)
 	aabb = OrthographicProjection.Common.boundingbox(model[1])
 
