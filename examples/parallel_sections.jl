@@ -4,7 +4,7 @@ using Common
 using Visualization
 
 txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
-potreedirs = FileManager.get_directories(txtpotreedirs)
+potreedirs = FileManager.readlines(txtpotreedirs)
 all_files = FileManager.get_files_in_potree_folder(potreedirs[1],0)
 metadata = CloudMetadata(potreedirs[1])
 bbin = metadata.tightBoundingBox

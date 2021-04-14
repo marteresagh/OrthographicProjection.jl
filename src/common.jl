@@ -5,7 +5,7 @@ Return collection of potree directories.
 """
 function get_potree_dirs(txtpotreedirs::String)
     if isfile(txtpotreedirs)
-    	return FileManager.get_directories(txtpotreedirs)
+    	return FileManager.readlines(txtpotreedirs)
     elseif isdir(txtpotreedirs)
     	return [txtpotreedirs]
     end

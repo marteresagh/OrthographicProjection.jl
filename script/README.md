@@ -105,6 +105,8 @@ optional arguments:
     julia section.jl "C:/Potree_projects.txt" -o "C:/slice.las" --po "XZ+" --bbin "0 0 0 1 1 1" --epsg 32720 --quote 0.0 --thickness 1.0
 
 
+
+# Future Work
 ## segment.jl
 
 Point cloud segmentation: produce LAS file of Potree projects, setting projection (epsg code) in header if provided.
