@@ -34,8 +34,7 @@ There are three possible options of intersection, see figure below:
 
 ![example](./images/DFS.png)
 
-In figure:
-
+> **In figure:**
 pink volume represents region of interest, points in yellow quads (`0`) are not processed, in green quads (`1`) only the points falling in pink volume are processed, and, without further checks, all points in blue quads (`2`) are processed.
 
 

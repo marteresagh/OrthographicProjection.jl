@@ -8,9 +8,7 @@ branches:
     - master
 notifications:
   email: false
-
 coveralls: true
-
 jobs:
   include:
     - stage: "Documentation"
