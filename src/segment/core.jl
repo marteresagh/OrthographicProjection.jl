@@ -6,7 +6,7 @@ function update_core(params::ParametersExtraction, laspoint::LasIO.LasPoint, h::
 end
 
 """
-segment(txtpotreedirs::String, output::String, model::Lar.LAR)
+segment(txtpotreedirs::String, output::String, model::LAR)
 
 Input:
  - A text file containing a list of files to segment
@@ -16,7 +16,7 @@ Input:
  Output:
   - Point cloud LAS
 """
-function segment(txtpotreedirs::String, output::String, model::Lar.LAR; temp_name = "temp.las"::String, epsg = nothing::Union{Nothing,Integer})
+function segment(txtpotreedirs::String, output::String, model::LAR; temp_name = "temp.las"::String, epsg = nothing::Union{Nothing,Integer})
 	# initialize parameters
 	n = nothing #number of points extracted
 	params = OrthographicProjection.ParametersExtraction(txtpotreedirs, output, model; epsg = epsg)
@@ -42,7 +42,7 @@ end
 		project_name::String,
 		proj_folder::String,
 		bbin::Union{AABB,String},
-		models::Array{Lar.LAR,1})
+		models::Array{LAR,1})
 
 For each model in models extracts and saves the clipped point cloud.
 """
@@ -51,7 +51,7 @@ function extract_models(
 	project_name::String,
 	proj_folder::String,
 	bbin::Union{AABB,String},
-	models::Array{Lar.LAR,1})
+	models::Array{LAR,1})
 
 	n_models = length(models)
 	Threads.@threads for i in 1:n_models

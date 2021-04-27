@@ -16,7 +16,11 @@ filename = "files/directory.txt" # point format 0
 
     @testset "init" begin
         outfile = "outfile.las"
-        model = OrthographicProjection.Lar.cuboid([1,1,1])
+        V = [ 0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0;
+              0.0  0.0  1.0  1.0  0.0  0.0  1.0  1.0;
+              0.0  1.0  0.0  1.0  0.0  1.0  0.0  1.0]
+        CV = [[1, 2, 3, 4, 5, 6, 7, 8]]
+        model = (V,CV)
         params = OrthographicProjection.ParametersExtraction(joinpath(workdir,filename), outfile, model)
 
         @test typeof(params) == OrthographicProjection.ParametersExtraction
@@ -56,7 +60,13 @@ filename = "files/directory.txt" # point format 0
         PO = "XY+"
         coordsystemmatrix = OrthographicProjection.PO2matrix(PO)
         GSD = 0.1
-        V,(VV,EV,FV,CV) = OrthographicProjection.Lar.cuboid([1, 1, 1],true)
+        V = [ 0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0;
+              0.0  0.0  1.0  1.0  0.0  0.0  1.0  1.0;
+              0.0  1.0  0.0  1.0  0.0  1.0  0.0  1.0]
+        EV = [[1, 2], [3, 4], [5, 6], [7, 8], [1, 3], [2, 4], [5, 7],
+              [6, 8], [1, 5], [2, 6], [3, 7], [4, 8]]
+        FV = [[1, 2, 3, 4], [5, 6, 7, 8], [1, 2, 5, 6], [3, 4, 7, 8],
+              [1, 3, 5, 7], [2, 4, 6, 8]]
         model = V, EV, FV
         BGcolor = rand(3)
 

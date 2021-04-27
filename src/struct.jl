@@ -5,7 +5,7 @@ ParametersExtraction
 ```jldoctest
 ParametersExtraction(txtpotreedirs::String,
 	outputfile::String,
-	model::Lar.LAR;
+	model::LAR;
 	epsg = nothing::Union{Nothing,Integer}
 	)
 ```
@@ -20,7 +20,7 @@ Input description:
 ```jldoctest
 outputfile::String
 potreedirs::Array{String,1}
-model::Lar.LAR
+model::LAR
 mainHeader::LasIO.LasHeader
 ```
 
@@ -34,19 +34,19 @@ Fields description:
 mutable struct ParametersExtraction
 	outputfile::String
 	potreedirs::Array{String,1}
-	model::Lar.LAR
+	model::LAR
 	header_bb::AABB
 	mainHeader::LasIO.LasHeader
 
 	function ParametersExtraction(txtpotreedirs::String,
 		outputfile::String,
-		model::Lar.LAR;
+		model::LAR;
 		epsg = nothing::Union{Nothing,Integer}
 		)
 
 		potreedirs = get_potree_dirs(txtpotreedirs)
 
-		aabb = Common.boundingbox(model[1])
+		aabb = AABB(model[1])
 
 		mainHeader = FileManager.newHeader(aabb,"EXTRACTION",FileManager.SIZE_DATARECORD)
 		if !isnothing(epsg)
@@ -98,7 +98,7 @@ PO::String
 outputimage::String
 outputfile::String
 potreedirs::Array{String,1}
-model::Lar.LAR
+model::LAR
 coordsystemmatrix::Array{Float64,2}
 RGBtensor::Array{Float64,3}
 rasterquote::Array{Float64,2}
@@ -134,7 +134,7 @@ mutable struct ParametersOrthophoto
     outputimage::String
     outputfile::String
     potreedirs::Array{String,1}
-    model::Lar.LAR
+    model::LAR
     coordsystemmatrix::Array{Float64,2}
     RGBtensor::Array{Float64,3}
     rasterquote::Array{Float64,2}
@@ -176,17 +176,16 @@ mutable struct ParametersOrthophoto
 		end
 
 		model = getmodel(bbin)
-		aabb = Common.boundingbox(model[1])
+		aabb = AABB(model[1])
 
 		if !isnothing(quota) && !isnothing(thickness)
 			directionview = PO[3]
 		    if directionview == '-'
 				quota = -quota
 			end
-			origin = OrthographicProjection.Lar.inv(ucs)[1:3,4]
-			model = Common.getmodel(Lar.inv(coordsystemmatrix), quota, thickness, aabb; new_origin = origin)
-		#	model = Common.getmodel(Lar.convert(Matrix,coordsystemmatrix'), quota, thickness, aabb)
-			aabb = Common.boundingbox(model[1])
+			origin = Common.inv(ucs)[1:3,4]
+			model = getmodel(Common.inv(coordsystemmatrix), quota, thickness, aabb; new_origin = origin)
+			aabb = AABB(model[1])
 		end
 
 

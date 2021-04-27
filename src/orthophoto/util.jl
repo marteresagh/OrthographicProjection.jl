@@ -1,5 +1,5 @@
 """
-	PO2matrix(PO::String, UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
+	PO2matrix(PO::String, UCS=Matrix{Float64}(Common.I,4,4)::Matrix)
 
 Observation point.
 Valid input:
@@ -10,14 +10,14 @@ Valid input:
  - "YZ+": Left view
  - "YZ-": Right view
 """
-function PO2matrix(PO::String, UCS=Matrix{Float64}(Lar.I,4,4)::Matrix)
+function PO2matrix(PO::String, UCS=Matrix{Float64}(Common.I,4,4)::Matrix)
     planecode = PO[1:2]
     @assert planecode == "XY" || planecode == "XZ" || planecode == "YZ" "orthoprojectionimage: $PO not valid view "
 
     directionview = PO[3]
     @assert directionview == '+' || directionview == '-' "orthoprojectionimage: $PO not valid view "
 
-    coordsystemmatrix = Matrix{Float64}(Lar.I,3,3)
+    coordsystemmatrix = Matrix{Float64}(Common.I,3,3)
 
     # if planecode == XY # top, - bottom
     #     continue
@@ -48,11 +48,11 @@ end
 
 
 """
-	init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
+	init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::LAR, BGcolor::Array{Float64,1})
 
 Orthoprojection of `model` on plane defined by `matrix`, create a raster image with background color `BGcolor`.
 """
-function init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::Lar.LAR, BGcolor::Array{Float64,1})
+function init_raster_array(matrix::Array{Float64,2}, GSD::Float64, model::LAR, BGcolor::Array{Float64,1})
 
 	verts,edges,faces = model
 	bbglobalextention = zeros(2)
