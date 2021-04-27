@@ -25,5 +25,5 @@ module OrthographicProjection
 	#
 	# include("slices/main.jl")
 
-	export Geometry, FileManager
+	export Common, FileManager
 end # module

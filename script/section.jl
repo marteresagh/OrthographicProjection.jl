@@ -60,7 +60,7 @@ function main()
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
 		#bbin = (hcat([b[1],b[2],b[3]]),hcat([b[4],b[5],b[6]]))
-		bbin = OrthographicProjection.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
+		bbin = Common.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
 	if isnothing(ucs)
@@ -71,12 +71,12 @@ function main()
 
 
 	coordsystemmatrix = OrthographicProjection.PO2matrix(PO,ucs)
-	model = OrthographicProjection.Common.getmodel(bbin)
-	aabb = OrthographicProjection.Common.boundingbox(model[1])
+	model = Common.getmodel(bbin)
+	aabb = Common.boundingbox(model[1])
 
 	if !isnothing(q) && !isnothing(thickness)
-		origin = OrthographicProjection.Lar.inv(ucs)[1:3,4]
-		model = OrthographicProjection.Common.getmodel(OrthographicProjection.Lar.inv(coordsystemmatrix), q, thickness, aabb; new_origin = origin)
+		origin = Common.inv(ucs)[1:3,4]
+		model = Common.getmodel(Common.inv(coordsystemmatrix), q, thickness, aabb; new_origin = origin)
 	end
 
 	seg = OrthographicProjection.segment(txtpotreedirs, output, model; epsg = epsg)
