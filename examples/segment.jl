@@ -1,12 +1,12 @@
 using OrthographicProjection
 using FileManager
 using Common
-using Visualization
+# using Visualization
 
 txtpotreedirs = "C:/Users/marte/Documents/potreeDirectory/pointclouds/COLOMBELLA" #"C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
 potreedirs = OrthographicProjection.get_potree_dirs(txtpotreedirs)
 metadata = CloudMetadata(potreedirs[1])
-output = "D:/pointclouds/COLOMBELLA/CHIESA_COLOMBELLA.las"
+output = "CHIESA_COLOMBELLA.las"
 # bbin = metadata.tightBoundingBox
 #bbin = "C:/Users/marte/Documents/GEOWEB/wrapper_file/JSON/volume_COLOMBELLA.json"
 # bbin = Volume([200., 200., 200.], [458309.223, 4493974.624, 199.400], [0.000, 0.000, 0.000])
