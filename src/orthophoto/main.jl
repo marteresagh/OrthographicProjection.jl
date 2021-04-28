@@ -62,6 +62,7 @@ function orthophoto(
 	proj_folder = splitdir(params.outputfile)[1]
 
 	FileManager.successful(n!=0, proj_folder::String)
+	flushprintln("Processed $n points")
 
 	# saves point cloud extracted
 	if pc

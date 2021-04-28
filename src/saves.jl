@@ -41,8 +41,6 @@ function savepointcloud(
 	# write las file
 	pointtype = LasIO.pointformat(params.mainHeader) # las point format
 
-	flushprintln("Extracted $n points")
-
 	if n != 0 # if n == 0 nothing to save
 		# in temp : list of las point records
 		open(temp) do s
@@ -69,7 +67,6 @@ Save orthoprojection image.
 """
 function saveimage(params::ParametersOrthophoto)
 	flushprintln("Image: saving ...")
-
 	# save tfw
 	save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
 

@@ -27,6 +27,7 @@ function segment(txtpotreedirs::String, output::String, model::LAR; temp_name = 
 		n = trie_traversal(params,s)
 	end
 
+	flushprintln("Processed $n points")
 	# save point cloud extracted
 	savepointcloud(params, n, temp)
 	if n!=0
