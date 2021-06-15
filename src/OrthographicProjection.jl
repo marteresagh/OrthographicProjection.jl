@@ -23,7 +23,7 @@ module OrthographicProjection
 	#
 	include("segment/core.jl")
 	#
-	# include("slices/main.jl")
+	include("slices/main.jl")
 
 	export Common, FileManager
 end # module
