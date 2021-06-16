@@ -8,7 +8,7 @@ function main()
 
 	txtpotreedirs = raw"C:\Users\marte\Documents\potreeDirectory\pointclouds\CAVA"
 	project_name = "TEST_SLICES"
-	output_folder = "C:\Users\marte\Documents\Julia_package\package_test\TEST\SCRIPT_SLICING"
+	output_folder = raw"C:\Users\marte\Documents\Julia_package\package_test\TEST\SCRIPT_SLICING"
 	bbin = "458117.68 4493768.53 196.68 458452.43 4494171.78 237.49"
 	steps = nothing
 	step = 5

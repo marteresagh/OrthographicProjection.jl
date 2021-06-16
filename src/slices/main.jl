@@ -47,9 +47,9 @@ function preprocess(
 	)
 
 	proj_folder = FileManager.mkdir_project(output_folder, project_name)
-	axis = (p2-p1)/Lar.norm(p2-p1)
-	axis_y /= Lar.norm(axis_y)
-	axis_z = Lar.cross(axis,axis_y)
+	axis = (p2-p1)/Common.norm(p2-p1)
+	axis_y /= Common.norm(axis_y)
+	axis_z = Common.cross(axis,axis_y)
 	FileManager.successful(axis_z != [0.,0.,0.], proj_folder)
 	plane = Plane(p1,p2,axis_y)
 	model = Common.getmodel(p1,p2,axis_y,thickness,bbin)
@@ -83,7 +83,7 @@ function preprocess(
 	proj_folder = FileManager.mkdir_project(output_folder, project_name)
 	V,EVs = FileManager.load_segment(file_listpoints)
 
-	models = Lar.LAR[]
+	models = Common.LAR[]
 
 	for EV in EVs
 		try
@@ -107,7 +107,7 @@ get_parallel_sections(
 	bbin::Union{AABB,String},
 	step::Float64,
 	plane::Plane,
-	model::Lar.LAR)
+	model::Common.LAR)
 
 Return parallel sections of point cloud.
 
@@ -130,18 +130,18 @@ function get_parallel_sections(
 	bbin::Union{AABB,String},
 	step::Float64,
 	plane::Plane,
-	model::Lar.LAR)
+	model::Common.LAR)
 
 	V,EV,FV = model # first plane
 
 	quotas, indices = get_quotas(plane, step, bbin) # quota and indices of each slice
 
-	planes = Lar.LAR[]
+	planes = Common.LAR[]
 	n_sections = length(indices)
 	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $n_sections ----")
-		T = Common.apply_matrix(Lar.t(Lar.inv(plane.matrix)[1:3,3]*indices[i]*step...),V) # traslate model
+		T = Common.apply_matrix(Common.t(Common.inv(plane.matrix)[1:3,3]*indices[i]*step...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(indices[i]).las"
@@ -158,16 +158,16 @@ function get_parallel_sections(
 	bbin::Union{AABB,String},
 	steps::Array{Float64,1},
 	plane::Plane,
-	model::Lar.LAR)
+	model::Common.LAR)
 
 	V,EV,FV = model # first plane
-	planes = Lar.LAR[]
+	planes = Common.LAR[]
 	n_sections = length(steps)
 
 	Threads.@threads for i in 1:n_sections
 		flushprintln(" ")
 		flushprintln(" ---- Section $i of $(n_sections) ----")
-		T = Common.apply_matrix(Lar.t(-Lar.inv(plane.matrix)[1:3,3]*sum(steps[1:i])...),V) # traslate model
+		T = Common.apply_matrix(Common.t(-Common.inv(plane.matrix)[1:3,3]*sum(steps[1:i])...),V) # traslate model
 		plan = (T,EV,FV) # new model
 		push!(planes,plan)
 		output = joinpath(proj_folder,project_name)*"_section_$(i-1).las"
@@ -185,7 +185,7 @@ function get_quotas(plane::Plane, step::Float64,  bbin::Union{AABB,String})
 	model = getmodel(bbin)
 	normal = [plane.a,plane.b,plane.c]
 	V = model[1]
-	dists = [Lar.dot(normal, V[:,i]) for i in 1:size(V,2)]
+	dists = [Common.dot(normal, V[:,i]) for i in 1:size(V,2)]
 	min,max = extrema(dists)
 	quota = min+modf((plane.d-min)/step)[1]*step
 	quotas = Float64[]
