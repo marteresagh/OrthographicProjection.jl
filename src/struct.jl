@@ -176,7 +176,8 @@ mutable struct ParametersOrthophoto
 		end
 
 		model = getmodel(bbin)
-		aabb = AABB(model[1])
+		new_verts_BB = Common.apply_matrix(ucs,model[1])
+		aabb = AABB(new_verts_BB)
 
 		if !isnothing(quota) && !isnothing(thickness)
 			directionview = PO[3]
