@@ -1,6 +1,7 @@
 using OrthographicProjection
 using FileManager
 using Common
+using Visualization
 
 txtpotreedirs = "C:/Users/marte/Documents/potreeDirectory/pointclouds/CAVA" #"C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
 # txtpotreedirs = "C:/Users/marte/Documents/GEOWEB/wrapper_file/directory.txt"
@@ -33,3 +34,11 @@ epsg = nothing #2049
 #     Visualization.points_color_from_rgb(PC.coordinates,PC.rgbs)
 #     ]
 # )
+#  
+# PC = FileManager.source2pc("examples/risultato/prova.las")
+# model = Common.getmodel(FileManager.las2aabb("examples/risultato/prova.las"))
+# Visualization.VIEW([
+#     Visualization.points(PC.coordinates,PC.rgbs)
+#     Visualization.GLGrid(model[1],model[3])
+#     # Visualization.axis_helper()
+# ])

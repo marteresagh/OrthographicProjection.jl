@@ -176,8 +176,7 @@ mutable struct ParametersOrthophoto
 		end
 
 		model = getmodel(bbin)
-		new_verts_BB = Common.apply_matrix(ucs,model[1])
-		aabb = AABB(new_verts_BB)
+		aabb = AABB(model[1])
 
 		if !isnothing(quota) && !isnothing(thickness)
 			directionview = PO[3]
@@ -189,10 +188,13 @@ mutable struct ParametersOrthophoto
 			aabb = AABB(model[1])
 		end
 
-
 		RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
+		#per l'header devo creare il nuovo AABB dato dal nuovo orientamento.
+		new_verts_BB = Common.apply_matrix(ucs,model[1])
+		aabb = AABB(new_verts_BB)
 		mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",FileManager.SIZE_DATARECORD)
+
 		if !isnothing(epsg)
 			FileManager.LasIO.epsg_code!(mainHeader, epsg)
 		end
