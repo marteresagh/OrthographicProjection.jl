@@ -46,14 +46,17 @@ end
 Add new point to segmented point cloud.
 """
 function add_point(params::Union{ParametersExtraction,ParametersOrthophoto}, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
-	point = FileManager.xyz(laspoint,h)
-	Common.update_boundingbox!(params.header_bb,vcat(Common.apply_matrix(params.ucs,point)...))
+
 
 	if typeof(params)==ParametersOrthophoto
 		#modificare i punti
+		point = FileManager.xyz(laspoint,h)
+		Common.update_boundingbox!(params.header_bb,vcat(Common.apply_matrix(params.ucs,point)...))
 		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader; affineMatrix = params.ucs)
 		write(s,plas) # write this record on temporary file
 	else
+		point = FileManager.xyz(laspoint,h)
+		Common.update_boundingbox!(params.header_bb,point)
 		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader)
 		write(s,plas) # write this record on temporary file
 	end
