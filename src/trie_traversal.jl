@@ -37,7 +37,7 @@ function traversal(potree::String, params::ParametersOrthophoto)
 			end
 
 			file = trie[k]
-			addWithoutControl(params)(file)
+			addWithoutControl(params,file)
 
 		end
 	elseif intersection == 1
@@ -75,7 +75,7 @@ function dfs(trie::DataStructures.Trie{String}, params::ParametersOrthophoto)# d
 			flushprintln(params.numFilesProcessed, " files processed of ", params.numNodes)
 		end
 
-		updateWithControl!(params)(file) # update with check
+		updateWithControl!(params,file) # update with check
 		for key in collect(keys(trie.children)) # for all children
 			dfs(trie.children[key],params)
 		end
@@ -87,7 +87,7 @@ function dfs(trie::DataStructures.Trie{String}, params::ParametersOrthophoto)# d
 				flushprintln(params.numFilesProcessed, " files processed of ", params.numNodes)
 			end
 			file = trie[k]
-			updateWithoutControl!(params)(file) # update without check
+			updateWithoutControl!(params,file) # update without check
 		end
 	end
 

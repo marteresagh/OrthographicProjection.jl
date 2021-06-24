@@ -1,9 +1,9 @@
 """
 	update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::Union{Nothing,IOStream}, n::Int64)
 """
-function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::LasIO.LasHeader)
-	point = FileManager.xyz(laspoint,h)
-	rgb = FileManager.color(laspoint,h)
+function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, header::LasIO.LasHeader)
+	point = FileManager.xyz(laspoint,header)
+	rgb = FileManager.color(laspoint,header)
 	p = params.coordsystemmatrix*point
 	xcoord = map(Int∘trunc,(p[1]-params.refX) / params.GSD)+1
 	ycoord = map(Int∘trunc,(params.refY-p[2]) / params.GSD)+1
@@ -19,7 +19,7 @@ function update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::
 	# point for point cloud
 	if params.pc
 		Common.update_boundingbox!(params.tightBB,vcat(Common.apply_matrix(params.ucs,point)...))
-		plas = FileManager.newPointRecord(laspoint,h,LasIO.LasPoint2,params.mainHeader; affineMatrix = params.ucs)
+		plas = FileManager.newPointRecord(laspoint,header,LasIO.LasPoint2,params.mainHeader; affineMatrix = params.ucs)
 		write(params.stream_tmp,plas) # write this record on temporary file
 	end
 

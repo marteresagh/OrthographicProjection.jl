@@ -36,7 +36,7 @@ function orthophoto(
 	bbin::Union{String,AABB},
 	GSD::Float64,
 	PO::String,
-	quota::Union{Float64,Nothing},
+	altitude::Union{Float64,Nothing},
 	thickness::Union{Float64,Nothing},
 	ucs::Union{String,Matrix{Float64}},
 	BGcolor::Array{Float64,1},
@@ -66,6 +66,9 @@ function orthophoto(
 		params.stream_tmp = open(temp, "w")
 	end
 
+	flushprintln(" ")
+	flushprintln("========= PROCESSING =========")
+	
 	for potree in params.potreedirs
 		traversal(potree, params)
 	end
@@ -81,8 +84,8 @@ function orthophoto(
 	# saves image
 	saveimage(params)
 
-	FileManager.successful(n!=0, proj_folder::String)
-	flushprintln("Processed $n points")
+	FileManager.successful(params.numPointsProcessed!=0, proj_folder::String)
+	flushprintln("Processed $(params.numPointsProcessed) points")
 
 	# saves point cloud extracted
 	if pc
