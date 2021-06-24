@@ -9,21 +9,13 @@ module OrthographicProjection
 	using Printf
 	using Images
 
-
-	# first include struct
+	#
 	include("struct.jl")
 	include("trie_traversal.jl")
-	include("common.jl")
 	include("saves.jl")
-	#
-	# #include all file .jl in other folders
-	include("orthophoto/main.jl")
-	include("orthophoto/core.jl")
-	include("orthophoto/util.jl")
-	#
-	include("segment/core.jl")
-	#
-	# include("slices/main.jl")
+	include("main.jl")
+	include("core.jl")
+	include("util.jl")
 
 	export Common, FileManager
 end # module

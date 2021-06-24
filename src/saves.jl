@@ -19,29 +19,28 @@ end
 Save point cloud extracted file .las.
 """
 function savepointcloud(
-	params::Union{ParametersOrthophoto,ParametersExtraction},
-	n::Int64,
+	params::ParametersOrthophoto,
 	temp::String,
 	)
 
 	flushprintln("Point cloud: saving ...")
 
 	# update header metadata
-	params.mainHeader.records_count = n # update number of points in header
+	params.mainHeader.records_count = params.numPointsProcessed # update number of points in header
 
 	#update header bounding box
 	flushprintln("Point cloud: update bbox ...")
-	params.mainHeader.x_min = params.header_bb.x_min
-	params.mainHeader.y_min = params.header_bb.y_min
-	params.mainHeader.z_min = params.header_bb.z_min
-	params.mainHeader.x_max = params.header_bb.x_max
-	params.mainHeader.y_max = params.header_bb.y_max
-	params.mainHeader.z_max = params.header_bb.z_max
+	params.mainHeader.x_min = params.tightBB.x_min
+	params.mainHeader.y_min = params.tightBB.y_min
+	params.mainHeader.z_min = params.tightBB.z_min
+	params.mainHeader.x_max = params.tightBB.x_max
+	params.mainHeader.y_max = params.tightBB.y_max
+	params.mainHeader.z_max = params.tightBB.z_max
 
 	# write las file
 	pointtype = LasIO.pointformat(params.mainHeader) # las point format
 
-	if n != 0 # if n == 0 nothing to save
+	if params.numPointsProcessed != 0 # if n == 0 nothing to save
 		# in temp : list of las point records
 		open(temp) do s
 			# write las
@@ -49,8 +48,8 @@ function savepointcloud(
 				write(t, LasIO.magic(LasIO.format"LAS"))
 				write(t,params.mainHeader)
 
-				LasIO.skiplasf(s)
-				for i = 1:n
+				# LasIO.skiplasf(s)
+				for i = 1:params.numPointsProcessed
 					p = read(s, pointtype)
 					write(t,p)
 				end

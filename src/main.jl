@@ -45,13 +45,23 @@ function orthophoto(
 	)
 
 	# initialization
-	params = ParametersOrthophoto( txtpotreedirs, outputimage, bbin, GSD, PO, quota, thickness,	ucs, BGcolor, pc, epsg);
+	params = ParametersClipping(txtpotreedirs, output, model, epsg)
 
-	# image creation
-	flushprintln(" ")
-	flushprintln("========= PROCESSING =========")
+	proj_folder = splitdir(params.outputfile)[1]
 
-	n, temp = orthophoto_core(params)
+	if params.pc
+		temp = joinpath(proj_folder, "tmp.las")
+		params.stream_tmp = open(temp, "w")
+	end
+
+	for potree in params.potreedirs
+		traversal(potree, params)
+	end
+
+	if params.pc
+		close(params.stream_tmp)
+	end
+
 
 	flushprintln(" ")
 	flushprintln("========= SAVES =========")
@@ -59,14 +69,12 @@ function orthophoto(
 	# saves image
 	saveimage(params)
 
-	proj_folder = splitdir(params.outputfile)[1]
-
 	FileManager.successful(n!=0, proj_folder::String)
 	flushprintln("Processed $n points")
 
 	# saves point cloud extracted
 	if pc
-		savepointcloud(params, n, temp)
+		savepointcloud(params, temp)
 	end
 
 end

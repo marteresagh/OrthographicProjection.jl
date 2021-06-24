@@ -63,7 +63,7 @@ function main()
 	PO = args["po"]
 	GSD = args["gsd"]
 	txtpotreedirs = args["source"]
-	q = args["quote"]
+	altitude = args["quote"]
 	thickness = args["thickness"]
 	pc = args["pc"]
 	ucs = args["ucs"]
@@ -87,7 +87,7 @@ function main()
 		background = [1.0,1.0,1.0]
 	end
 
-	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, q, thickness, ucs, background, pc, epsg)
+	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, altitude, thickness, ucs, background, pc, epsg)
 end
 
 @time main()
