@@ -56,7 +56,7 @@ end
 
 Process all points, in file, falling in region of interest.
 """
-function updateWithControl!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
+function updateWithControl!(params::ParametersOrthophoto, file::String, s::Union{Nothing,IOStream}, n::Int64)
 	h, laspoints =  FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         point = FileManager.xyz(laspoint,h)
@@ -71,24 +71,13 @@ end
 
 Process points in file without further checks.
 """
-function updateWithoutControl!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
+function updateWithoutControl!(params::ParametersOrthophoto, file::String, s::Union{Nothing,IOStream}, n::Int64)
 	h, laspoints = FileManager.read_LAS_LAZ(file) # read file
 	for laspoint in laspoints # read each point
 		update_core(params,laspoint,h,s,n)
 	end
 	return n
 end
-
-"""
-	add_point(params::Union{ParametersExtraction,ParametersOrthophoto}, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream, n::Int64)
-
-Add new point to segmented point cloud.
-"""
-function add_point(params::Union{ParametersExtraction,ParametersOrthophoto}, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::IOStream)
-
-
-end
-
 
 """
 	PO2matrix(PO::String, UCS=Matrix{Float64}(Common.I,4,4)::Matrix)
