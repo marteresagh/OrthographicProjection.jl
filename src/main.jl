@@ -45,7 +45,19 @@ function orthophoto(
 	)
 
 	# initialization
-	params = ParametersClipping(txtpotreedirs, output, model, epsg)
+	params = ParametersOrthophoto(
+		txtpotreedirs,
+		outputimage,
+		bbin,
+		GSD,
+		PO,
+		altitude,
+		thickness,
+		ucs,
+		BGcolor,
+		pc,
+		epsg
+		)
 
 	proj_folder = splitdir(params.outputfile)[1]
 
