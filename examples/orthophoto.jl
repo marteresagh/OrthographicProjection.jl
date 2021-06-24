@@ -14,7 +14,7 @@ GSD = 0.3
 PO = "XY+"
 quota = 210.0 #11.8 #458277.430, 4493982.030, 210.840
 thickness = 5.
-outputimage = "prova.jpg"
+outputimage = "examples/prova.jpg"
 pc = true
 background = [0.0,0.0,0.0]
 epsg = nothing #2049
@@ -34,7 +34,7 @@ epsg = nothing #2049
 #     Visualization.points_color_from_rgb(PC.coordinates,PC.rgbs)
 #     ]
 # )
-#  
+#
 # PC = FileManager.source2pc("examples/risultato/prova.las")
 # model = Common.getmodel(FileManager.las2aabb("examples/risultato/prova.las"))
 # Visualization.VIEW([

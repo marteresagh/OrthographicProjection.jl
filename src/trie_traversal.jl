@@ -12,7 +12,7 @@ Input:
 Output:
 - n: number of processed points
 """
-function traversal(potree::String, params::ParametersClipping)
+function traversal(potree::String, params::ParametersOrthophoto)
 	flushprintln("= ")
 	flushprintln("= PROJECT: $potree")
 	flushprintln("= ")
@@ -20,7 +20,7 @@ function traversal(potree::String, params::ParametersClipping)
 	metadata = CloudMetadata(potree) # metadata of current potree project
 	trie = potree2trie(potree)
 	params.numNodes = length(keys(trie))
-	
+
 	# if model contains the whole point cloud ( == 2)
 	#	process all files
 	# else
