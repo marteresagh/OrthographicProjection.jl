@@ -1,5 +1,5 @@
 """
-	trie_traversal(params::Union{ParametersExtraction,ParametersOrthophoto},s::Union{Nothing,IOStream})
+	traversal(potree::String, params::ParametersOrthophoto)
 
 Trie traversal.
 If entire point cloud falls in volume process all files of Potree project
@@ -7,10 +7,7 @@ else travers trie, depth search first, and process nodes falling in region of in
 
 Input:
  - params: initial parameters
- - s: nothing or stream file where to save las points
-
-Output:
-- n: number of processed points
+ - potree: potree hierarchy
 """
 function traversal(potree::String, params::ParametersOrthophoto)
 	flushprintln("= ")
@@ -37,7 +34,7 @@ function traversal(potree::String, params::ParametersOrthophoto)
 			end
 
 			file = trie[k]
-			addWithoutControl(params,file)
+			updateWithoutControl!(params,file)
 
 		end
 	elseif intersection == 1

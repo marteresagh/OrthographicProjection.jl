@@ -51,33 +51,6 @@ function get_potree_dirs(txtpotreedirs::String)
     end
 end
 
-"""
-	updateWithControl!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
-
-Process all points, in file, falling in region of interest.
-"""
-function updateWithControl!(params::ParametersOrthophoto, file::String)
-	header, laspoints =  FileManager.read_LAS_LAZ(file) # read file
-    for laspoint in laspoints # read each point
-        point = FileManager.xyz(laspoint,header)
-        if Common.inmodel(params.model)(point) # if point in model
-			update_core(params,laspoint,header)
-        end
-    end
-end
-
-"""
-	updateWithoutControl!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
-
-Process points in file without further checks.
-"""
-function updateWithoutControl!(params::ParametersOrthophoto, file::String)
-	h, laspoints = FileManager.read_LAS_LAZ(file) # read file
-	for laspoint in laspoints # read each point
-		update_core(params,laspoint,h)
-	end
-	return n
-end
 
 """
 	PO2matrix(PO::String, UCS=Matrix{Float64}(Common.I,4,4)::Matrix)

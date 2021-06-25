@@ -3,7 +3,7 @@ __precompile__()
 module OrthographicProjection
 
     using Common
-	import Common.AABB,Common.LAR,Common.Points,Common.Point
+	import Common.AABB,Common.LAR,Common.Points
 	import Common.getmodel
 	using FileManager
 	using Printf
@@ -14,7 +14,7 @@ module OrthographicProjection
 	include("trie_traversal.jl")
 	include("saves.jl")
 	include("main.jl")
-	include("core.jl")
+	include("process_point.jl")
 	include("util.jl")
 
 	export Common, FileManager

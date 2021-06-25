@@ -25,10 +25,10 @@ function savepointcloud(
 
 	flushprintln("Point cloud: saving ...")
 
-	# update header metadata
-	params.mainHeader.records_count = params.numPointsProcessed # update number of points in header
+	# update number of points in header
+	params.mainHeader.records_count = params.numPointsProcessed
 
-	#update header bounding box
+	# update header bounding box
 	flushprintln("Point cloud: update bbox ...")
 	params.mainHeader.x_min = params.tightBB.x_min
 	params.mainHeader.y_min = params.tightBB.y_min
@@ -73,4 +73,57 @@ function saveimage(params::ParametersOrthophoto)
 	save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
 
 	flushprintln("Image: done ...")
+end
+
+
+
+function newPointRecord(point::Point, type::LasIO.DataType, header::LasIO.LasHeader; affineMatrix = Matrix(Common.I,4,4))
+
+	position = Common.apply_matrix(affineMatrix,point.position)
+	x = LasIO.xcoord(position[1], header)
+	y = LasIO.ycoord(position[2], header)
+	z = LasIO.zcoord(position[3], header)
+	intensity = UInt16(0)
+	flag_byte = UInt8(0)
+	raw_classification = UInt8(0)
+	scan_angle = Int8(0)
+	user_data = UInt8(0)
+	pt_src_id = UInt16(0)
+
+	if type == LasIO.LasPoint0
+		return type(x, y, z,
+					intensity, flag_byte, raw_classification,
+					scan_angle, user_data, pt_src_id
+					)
+
+	elseif type == LasIO.LasPoint1
+		gps_time = Float64(0)
+		return type(x, y, z,
+					intensity, flag_byte, raw_classification,
+					scan_angle, user_data, pt_src_id, gps_time
+					)
+
+	elseif type == LasIO.LasPoint2
+		red = point.color[1]
+		green = point.color[2]
+		blue = point.color[3]
+		return type(x, y, z,
+					intensity, flag_byte, raw_classification,
+					scan_angle, user_data, pt_src_id,
+					red, green, blue
+					)
+
+	elseif type == LasIO.LasPoint3
+		gps_time = Float64(0)
+		red = rgb[1]
+		green = rgb[2]
+		blue = rgb[3]
+		return type(x, y, z,
+					intensity, flag_byte, raw_classification,
+					scan_angle, user_data, pt_src_id, gps_time,
+					red, green, blue
+					)
+
+	end
+
 end
