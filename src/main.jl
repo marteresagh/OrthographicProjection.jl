@@ -1,16 +1,16 @@
 """
-orthophoto(
-	txtpotreedirs::String,
-	outputimage::String,
-	bbin::Union{String,AABB},
-	GSD::Float64,
-	PO::String,
-	quota::Union{Float64,Nothing},
-	thickness::Union{Float64,Nothing},
-	ucs::Union{String,Matrix{Float64}},
-	BGcolor::Array{Float64,1},
-	pc::Bool
-	)
+    orthophoto(
+    	txtpotreedirs::String,
+    	outputimage::String,
+    	bbin::Union{String,AABB},
+    	GSD::Float64,
+    	PO::String,
+    	quota::Union{Float64,Nothing},
+    	thickness::Union{Float64,Nothing},
+    	ucs::Union{String,Matrix{Float64}},
+    	BGcolor::Array{Float64,1},
+    	pc::Bool
+    	)
 
 Orthographic projection of point cloud.
 

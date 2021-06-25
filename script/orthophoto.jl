@@ -52,23 +52,22 @@ end
 function main()
     args = parse_commandline()
 
-
-	OrthographicProjection.flushprintln("== params ==")
-    for (arg,val) in args
-        OrthographicProjection.flushprintln("$arg  =>  $val")
-    end
-
-	bbin = args["bbin"]
+	txtpotreedirs = args["source"]
 	outputimage = args["output"]
+	bbin = args["bbin"]
 	PO = args["po"]
 	GSD = args["gsd"]
-	txtpotreedirs = args["source"]
+	bgcolor = args["bgcolor"]
 	altitude = args["quote"]
 	thickness = args["thickness"]
 	pc = args["pc"]
 	ucs = args["ucs"]
-	bgcolor = args["bgcolor"]
 	epsg = args["epsg"]
+
+	OrthographicProjection.flushprintln(" ")
+	OrthographicProjection.flushprintln("== params ==")
+	OrthographicProjection.flushprintln("Sources  =>  $txtpotreedirs")
+	OrthographicProjection.flushprintln("Output image  =>  $outputimage")
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
@@ -76,15 +75,35 @@ function main()
 		bbin = Common.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
-	if isnothing(ucs)
-		ucs = Matrix{Float64}(Common.I,4,4)
-	end
+	OrthographicProjection.flushprintln("Bounding Box  =>")
+	OrthographicProjection.flushprintln(bbin)
+	OrthographicProjection.flushprintln("Point of View  =>  $PO")
+	OrthographicProjection.flushprintln("GSD  =>  $GSD")
 
 	if !isnothing(bgcolor)
 		col = tryparse.(Float64,split(bgcolor, " "))
 		background = [col[1],col[2],col[3]]
 	else
 		background = [1.0,1.0,1.0]
+	end
+
+	OrthographicProjection.flushprintln("Background color  =>  $background")
+
+	if !isnothing(altitude)
+		OrthographicProjection.flushprintln("Altitude  =>  $altitude")
+		OrthographicProjection.flushprintln("Thickness  =>  $thickness")
+	end
+
+	OrthographicProjection.flushprintln("Extract point cloud  =>  $pc")
+
+	if isnothing(ucs)
+		ucs = Matrix{Float64}(Common.I,4,4)
+	else
+		OrthographicProjection.flushprintln("User coordinates system  =>  $ucs")
+	end
+
+	if !isnothing(epsg)
+		OrthographicProjection.flushprintln("EPSG  =>  $epsg")
 	end
 
 	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, altitude, thickness, ucs, background, pc, epsg)

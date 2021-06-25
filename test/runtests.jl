@@ -14,28 +14,6 @@ filename = "files/directory.txt" # point format 0
         @test potreedirs[4] == "C:\\Users\\Documents\\PROJ4"
     end
 
-    @testset "init" begin
-        outfile = "outfile.las"
-        V = [ 0.0  0.0  0.0  0.0  1.0  1.0  1.0  1.0;
-              0.0  0.0  1.0  1.0  0.0  0.0  1.0  1.0;
-              0.0  1.0  0.0  1.0  0.0  1.0  0.0  1.0]
-        CV = [[1, 2, 3, 4, 5, 6, 7, 8]]
-        model = (V,CV)
-        params = OrthographicProjection.ParametersExtraction(joinpath(workdir,filename), outfile, model)
-
-        @test typeof(params) == OrthographicProjection.ParametersExtraction
-        @test params.outputfile == outfile
-        @test params.model == model
-        @test typeof(params.mainHeader) == OrthographicProjection.LasIO.LasHeader
-        AABB = OrthographicProjection.FileManager.las2aabb(params.mainHeader)
-        @test AABB.x_max == 1.0
-        @test AABB.x_min == 0.0
-        @test AABB.y_max == 1.0
-        @test AABB.y_min == 0.0
-        @test AABB.z_max == 1.0
-        @test AABB.z_min == 0.0
-    end
-
     @testset "PO" begin
         PO = "XY+"
         @test OrthographicProjection.PO2matrix(PO) == [ 1.0  0.0  0.0; 0.0  1.0  0.0; 0.0  0.0  1.0]
