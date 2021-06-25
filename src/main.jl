@@ -31,65 +31,65 @@ It is possible to limit the region of interest for a section of point cloud. The
 Put both of them to nothing if you are not interested in a slice.
 """
 function orthophoto(
-	txtpotreedirs::String,
-	outputimage::String,
-	bbin::Union{String,AABB},
-	GSD::Float64,
-	PO::String,
-	altitude::Union{Float64,Nothing},
-	thickness::Union{Float64,Nothing},
-	ucs::Union{String,Matrix{Float64}},
-	BGcolor::Array{Float64,1},
-	pc::Bool,
-	epsg::Union{Nothing,Integer}
-	)
+    txtpotreedirs::String,
+    outputimage::String,
+    bbin::Union{String,AABB},
+    GSD::Float64,
+    PO::String,
+    altitude::Union{Float64,Nothing},
+    thickness::Union{Float64,Nothing},
+    ucs::Union{String,Matrix{Float64}},
+    BGcolor::Array{Float64,1},
+    pc::Bool,
+    epsg::Union{Nothing,Integer},
+)
 
-	# initialization
-	params = ParametersOrthophoto(
-		txtpotreedirs,
-		outputimage,
-		bbin,
-		GSD,
-		PO,
-		altitude,
-		thickness,
-		ucs,
-		BGcolor,
-		pc,
-		epsg
-		)
+    # initialization
+    params = ParametersOrthophoto(
+        txtpotreedirs,
+        outputimage,
+        bbin,
+        GSD,
+        PO,
+        altitude,
+        thickness,
+        ucs,
+        BGcolor,
+        pc,
+        epsg,
+    )
 
-	proj_folder = splitdir(params.outputfile)[1]
+    proj_folder = splitdir(params.outputfile)[1]
 
-	if params.pc
-		temp = joinpath(proj_folder, "tmp.las")
-		params.stream_tmp = open(temp, "w")
-	end
+    if params.pc
+        temp = joinpath(proj_folder, "tmp.las")
+        params.stream_tmp = open(temp, "w")
+    end
 
-	flushprintln(" ")
-	flushprintln("========= PROCESSING =========")
-	
-	for potree in params.potreedirs
-		traversal(potree, params)
-	end
+    flushprintln(" ")
+    flushprintln("========= PROCESSING =========")
 
-	if params.pc
-		close(params.stream_tmp)
-	end
+    for potree in params.potreedirs
+        traversal(potree, params)
+    end
+
+    if params.pc
+        close(params.stream_tmp)
+    end
 
 
-	flushprintln(" ")
-	flushprintln("========= SAVES =========")
+    flushprintln(" ")
+    flushprintln("========= SAVES =========")
 
-	# saves image
-	saveimage(params)
+    # saves image
+    saveimage(params)
 
-	FileManager.successful(params.numPointsProcessed!=0, proj_folder::String)
-	flushprintln("Processed $(params.numPointsProcessed) points")
+    FileManager.successful(params.numPointsProcessed != 0, proj_folder::String)
+    flushprintln("Processed $(params.numPointsProcessed) points")
 
-	# saves point cloud extracted
-	if pc
-		savepointcloud(params, temp)
-	end
+    # saves point cloud extracted
+    if pc
+        savepointcloud(params, temp)
+    end
 
 end

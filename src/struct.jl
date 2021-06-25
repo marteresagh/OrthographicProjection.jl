@@ -87,90 +87,103 @@ mutable struct ParametersOrthophoto
     refY::Float64
     pc::Bool
     ucs::Matrix
-	tightBB::AABB
+    tightBB::AABB
     mainHeader::LasIO.LasHeader
-	numPointsProcessed::Int64
-	numNodes::Int64
-	numFilesProcessed::Int64
-	stream_tmp::Union{Nothing,IOStream}
+    numPointsProcessed::Int64
+    numNodes::Int64
+    numFilesProcessed::Int64
+    stream_tmp::Union{Nothing,IOStream}
 
-	function ParametersOrthophoto(
-		txtpotreedirs::String,
-		outputimage::String,
-		bbin::Union{String,AABB},
-		GSD::Float64,
-		PO::String,
-		altitude::Union{Float64,Nothing},
-		thickness::Union{Float64,Nothing},
-		ucs::Union{String,Matrix{Float64}},
-		BGcolor::Array{Float64,1},
-		pc::Bool,
-		epsg::Union{Nothing,Integer}
-		)
+    function ParametersOrthophoto(
+        txtpotreedirs::String,
+        outputimage::String,
+        bbin::Union{String,AABB},
+        GSD::Float64,
+        PO::String,
+        altitude::Union{Float64,Nothing},
+        thickness::Union{Float64,Nothing},
+        ucs::Union{String,Matrix{Float64}},
+        BGcolor::Array{Float64,1},
+        pc::Bool,
+        epsg::Union{Nothing,Integer},
+    )
 
-		# check validity
-		@assert length(PO)==3 "orthoprojectionimage: $PO not valid view"
+        # check validity
+        @assert length(PO) == 3 "orthoprojectionimage: $PO not valid view"
 
-		numPointsProcessed = 0
-		numNodes = 0
-		numFilesProcessed = 0
-		stream_tmp = nothing
+        numPointsProcessed = 0
+        numNodes = 0
+        numFilesProcessed = 0
+        stream_tmp = nothing
 
-		outputfile = splitext(outputimage)[1]*".las"
+        outputfile = splitext(outputimage)[1] * ".las"
 
-		potreedirs = get_potree_dirs(txtpotreedirs)
+        potreedirs = get_potree_dirs(txtpotreedirs)
 
-		if typeof(ucs) == Matrix{Float64}
-			coordsystemmatrix = PO2matrix(PO,ucs)
-		else
-			ucs = FileManager.ucs2matrix(ucs)
-			coordsystemmatrix = PO2matrix(PO,ucs)
-		end
+        if typeof(ucs) == Matrix{Float64}
+            coordsystemmatrix = PO2matrix(PO, ucs)
+        else
+            ucs = FileManager.ucs2matrix(ucs)
+            coordsystemmatrix = PO2matrix(PO, ucs)
+        end
 
-		model = getmodel(bbin)
-		aabb = AABB(model[1])
+        model = getmodel(bbin)
+        aabb = AABB(model[1])
 
-		if !isnothing(altitude) && !isnothing(thickness)
-			directionview = PO[3]
-		    if directionview == '-'
-				altitude = -altitude
-			end
-			origin = Common.inv(ucs)[1:3,4]
-			model = getmodel(Common.inv(coordsystemmatrix), altitude, thickness, aabb; new_origin = origin)
-			aabb = AABB(model[1])
-		end
+        if !isnothing(altitude) && !isnothing(thickness)
+            directionview = PO[3]
+            if directionview == '-'
+                altitude = -altitude
+            end
+            origin = Common.inv(ucs)[1:3, 4]
+            model = getmodel(
+                Common.inv(coordsystemmatrix),
+                altitude,
+                thickness,
+                aabb;
+                new_origin = origin,
+            )
+            aabb = AABB(model[1])
+        end
 
-		RGBtensor, rasterquote, refX, refY = init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
+        RGBtensor, rasterquote, refX, refY =
+            init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
-		#per l'header devo creare il nuovo AABB dato dal nuovo orientamento.
-		new_verts_BB = Common.apply_matrix(ucs,model[1])
-		aabb = AABB(new_verts_BB)
-		mainHeader = FileManager.newHeader(aabb,"ORTHOPHOTO",FileManager.SIZE_DATARECORD)
+        #per l'header devo creare il nuovo AABB dato dal nuovo orientamento.
+        new_verts_BB = Common.apply_matrix(ucs, model[1])
+        aabb = AABB(new_verts_BB)
+        mainHeader = FileManager.newHeader(
+            aabb,
+            "ORTHOPHOTO",
+            FileManager.SIZE_DATARECORD,
+        )
 
-		if !isnothing(epsg)
-			FileManager.LasIO.epsg_code!(mainHeader, epsg)
-		end
+        if !isnothing(epsg)
+            FileManager.LasIO.epsg_code!(mainHeader, epsg)
+        end
 
-		return new(PO,
-				 outputimage,
-				 outputfile,
-				 potreedirs,
-				 model,
-				 coordsystemmatrix,
-				 RGBtensor,
-				 rasterquote,
-				 GSD,
-				 refX,
-				 refY,
-				 pc,
-				 ucs,
-				 AABB(-Inf, Inf,-Inf, Inf,-Inf, Inf),
-				 mainHeader,
-				 numPointsProcessed,
-				 numNodes,
-		 		 numFilesProcessed,
-				 stream_tmp)
-	end
+        return new(
+            PO,
+            outputimage,
+            outputfile,
+            potreedirs,
+            model,
+            coordsystemmatrix,
+            RGBtensor,
+            rasterquote,
+            GSD,
+            refX,
+            refY,
+            pc,
+            ucs,
+            AABB(-Inf, Inf, -Inf, Inf, -Inf, Inf),
+            mainHeader,
+            numPointsProcessed,
+            numNodes,
+            numFilesProcessed,
+            stream_tmp,
+        )
+    end
 
 end
 
@@ -200,44 +213,49 @@ gpsTime::Float64
 ```
 """
 mutable struct Point
-	position::Vector{Float64}
-	color::Vector{LasIO.FixedPointNumbers.N0f16}
-	normal::Vector{Float64}
-	intensity::UInt16
-	classification::Char
-	returnNumber::Char
-	numberOfReturns::Char
-	pointSourceID::UInt16
-	gpsTime::Float64
+    position::Vector{Float64}
+    color::Vector{LasIO.FixedPointNumbers.N0f16}
+    normal::Vector{Float64}
+    intensity::UInt16
+    classification::Char
+    returnNumber::Char
+    numberOfReturns::Char
+    pointSourceID::UInt16
+    gpsTime::Float64
 
 
 
-	function Point(lasPoint::FileManager.LasPoint, header::FileManager.LasHeader)::Point
-	    position = FileManager.xyz(lasPoint,header)
-		color = [lasPoint.red,lasPoint.green,lasPoint.blue]
-		normal = Float64[]
-		intensity = lasPoint.intensity
-		classification = lasPoint.raw_classification
-		returnNumber = 0
-		numberOfReturns = 0
-		pointSourceID = lasPoint.pt_src_id
-		gpsTime = 0.0
-		return new(position,
-					color,
-					normal,
-					intensity,
-					classification,
-					returnNumber,
-					numberOfReturns,
-					pointSourceID,
-					gpsTime,)
-	end
+    function Point(
+        lasPoint::FileManager.LasPoint,
+        header::FileManager.LasHeader,
+    )::Point
+        position = FileManager.xyz(lasPoint, header)
+        color = [lasPoint.red, lasPoint.green, lasPoint.blue]
+        normal = Float64[]
+        intensity = lasPoint.intensity
+        classification = lasPoint.raw_classification
+        returnNumber = 0
+        numberOfReturns = 0
+        pointSourceID = lasPoint.pt_src_id
+        gpsTime = 0.0
+        return new(
+            position,
+            color,
+            normal,
+            intensity,
+            classification,
+            returnNumber,
+            numberOfReturns,
+            pointSourceID,
+            gpsTime,
+        )
+    end
 
 end
 
 function Base.show(io::IO, point::Point)
     println(io, "position: $(point.position)")
-	println(io, "color: $(point.color)")
+    println(io, "color: $(point.color)")
 end
 
 #

@@ -2,8 +2,8 @@ __precompile__()
 
 module OrthographicProjection
 
-    using Common
-	import Common.AABB,Common.LAR,Common.Points
+	using Common
+	import Common.AABB, Common.LAR, Common.Points
 	import Common.getmodel
 	using FileManager
 	using Printf
