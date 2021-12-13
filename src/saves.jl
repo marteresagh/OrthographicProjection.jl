@@ -20,13 +20,13 @@ Save point cloud extracted file .las.
 """
 function savepointcloud(params::ParametersOrthophoto, temp::String)
 
-    flushprintln("Point cloud: saving ...")
+    println("Point cloud: saving ...")
 
     # update number of points in header
     params.mainHeader.records_count = params.numPointsProcessed
 
     # update header bounding box
-    flushprintln("Point cloud: update bbox ...")
+    println("Point cloud: update bbox ...")
     params.mainHeader.x_min = params.tightBB.x_min
     params.mainHeader.y_min = params.tightBB.y_min
     params.mainHeader.z_min = params.tightBB.z_min
@@ -49,27 +49,30 @@ function savepointcloud(params::ParametersOrthophoto, temp::String)
                 for i = 1:params.numPointsProcessed
                     p = read(s, pointtype)
                     write(t, p)
+                    if i%10000 == 0
+                        flush(t)
+                    end
                 end
             end
         end
     end
 
     rm(temp) # remove temp
-    flushprintln("Point cloud: done ...")
+    println("Point cloud: done ...")
 end
 
 """
 Save orthoprojection image.
 """
 function saveimage(params::ParametersOrthophoto)
-    flushprintln("Image: saving ...")
+    println("Image: saving ...")
     # save tfw
     save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
 
     # save image
     save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
 
-    flushprintln("Image: done ...")
+    println("Image: done ...")
 end
 
 

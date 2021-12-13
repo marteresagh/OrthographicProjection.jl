@@ -44,10 +44,11 @@ end
 function main()
 	args = parse_commandline()
 
-	OrthographicProjection.flushprintln("== params ==")
+	println("== params ==")
 	for (arg,val) in args
-		OrthographicProjection.flushprintln("$arg  =>  $val")
+		println("$arg  =>  $val")
 	end
+	flush(stdout)
 
 	txtpotreedirs = args["source"]
 	project_name = args["projectname"]

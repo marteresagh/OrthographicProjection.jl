@@ -10,9 +10,9 @@ Input:
  - potree: potree hierarchy
 """
 function traversal(potree::String, params::ParametersOrthophoto)
-    flushprintln("= ")
-    flushprintln("= PROJECT: $potree")
-    flushprintln("= ")
+    println("= ")
+    println("= PROJECT: $potree")
+    println("= ")
 
     metadata = CloudMetadata(potree) # metadata of current potree project
     trie = potree2trie(potree)
@@ -27,11 +27,11 @@ function traversal(potree::String, params::ParametersOrthophoto)
         Common.modelsdetection(params.model, metadata.tightBoundingBox)
 
     if intersection == 2
-        flushprintln("FULL model")
+        println("FULL model")
         for k in keys(trie)
             params.numFilesProcessed = params.numFilesProcessed + 1
             if params.numFilesProcessed % 100 == 0
-                flushprintln(
+                println(
                     params.numFilesProcessed,
                     " files processed of ",
                     params.numNodes,
@@ -43,14 +43,14 @@ function traversal(potree::String, params::ParametersOrthophoto)
 
         end
     elseif intersection == 1
-        flushprintln("DFS")
+        println("DFS")
         dfs(trie, params)
 
         if params.numNodes - params.numFilesProcessed > 0
-            flushprintln("$(params.numNodes-params.numFilesProcessed) file of $(params.numNodes) not processed - out of region of interest")
+            println("$(params.numNodes-params.numFilesProcessed) file of $(params.numNodes) not processed - out of region of interest")
         end
     elseif intersection == 0
-        flushprintln("OUT OF REGION OF INTEREST")
+        println("OUT OF REGION OF INTEREST")
     end
 
 end
@@ -74,7 +74,7 @@ function dfs(trie::DataStructures.Trie{String}, params::ParametersOrthophoto)# d
         # alcuni punti ricadono nel modello altri no
         params.numFilesProcessed = params.numFilesProcessed + 1
         if params.numFilesProcessed % 100 == 0
-            flushprintln(
+            println(
                 params.numFilesProcessed,
                 " files processed of ",
                 params.numNodes,
@@ -90,7 +90,7 @@ function dfs(trie::DataStructures.Trie{String}, params::ParametersOrthophoto)# d
         for k in keys(trie)
             params.numFilesProcessed = params.numFilesProcessed + 1
             if params.numFilesProcessed % 100 == 0
-                flushprintln(
+                println(
                     params.numFilesProcessed,
                     " files processed of ",
                     params.numNodes,

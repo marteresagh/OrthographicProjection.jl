@@ -64,10 +64,10 @@ function main()
 	ucs = args["ucs"]
 	epsg = args["epsg"]
 
-	OrthographicProjection.flushprintln(" ")
-	OrthographicProjection.flushprintln("== params ==")
-	OrthographicProjection.flushprintln("Sources  =>  $txtpotreedirs")
-	OrthographicProjection.flushprintln("Output image  =>  $outputimage")
+	println(" ")
+	println("== params ==")
+	println("Sources  =>  $txtpotreedirs")
+	println("Output image  =>  $outputimage")
 
 	b = tryparse.(Float64,split(bbin, " "))
 	if length(b) == 6
@@ -75,10 +75,10 @@ function main()
 		bbin = Common.AABB(b[4],b[1],b[5],b[2],b[6],b[3])
 	end
 
-	OrthographicProjection.flushprintln("Bounding Box  =>")
-	OrthographicProjection.flushprintln(bbin)
-	OrthographicProjection.flushprintln("Point of View  =>  $PO")
-	OrthographicProjection.flushprintln("GSD  =>  $GSD")
+	println("Bounding Box  =>")
+	println(bbin)
+	println("Point of View  =>  $PO")
+	println("GSD  =>  $GSD")
 
 	if !isnothing(bgcolor)
 		col = tryparse.(Float64,split(bgcolor, " "))
@@ -87,24 +87,26 @@ function main()
 		background = [1.0,1.0,1.0]
 	end
 
-	OrthographicProjection.flushprintln("Background color  =>  $background")
+	println("Background color  =>  $background")
 
 	if !isnothing(altitude)
-		OrthographicProjection.flushprintln("Altitude  =>  $altitude")
-		OrthographicProjection.flushprintln("Thickness  =>  $thickness")
+		println("Altitude  =>  $altitude")
+		println("Thickness  =>  $thickness")
 	end
 
-	OrthographicProjection.flushprintln("Extract point cloud  =>  $pc")
+	println("Extract point cloud  =>  $pc")
 
 	if isnothing(ucs)
 		ucs = Matrix{Float64}(Common.I,4,4)
 	else
-		OrthographicProjection.flushprintln("User coordinates system  =>  $ucs")
+		println("User coordinates system  =>  $ucs")
 	end
 
 	if !isnothing(epsg)
-		OrthographicProjection.flushprintln("EPSG  =>  $epsg")
+		println("EPSG  =>  $epsg")
 	end
+
+	flush(stdout)
 
 	OrthographicProjection.orthophoto(txtpotreedirs, outputimage, bbin, GSD, PO, altitude, thickness, ucs, background, pc, epsg)
 end

@@ -66,8 +66,8 @@ function orthophoto(
         params.stream_tmp = open(temp, "w")
     end
 
-    flushprintln(" ")
-    flushprintln("========= PROCESSING =========")
+    println(" ")
+    println("========= PROCESSING =========")
 
     for potree in params.potreedirs
         traversal(potree, params)
@@ -78,14 +78,14 @@ function orthophoto(
     end
 
 
-    flushprintln(" ")
-    flushprintln("========= SAVES =========")
+    println(" ")
+    println("========= SAVES =========")
 
     # saves image
     saveimage(params)
 
     FileManager.successful(params.numPointsProcessed != 0, proj_folder::String)
-    flushprintln("Processed $(params.numPointsProcessed) points")
+    println("Processed $(params.numPointsProcessed) points")
 
     # saves point cloud extracted
     if pc
