@@ -65,14 +65,27 @@ end
 Save orthoprojection image.
 """
 function saveimage(params::ParametersOrthophoto)
-    println("Image: saving ...")
+    print("Image: saving ...")
     # save tfw
     save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
 
     # save image
     save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
 
-    println("Image: done ...")
+    println("Done.")
+end
+
+"""
+Save orthoprojection image.
+"""
+function saveimages(params::ParametersPlanOrthophoto)
+    print("Images: saving ...")
+    # save image
+    img_rgb = Images.colorview(RGB, params.RGBtensor)
+    save(joinpath(params.out_folder,"imageRGB.jpg"), img_rgb)
+    img_gray = Images.Gray.(img_rgb)
+    save(joinpath(params.out_folder,"imageGray.jpg"), img_gray)
+    println("Done.")
 end
 
 

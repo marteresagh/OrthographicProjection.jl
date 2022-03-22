@@ -37,12 +37,32 @@ function processPoint(params::ParametersOrthophoto, point::Point)
 end
 
 
+function processPoint(params::ParametersPlanOrthophoto, point::Point)
+    position = point.position
+    rgb = point.color
+    pt = params.coordsystemmatrix[1:3,1:3] * position
+    xcoord = map(Int ∘ trunc, (pt[1] - params.refX) / params.GSD) + 1
+    ycoord = map(Int ∘ trunc, (params.refY - pt[2]) / params.GSD) + 1
+
+    # color for image
+    if params.rasterquote[ycoord, xcoord] < pt[3]
+        params.rasterquote[ycoord, xcoord] = pt[3]
+        params.RGBtensor[1, ycoord, xcoord] = rgb[1]
+        params.RGBtensor[2, ycoord, xcoord] = rgb[2]
+        params.RGBtensor[3, ycoord, xcoord] = rgb[3]
+    end
+
+    params.numPointsProcessed += 1
+
+end
+
+
 """
 	updateWithControl!(params::Union{ParametersOrthophoto,ParametersExtraction}, file::String, s::Union{Nothing,IOStream}, n::Int64)
 
 Process all points, in file, falling in region of interest.
 """
-function updateWithControl!(params::ParametersOrthophoto, file::String)
+function updateWithControl!(params::Union{ParametersOrthophoto,ParametersPlanOrthophoto}, file::String)
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         # point = FileManager.xyz(laspoint,header)
@@ -59,7 +79,7 @@ end
 
 Process points in file without further checks.
 """
-function updateWithoutControl!(params::ParametersOrthophoto, file::String)
+function updateWithoutControl!(params::Union{ParametersOrthophoto,ParametersPlanOrthophoto}, file::String)
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         point = Point(laspoint, header)

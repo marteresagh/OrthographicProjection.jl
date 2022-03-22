@@ -188,6 +188,58 @@ mutable struct ParametersOrthophoto
 end
 
 
+mutable struct ParametersPlanOrthophoto
+    out_folder::String
+    potreedirs::Array{String,1}
+    model::LAR
+    coordsystemmatrix::Array{Float64,2}
+    RGBtensor::Array{Float64,3}
+    rasterquote::Array{Float64,2}
+    GSD::Float64
+    refX::Float64
+    refY::Float64
+    numPointsProcessed::Int64
+    numNodes::Int64
+    numFilesProcessed::Int64
+
+    function ParametersPlanOrthophoto(
+        txtpotreedirs::String,
+        out_folder::String,
+        model::LAR,
+        GSD::Float64,
+        coordsystemmatrix::Array{Float64,2},
+        BGcolor::Array{Float64,1}
+    )
+
+        numPointsProcessed = 0
+        numNodes = 0
+        numFilesProcessed = 0
+
+        potreedirs = get_potree_dirs(txtpotreedirs)
+        matrix = coordsystemmatrix[1:3,1:3]
+
+        RGBtensor, rasterquote, refX, refY =
+            init_raster_array(matrix, GSD, model, BGcolor)
+
+
+        return new(
+        out_folder,
+        potreedirs,
+        model,
+        coordsystemmatrix,
+        RGBtensor,
+        rasterquote,
+        GSD,
+        refX,
+        refY,
+        numPointsProcessed,
+        numNodes,
+        numFilesProcessed
+        )
+    end
+
+end
+
 
 """
 	Point

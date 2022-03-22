@@ -83,8 +83,15 @@ function orthophoto(
 
     # saves image
     saveimage(params)
+    M = params.coordsystemmatrix
+    origin = params.ucs[1:3, 4]
+    text = "$(M[1,1]) $(M[1,2]) $(M[1,3]) $(origin[1])\n$(M[2,1]) $(M[2,2]) $(M[2,3]) $(origin[2])\n$(M[3,1]) $(M[3,2]) $(M[3,3]) $(origin[3])\n0 0 0 1"
 
-    FileManager.successful(params.numPointsProcessed != 0, proj_folder::String)
+    FileManager.successful(
+        params.numPointsProcessed != 0,
+        proj_folder;
+        message = text,
+    )
     println("Processed $(params.numPointsProcessed) points")
 
     # saves point cloud extracted

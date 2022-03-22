@@ -9,7 +9,7 @@ Input:
  - params: initial parameters
  - potree: potree hierarchy
 """
-function traversal(potree::String, params::ParametersOrthophoto)
+function traversal(potree::String, params::Union{ParametersOrthophoto,ParametersPlanOrthophoto})
     println("= ")
     println("= PROJECT: $potree")
     println("= ")
@@ -63,7 +63,7 @@ end
 
 Depth search first.
 """
-function dfs(trie::DataStructures.Trie{String}, params::ParametersOrthophoto)# due callback: 1 con controllo e 1 senza controllo
+function dfs(trie::DataStructures.Trie{String}, params::Union{ParametersOrthophoto,ParametersPlanOrthophoto})# due callback: 1 con controllo e 1 senza controllo
 
     file = trie.value # path to node file
     nodebb = FileManager.las2aabb(file) # aabb of current octree
