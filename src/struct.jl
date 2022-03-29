@@ -93,6 +93,9 @@ mutable struct ParametersOrthophoto
     numNodes::Int64
     numFilesProcessed::Int64
     stream_tmp::Union{Nothing,IOStream}
+    raster_points::Array{Vector{Any},2}
+    min_h::Float64
+    max_h::Float64
 
     function ParametersOrthophoto(
         txtpotreedirs::String,
@@ -149,6 +152,8 @@ mutable struct ParametersOrthophoto
         RGBtensor, rasterquote, refX, refY =
             init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
 
+        raster_points = fill([], size(rasterquote))
+
         #per l'header devo creare il nuovo AABB dato dal nuovo orientamento.
         new_verts_BB = Common.apply_matrix(ucs, model[1])
         aabb = AABB(new_verts_BB)
@@ -182,6 +187,9 @@ mutable struct ParametersOrthophoto
             numNodes,
             numFilesProcessed,
             stream_tmp,
+            raster_points,
+            Inf,
+            -Inf
         )
     end
 
@@ -201,6 +209,10 @@ mutable struct ParametersPlanOrthophoto
     numPointsProcessed::Int64
     numNodes::Int64
     numFilesProcessed::Int64
+    raster_points::Array{Vector{Any},2}
+    min_h::Float64
+    max_h::Float64
+    pixel::Vector{Int64}
 
     function ParametersPlanOrthophoto(
         txtpotreedirs::String,
@@ -221,6 +233,8 @@ mutable struct ParametersPlanOrthophoto
         RGBtensor, rasterquote, refX, refY =
             init_raster_array(matrix, GSD, model, BGcolor)
 
+        r,c = size(rasterquote)
+        raster_points = fill([],r,c)
 
         return new(
         out_folder,
@@ -234,7 +248,11 @@ mutable struct ParametersPlanOrthophoto
         refY,
         numPointsProcessed,
         numNodes,
-        numFilesProcessed
+        numFilesProcessed,
+        raster_points,
+        Inf,
+        -Inf,
+        [c,r]
         )
     end
 

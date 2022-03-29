@@ -8,6 +8,18 @@ function processPoint(params::ParametersOrthophoto, point::Point)
     xcoord = map(Int ∘ trunc, (pt[1] - params.refX) / params.GSD) + 1
     ycoord = map(Int ∘ trunc, (params.refY - pt[2]) / params.GSD) + 1
 
+    #blending image
+    array = copy(params.raster_points[ycoord, xcoord])
+    push!(array, ([rgb[1], rgb[2], rgb[3]], pt[3]))
+    params.raster_points[ycoord, xcoord] = array
+    if pt[3] < params.min_h
+        params.min_h = pt[3]
+    end
+    if pt[3] > params.max_h
+        params.max_h = pt[3]
+    end
+
+
     # color for image
     if params.rasterquote[ycoord, xcoord] < pt[3]
         params.rasterquote[ycoord, xcoord] = pt[3]
@@ -40,9 +52,20 @@ end
 function processPoint(params::ParametersPlanOrthophoto, point::Point)
     position = point.position
     rgb = point.color
-    pt = params.coordsystemmatrix[1:3,1:3] * position
+    pt = params.coordsystemmatrix[1:3, 1:3] * position
     xcoord = map(Int ∘ trunc, (pt[1] - params.refX) / params.GSD) + 1
     ycoord = map(Int ∘ trunc, (params.refY - pt[2]) / params.GSD) + 1
+
+    #blending image
+    array = copy(params.raster_points[ycoord, xcoord])
+    push!(array, ([rgb[1], rgb[2], rgb[3]], pt[3]))
+    params.raster_points[ycoord, xcoord] = array
+    if pt[3] < params.min_h
+        params.min_h = pt[3]
+    end
+    if pt[3] > params.max_h
+        params.max_h = pt[3]
+    end
 
     # color for image
     if params.rasterquote[ycoord, xcoord] < pt[3]
@@ -51,6 +74,8 @@ function processPoint(params::ParametersPlanOrthophoto, point::Point)
         params.RGBtensor[2, ycoord, xcoord] = rgb[2]
         params.RGBtensor[3, ycoord, xcoord] = rgb[3]
     end
+
+
 
     params.numPointsProcessed += 1
 
@@ -62,7 +87,10 @@ end
 
 Process all points, in file, falling in region of interest.
 """
-function updateWithControl!(params::Union{ParametersOrthophoto,ParametersPlanOrthophoto}, file::String)
+function updateWithControl!(
+    params::Union{ParametersOrthophoto,ParametersPlanOrthophoto},
+    file::String,
+)
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         # point = FileManager.xyz(laspoint,header)
@@ -79,7 +107,10 @@ end
 
 Process points in file without further checks.
 """
-function updateWithoutControl!(params::Union{ParametersOrthophoto,ParametersPlanOrthophoto}, file::String)
+function updateWithoutControl!(
+    params::Union{ParametersOrthophoto,ParametersPlanOrthophoto},
+    file::String,
+)
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file
     for laspoint in laspoints # read each point
         point = Point(laspoint, header)

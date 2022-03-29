@@ -33,7 +33,7 @@ function init_raster_array(
     # RASTER IMAGE MATRIX
     rasterChannels = 3
 
-    RGBtensor = fill(1.0, (rasterChannels, resY, resX))
+    RGBtensor = ones(rasterChannels, resY, resX)
     RGBtensor[1, :, :] .= BGcolor[1]
     RGBtensor[2, :, :] .= BGcolor[2]
     RGBtensor[3, :, :] .= BGcolor[3]
@@ -103,4 +103,47 @@ function PO2matrix(PO::String, UCS = Matrix{Float64}(Common.I, 4, 4)::Matrix)
     end
 
     return coordsystemmatrix * UCS[1:3, 1:3]
+end
+
+
+
+
+function blendColors(colors...)
+    base = [0, 0, 0, 0]
+    mix = nothing
+    for added in colors
+        @assert length(added) == 4 "not alpha channel: $added"
+        # check if both alpha channels exist.
+        if base[4] != 0 && added[4] != 0
+            mix = [0, 0, 0, 0.0]
+            mix[4] = 1 - (1 - added[4]) * (1 - base[4])
+            mix[1] =
+                (added[1] * added[4] / mix[4]) +
+                (base[1] * base[4] * (1 - added[4]) / mix[4])
+            mix[2] =
+                (added[2] * added[4] / mix[4]) +
+                (base[2] * base[4] * (1 - added[4]) / mix[4])
+            mix[3] =
+                (added[3] * added[4] / mix[4]) +
+                (base[3] * base[4] * (1 - added[4]) / mix[4])
+        else
+            mix = added
+        end
+        base = mix
+    end
+
+    return mix
+end
+
+"""
+    mapping(input_extrema, output_extrema)(x)
+
+ - input_extrema: (min,max) of input interval
+ - output_extrema: (min,max) of output interval
+"""
+function mapping(input_extrema, output_extrema)
+    function mapping0(x)
+        return  (x - input_extrema[1]) / (input_extrema[2] - input_extrema[1]) * (output_extrema[2] - output_extrema[1]) + output_extrema[1]
+    end
+    return mapping0
 end
