@@ -1,4 +1,4 @@
-function orthophoto(
+function orthophoto_new(
     txtpotreedirs::String,
     outputimage::String,
     bbin::Union{String,AABB},
@@ -11,7 +11,7 @@ function orthophoto(
     pc::Bool,
     epsg::Union{Nothing,Integer},
     bgVoid::Array{Float64,1},
-    bgFull::Array{Float64,1}
+    bgFull::Array{Float64,1},
 )
 
     # initialization
@@ -49,5 +49,35 @@ function orthophoto(
     end
 
     saveAsset(params)
+    return params
+end
 
+
+function planOrthophoto(
+    potrees,
+    outputfolder,
+    model,
+    GSD,
+    coordsystemmatrix,
+    background,
+)
+    # initialization
+    params = PlanArguments(
+        potrees,
+        outputfolder,
+        model,
+        GSD,
+        coordsystemmatrix,
+        background
+    )
+
+    println(" ")
+    println("========= PROCESSING =========")
+
+    for potree in params.potreedirs
+        traversal(potree, params)
+    end
+
+    saveAsset(params)
+    return params
 end

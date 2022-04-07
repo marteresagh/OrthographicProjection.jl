@@ -1,7 +1,7 @@
 name = "OrthographicProjection"
 uuid = "7270eb47-fe94-4ae7-8308-805e946d120d"
 authors = ["marteresagh <marteresa28@gmail.com>"]
-version = "0.1.0"
+version = "2.0.0"
 
 [deps]
 Common = "1e120bc2-2bd2-483a-9663-793997b3971f"

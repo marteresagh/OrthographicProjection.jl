@@ -114,3 +114,65 @@ mutable struct OrthophotoArguments
     end
 
 end
+
+
+mutable struct PlanArguments
+    destinationDir::String
+    potreedirs::Vector{String}
+    model::LAR
+    coordsystemmatrix::Array{Float64,2}
+    RGBtensor::Array{Float64,3}
+    rasterquote::Array{Float64,2}
+    GSD::Float64
+    refX::Float64
+    refY::Float64
+    numPointsProcessed::Int64
+    numNodes::Int64
+    numFilesProcessed::Int64
+    raster_points::Array{Vector{Any},2}
+    min_h::Float64
+    max_h::Float64
+    pixel::Vector{Int64}
+
+    function PlanArguments(
+        potreedirs::Vector{String},
+        out_folder::String,
+        model::LAR,
+        GSD::Float64,
+        coordsystemmatrix::Array{Float64,2},
+        BGcolor::Array{Float64,1}
+    )
+
+        numPointsProcessed = 0
+        numNodes = 0
+        numFilesProcessed = 0
+
+        matrix = coordsystemmatrix[1:3,1:3]
+
+        RGBtensor, rasterquote, refX, refY =
+            init_raster_array(matrix, GSD, model, BGcolor)
+
+        r,c = size(rasterquote)
+        raster_points = fill([],r,c)
+
+        return new(
+        out_folder,
+        potreedirs,
+        model,
+        coordsystemmatrix,
+        RGBtensor,
+        rasterquote,
+        GSD,
+        refX,
+        refY,
+        numPointsProcessed,
+        numNodes,
+        numFilesProcessed,
+        raster_points,
+        Inf,
+        -Inf,
+        [c,r]
+        )
+    end
+
+end
