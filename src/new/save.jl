@@ -1,40 +1,39 @@
-function saveAsset(params::OrthophotoArguments)
+function saveAsset(params::OrthophotoArguments, temp::String)
     println(" ")
     println("========= SAVES =========")
 
     # saves image
     print("Image: saving ...")
     # save tfw
-    save_tfw(params.outputimage, params.GSD, params.refX, params.refY)
+    save_tfw_new(joinpath(params.destinationDir,"image.tfw"), params.GSD, params.refX, params.refY)
 
     # save image
-    save(params.outputimage, Images.colorview(RGB, params.RGBtensor))
+    save(joinpath(params.destinationDir,"image.jpg"), Images.colorview(RGB, params.RGBtensor))
     println("Done.")
 
     # save mask
     print("Mask: saving ...")
     channels, rows, columns =  size(params.RGBtensor)
-    BWImage = ones(channels, rows, columns)
+    MaskImage = ones(channels, rows, columns)
     for i in 1:rows
         for j in 1:columns
             colorRGB = params.RGBtensor[:, i, j]
-            if colorRGB == BGcolor
-                BWImage[:, i, j] = bgVoid
+            if colorRGB == params.BGcolor
+                MaskImage[:, i, j] = params.ColorMask[1]
             else
-                BWImage[:, i, j] = bgFull
+                MaskImage[:, i, j] = params.ColorMask[2]
             end
         end
     end
-    save(joinpath(proj_folder,"mask.jpg"), Images.colorview(RGB, BWImage))
+    save(joinpath(params.destinationDir,"mask.jpg"), Images.colorview(RGB, MaskImage))
     println("Done.")
 
     # saves point cloud extracted
-    if pc
+    if params.clip
         savepointcloud(params, temp)
     end
 
 end
-
 
 
 function saveAsset(params::PlanArguments)
@@ -91,4 +90,62 @@ function saveAsset(params::PlanArguments)
 	# save(joinpath(params.out_folder,"image_rgb_noalpha.png"), Image_rgb)
     println("Done.")
 
+end
+
+
+function savepointcloud(params::OrthophotoArguments, temp::String)
+
+    println("Point cloud: saving ...")
+
+    # update number of points in header
+    params.mainHeader.records_count = params.numPointsProcessed
+
+    # update header bounding box
+    println("Point cloud: update bbox ...")
+    params.mainHeader.x_min = params.tightBB.x_min
+    params.mainHeader.y_min = params.tightBB.y_min
+    params.mainHeader.z_min = params.tightBB.z_min
+    params.mainHeader.x_max = params.tightBB.x_max
+    params.mainHeader.y_max = params.tightBB.y_max
+    params.mainHeader.z_max = params.tightBB.z_max
+
+    # write las file
+    pointtype = LasIO.pointformat(params.mainHeader) # las point format
+
+    if params.numPointsProcessed != 0 # if n == 0 nothing to save
+        # in temp : list of las point records
+        open(temp) do s
+            # write las
+            open(joinpath(params.destinationDir, "clipping.las"), "w") do t
+                write(t, LasIO.magic(LasIO.format"LAS"))
+                write(t, params.mainHeader)
+
+                # LasIO.skiplasf(s)
+                for i = 1:params.numPointsProcessed
+                    p = read(s, pointtype)
+                    write(t, p)
+                    if i%10000 == 0
+                        flush(t)
+                    end
+                end
+            end
+        end
+    end
+
+    rm(temp) # remove temp
+    println("Point cloud: done ...")
+end
+
+
+function save_tfw_new(fname::String, GSD::Float64, lx::Float64, uy::Float64)
+    io = open(fname, "w")
+    write(io, "$(Float64(GSD))\n")
+    write(io, "0.000000000000000\n")
+    write(io, "0.000000000000000\n")
+    write(io, "-$(Float64(GSD))\n")
+    L = @sprintf("%f", lx)
+    U = @sprintf("%f", uy)
+    write(io, "$L\n")
+    write(io, "$U\n")
+    close(io)
 end

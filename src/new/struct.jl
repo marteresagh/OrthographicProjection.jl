@@ -1,6 +1,5 @@
 mutable struct OrthophotoArguments
     destinationDir::String
-    projName::String
     potrees::Vector{String}
     model::LAR
     PO::String
@@ -10,7 +9,7 @@ mutable struct OrthophotoArguments
     GSD::Float64
     refX::Float64
     refY::Float64
-    pc::Bool
+    clip::Bool
     ucs::Matrix
     tightBB::AABB
     mainHeader::LasIO.LasHeader
@@ -18,15 +17,22 @@ mutable struct OrthophotoArguments
     numNodes::Int64
     numFilesProcessed::Int64
     stream_tmp::Union{Nothing,IOStream}
+    raster_points::Array{Vector{Any},2}
+    max_h::Float64
+    min_h::Float64
+    BGcolor::Vector{Float64}
+    ColorMask::Vector{Vector{Float64}}
 
     function OrthophotoArguments(
+        destinationDir::String,
         potrees::Vector{String},
-        outputimage::String,
-        bbin::Union{String,AABB},
+        model::Common.LAR,
         GSD::Float64,
         PO::String,
-        ucs::Union{String,Matrix{Float64}},
+        ucs::Matrix{Float64},
         BGcolor::Vector{Float64},
+        bgVoid::Vector{Float64},
+        bgFull::Vector{Float64},
         pc::Bool,
         epsg::Union{Nothing,Integer},
     )
@@ -39,35 +45,9 @@ mutable struct OrthophotoArguments
         numFilesProcessed = 0
         stream_tmp = nothing
 
-        outputfile = splitext(outputimage)[1] * ".las"
+        coordsystemmatrix = PO2matrix(PO, ucs)
 
-        potreedirs = get_potree_dirs(txtpotreedirs)
-
-        if typeof(ucs) == Matrix{Float64}
-            coordsystemmatrix = PO2matrix(PO, ucs)
-        else
-            ucs = FileManager.ucs2matrix(ucs)
-            coordsystemmatrix = PO2matrix(PO, ucs)
-        end
-
-        model = getmodel(bbin)
         aabb = AABB(model[1])
-
-        if !isnothing(altitude) && !isnothing(thickness)
-            directionview = PO[3]
-            if directionview == '-'
-                altitude = -altitude
-            end
-            origin = Common.inv(ucs)[1:3, 4]
-            model = getmodel(
-                Common.inv(coordsystemmatrix),
-                altitude,
-                thickness,
-                aabb;
-                new_origin = origin,
-            )
-            aabb = AABB(model[1])
-        end
 
         RGBtensor, rasterquote, refX, refY =
             init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
@@ -88,11 +68,10 @@ mutable struct OrthophotoArguments
         end
 
         return new(
-            PO,
-            outputimage,
-            outputfile,
-            potreedirs,
+            destinationDir,
+            potrees,
             model,
+            PO,
             coordsystemmatrix,
             RGBtensor,
             rasterquote,
@@ -109,7 +88,9 @@ mutable struct OrthophotoArguments
             stream_tmp,
             raster_points,
             Inf,
-            -Inf
+            -Inf,
+            BGcolor,
+            [bgVoid,bgFull],
         )
     end
 
