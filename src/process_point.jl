@@ -1,7 +1,7 @@
 """
 	update_core(params::ParametersOrthophoto, laspoint::LasIO.LasPoint, h::LasIO.LasHeader, s::Union{Nothing,IOStream}, n::Int64)
 """
-function processPoint(params::ParametersOrthophoto, point::Point)
+function processPoint(params::OrthophotoArguments, point::Point)
     position = point.position
     rgb = point.color
     pt = params.coordsystemmatrix * position
@@ -29,7 +29,7 @@ function processPoint(params::ParametersOrthophoto, point::Point)
     end
 
     # point for point cloud
-    if params.pc
+    if params.clip
         Common.update_boundingbox!(
             params.tightBB,
             vcat(Common.apply_matrix(params.ucs, position)...),
@@ -49,7 +49,7 @@ function processPoint(params::ParametersOrthophoto, point::Point)
 end
 
 
-function processPoint(params::ParametersPlanOrthophoto, point::Point)
+function processPoint(params::PlanArguments, point::Point)
     position = point.position
     rgb = point.color
     pt = params.coordsystemmatrix[1:3, 1:3] * position
@@ -88,7 +88,7 @@ end
 Process all points, in file, falling in region of interest.
 """
 function updateWithControl!(
-    params::Union{ParametersOrthophoto,ParametersPlanOrthophoto},
+    params::Union{OrthophotoArguments,PlanArguments},
     file::String,
 )
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file
@@ -108,7 +108,7 @@ end
 Process points in file without further checks.
 """
 function updateWithoutControl!(
-    params::Union{ParametersOrthophoto,ParametersPlanOrthophoto},
+    params::Union{OrthophotoArguments,PlanArguments},
     file::String,
 )
     header, laspoints = FileManager.read_LAS_LAZ(file) # read file

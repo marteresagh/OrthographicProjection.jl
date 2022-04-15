@@ -17,11 +17,5 @@ module OrthographicProjection
 	include("process_point.jl")
 	include("util.jl")
 
-
-	include("new/struct.jl")
-	include("new/orthophoto.jl")
-	include("new/process_point.jl")
-	include("new/save.jl")
-	include("new/traversal.jl")
 	export Common, FileManager
 end # module

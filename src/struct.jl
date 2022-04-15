@@ -73,19 +73,18 @@ Fields description:
  - stream_tmp: temporary files for laspoints
 
 """
-mutable struct ParametersOrthophoto
-    PO::String
-    outputimage::String
-    outputfile::String
-    potreedirs::Array{String,1}
+mutable struct OrthophotoArguments
+    destinationDir::String
+    potrees::Vector{String}
     model::LAR
+    PO::String
     coordsystemmatrix::Array{Float64,2}
     RGBtensor::Array{Float64,3}
     rasterquote::Array{Float64,2}
     GSD::Float64
     refX::Float64
     refY::Float64
-    pc::Bool
+    clip::Bool
     ucs::Matrix
     tightBB::AABB
     mainHeader::LasIO.LasHeader
@@ -94,19 +93,21 @@ mutable struct ParametersOrthophoto
     numFilesProcessed::Int64
     stream_tmp::Union{Nothing,IOStream}
     raster_points::Array{Vector{Any},2}
-    min_h::Float64
     max_h::Float64
+    min_h::Float64
+    BGcolor::Vector{Float64}
+    ColorMask::Vector{Vector{Float64}}
 
-    function ParametersOrthophoto(
-        txtpotreedirs::String,
-        outputimage::String,
-        bbin::Union{String,AABB},
+    function OrthophotoArguments(
+        destinationDir::String,
+        potrees::Vector{String},
+        model::Common.LAR,
         GSD::Float64,
         PO::String,
-        altitude::Union{Float64,Nothing},
-        thickness::Union{Float64,Nothing},
-        ucs::Union{String,Matrix{Float64}},
-        BGcolor::Array{Float64,1},
+        ucs::Matrix{Float64},
+        BGcolor::Vector{Float64},
+        bgVoid::Vector{Float64},
+        bgFull::Vector{Float64},
         pc::Bool,
         epsg::Union{Nothing,Integer},
     )
@@ -119,35 +120,9 @@ mutable struct ParametersOrthophoto
         numFilesProcessed = 0
         stream_tmp = nothing
 
-        outputfile = splitext(outputimage)[1] * ".las"
+        coordsystemmatrix = PO2matrix(PO, ucs)
 
-        potreedirs = get_potree_dirs(txtpotreedirs)
-
-        if typeof(ucs) == Matrix{Float64}
-            coordsystemmatrix = PO2matrix(PO, ucs)
-        else
-            ucs = FileManager.ucs2matrix(ucs)
-            coordsystemmatrix = PO2matrix(PO, ucs)
-        end
-
-        model = getmodel(bbin)
         aabb = AABB(model[1])
-
-        if !isnothing(altitude) && !isnothing(thickness)
-            directionview = PO[3]
-            if directionview == '-'
-                altitude = -altitude
-            end
-            origin = Common.inv(ucs)[1:3, 4]
-            model = getmodel(
-                Common.inv(coordsystemmatrix),
-                altitude,
-                thickness,
-                aabb;
-                new_origin = origin,
-            )
-            aabb = AABB(model[1])
-        end
 
         RGBtensor, rasterquote, refX, refY =
             init_raster_array(coordsystemmatrix, GSD, model, BGcolor)
@@ -168,11 +143,10 @@ mutable struct ParametersOrthophoto
         end
 
         return new(
-            PO,
-            outputimage,
-            outputfile,
-            potreedirs,
+            destinationDir,
+            potrees,
             model,
+            PO,
             coordsystemmatrix,
             RGBtensor,
             rasterquote,
@@ -189,16 +163,18 @@ mutable struct ParametersOrthophoto
             stream_tmp,
             raster_points,
             Inf,
-            -Inf
+            -Inf,
+            BGcolor,
+            [bgVoid,bgFull],
         )
     end
 
 end
 
 
-mutable struct ParametersPlanOrthophoto
-    out_folder::String
-    potreedirs::Array{String,1}
+mutable struct PlanArguments
+    destinationDir::String
+    potreedirs::Vector{String}
     model::LAR
     coordsystemmatrix::Array{Float64,2}
     RGBtensor::Array{Float64,3}
@@ -214,8 +190,8 @@ mutable struct ParametersPlanOrthophoto
     max_h::Float64
     pixel::Vector{Int64}
 
-    function ParametersPlanOrthophoto(
-        txtpotreedirs::String,
+    function PlanArguments(
+        potreedirs::Vector{String},
         out_folder::String,
         model::LAR,
         GSD::Float64,
@@ -227,7 +203,6 @@ mutable struct ParametersPlanOrthophoto
         numNodes = 0
         numFilesProcessed = 0
 
-        potreedirs = get_potree_dirs(txtpotreedirs)
         matrix = coordsystemmatrix[1:3,1:3]
 
         RGBtensor, rasterquote, refX, refY =
@@ -257,7 +232,6 @@ mutable struct ParametersPlanOrthophoto
     end
 
 end
-
 
 """
 	Point
