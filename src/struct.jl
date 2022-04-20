@@ -162,8 +162,8 @@ mutable struct OrthophotoArguments
             numFilesProcessed,
             stream_tmp,
             raster_points,
-            Inf,
             -Inf,
+            Inf,
             BGcolor,
             [bgVoid,bgFull],
         )
