@@ -56,15 +56,17 @@ function processPoint(params::PlanArguments, point::Point)
     xcoord = map(Int ∘ trunc, (pt[1] - params.refX) / params.GSD) + 1
     ycoord = map(Int ∘ trunc, (params.refY - pt[2]) / params.GSD) + 1
 
-    #blending image
-    array = copy(params.raster_points[ycoord, xcoord])
-    push!(array, ([rgb[1], rgb[2], rgb[3]], pt[3]))
-    params.raster_points[ycoord, xcoord] = array
-    if pt[3] < params.min_h
-        params.min_h = pt[3]
-    end
-    if pt[3] > params.max_h
-        params.max_h = pt[3]
+    if params.getPNG
+        #blending image
+        array = copy(params.raster_points[ycoord, xcoord])
+        push!(array, ([rgb[1], rgb[2], rgb[3]], pt[3]))
+        params.raster_points[ycoord, xcoord] = array
+        if pt[3] < params.min_h
+            params.min_h = pt[3]
+        end
+        if pt[3] > params.max_h
+            params.max_h = pt[3]
+        end
     end
 
     # color for image
@@ -74,8 +76,6 @@ function processPoint(params::PlanArguments, point::Point)
         params.RGBtensor[2, ycoord, xcoord] = rgb[2]
         params.RGBtensor[3, ycoord, xcoord] = rgb[3]
     end
-
-
 
     params.numPointsProcessed += 1
 

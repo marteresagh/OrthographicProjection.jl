@@ -30,13 +30,13 @@ function traversal(potree::String, params::Union{OrthophotoArguments, PlanArgume
         println("FULL model")
         for k in keys(trie)
             params.numFilesProcessed = params.numFilesProcessed + 1
-            if params.numFilesProcessed % 100 == 0
-                println(
-                    params.numFilesProcessed,
-                    " files processed of ",
-                    params.numNodes,
-                )
-            end
+            # if params.numFilesProcessed % 100 == 0
+            #     println(
+            #         params.numFilesProcessed,
+            #         " files processed of ",
+            #         params.numNodes,
+            #     )
+            # end
 
             file = trie[k]
             updateWithoutControl!(params, file)
@@ -73,13 +73,13 @@ function dfs(trie::DataStructures.Trie{String}, params::Union{OrthophotoArgument
         # intersecato ma non contenuto
         # alcuni punti ricadono nel modello altri no
         params.numFilesProcessed = params.numFilesProcessed + 1
-        if params.numFilesProcessed % 100 == 0
-            println(
-                params.numFilesProcessed,
-                " files processed of ",
-                params.numNodes,
-            )
-        end
+        # if params.numFilesProcessed % 100 == 0
+        #     println(
+        #         params.numFilesProcessed,
+        #         " files processed of ",
+        #         params.numNodes,
+        #     )
+        # end
 
         updateWithControl!(params, file) # update with check
         for key in collect(keys(trie.children)) # for all children
@@ -89,13 +89,13 @@ function dfs(trie::DataStructures.Trie{String}, params::Union{OrthophotoArgument
         # contenuto: tutti i punti del albero sono nel modello
         for k in keys(trie)
             params.numFilesProcessed = params.numFilesProcessed + 1
-            if params.numFilesProcessed % 100 == 0
-                println(
-                    params.numFilesProcessed,
-                    " files processed of ",
-                    params.numNodes,
-                )
-            end
+            # if params.numFilesProcessed % 100 == 0
+            #     println(
+            #         params.numFilesProcessed,
+            #         " files processed of ",
+            #         params.numNodes,
+            #     )
+            # end
             file = trie[k]
             updateWithoutControl!(params, file) # update without check
         end

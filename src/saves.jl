@@ -115,47 +115,48 @@ function saveAsset(params::PlanArguments)
     println("Done.")
 
     ##### blend image
+    if params.getPNG
+        rows, columns = size(params.raster_points)
+        image_rgb_blending_alpha_heigth =
+            fill(RGBA(0.0, 0.0, 0.0, 0.0), rows, columns)
+        image_gray = fill(RGBA(0.0, 0.0, 0.0, 0.0), rows, columns)
 
-    rows, columns = size(params.raster_points)
-    image_rgb_blending_alpha_heigth =
-        fill(RGBA(0.0, 0.0, 0.0, 0.0), rows, columns)
-    image_gray = fill(RGBA(0.0, 0.0, 0.0, 0.0), rows, columns)
+        alpha_fixed = 0.2
+        for i = 1:rows
+            for j = 1:columns
+                tuples_rgbh = params.raster_points[i, j]
+                sort!(tuples_rgbh, by = x -> x[2])
+                n_points = length(tuples_rgbh)
+                if n_points > 0
 
-    alpha_fixed = 0.2
-    for i = 1:rows
-        for j = 1:columns
-            tuples_rgbh = params.raster_points[i, j]
-            sort!(tuples_rgbh, by = x -> x[2])
-            n_points = length(tuples_rgbh)
-            if n_points > 0
+                    list_rgba_heigth = []
+                    list_gray = []
 
-                list_rgba_heigth = []
-                list_gray = []
+                    for ((red, green, blue), h) in tuples_rgbh
+                        alpha = mapping((params.min_h, params.max_h), (0.1, 0.5))(h)
+                        push!(list_rgba_heigth, [red, green, blue, alpha])
+                        push!(list_gray, [0.2, 0.2, 0.2, 0.2])
+                    end
 
-                for ((red, green, blue), h) in tuples_rgbh
-                    alpha = mapping((params.min_h, params.max_h), (0.1, 0.5))(h)
-                    push!(list_rgba_heigth, [red, green, blue, alpha])
-                    push!(list_gray, [0.2, 0.2, 0.2, 0.2])
+                    ### RGB
+                    ### blending with heigth
+                    image_rgb_blending_alpha_heigth[i, j] =
+                        RGBA(blendColors(list_rgba_heigth...)...)
+                    ### blending with fixed alpha
+                    image_gray[i, j] = RGBA(blendColors(list_gray...)...)
                 end
-
-                ### RGB
-                ### blending with heigth
-                image_rgb_blending_alpha_heigth[i, j] =
-                    RGBA(blendColors(list_rgba_heigth...)...)
-                ### blending with fixed alpha
-                image_gray[i, j] = RGBA(blendColors(list_gray...)...)
             end
         end
+        print("Blending: saving ...")
+        # map(clamp01nan, Image_Blending)
+        save(
+            joinpath(params.destinationDir, "blendRGB.png"),
+            image_rgb_blending_alpha_heigth,
+        )
+        save(joinpath(params.destinationDir, "blendGray.png"), image_gray)
+        # save(joinpath(params.out_folder,"image_rgb_noalpha.png"), Image_rgb)
+        println("Done.")
     end
-    print("Blending: saving ...")
-    # map(clamp01nan, Image_Blending)
-    save(
-        joinpath(params.destinationDir, "blendRGB.png"),
-        image_rgb_blending_alpha_heigth,
-    )
-    save(joinpath(params.destinationDir, "blendGray.png"), image_gray)
-    # save(joinpath(params.out_folder,"image_rgb_noalpha.png"), Image_rgb)
-    println("Done.")
 
 end
 

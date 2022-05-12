@@ -55,6 +55,7 @@ function planOrthophoto(
     GSD,
     coordsystemmatrix,
     background,
+    getPNG
 )
     # initialization
     params = PlanArguments(
@@ -63,7 +64,8 @@ function planOrthophoto(
         model,
         GSD,
         coordsystemmatrix,
-        background
+        background,
+        getPNG
     )
 
     println(" ")

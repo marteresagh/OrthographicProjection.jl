@@ -189,6 +189,7 @@ mutable struct PlanArguments
     min_h::Float64
     max_h::Float64
     pixel::Vector{Int64}
+    getPNG::Bool
 
     function PlanArguments(
         potreedirs::Vector{String},
@@ -196,7 +197,8 @@ mutable struct PlanArguments
         model::LAR,
         GSD::Float64,
         coordsystemmatrix::Array{Float64,2},
-        BGcolor::Array{Float64,1}
+        BGcolor::Array{Float64,1},
+        getPNG::Bool
     )
 
         numPointsProcessed = 0
@@ -227,7 +229,8 @@ mutable struct PlanArguments
         raster_points,
         Inf,
         -Inf,
-        [c,r]
+        [c,r],
+        getPNG
         )
     end
 
